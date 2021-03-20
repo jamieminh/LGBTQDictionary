@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutFragment"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="30dp"
+    android:background="#FFFFFF">
+
+    <ImageView
+        android:id="@+id/ivMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_baseline_mail_outline_24"
+        android:layout_below="@+id/tvAppDescription"/>
+
+    <ImageView
+        android:id="@+id/ivVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_baseline_content_copy_24"
+        android:layout_below="@+id/tvMail"/>
+
+    <ImageView
+        android:id="@+id/ivCopyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_baseline_copyright_24"
+        android:layout_below="@+id/tvVersion"/>
+
+    <TextView
+        android:id="@+id/tvCopyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="2021 Hue Nguyen. All Rights Reserved."
+        android:textSize="14sp"
+        android:layout_toEndOf="@+id/ivCopyright"
+        android:layout_below="@+id/tvVersion"
+        />
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Version 1.0.0"
+        android:textSize="14sp"
+        android:layout_toEndOf="@+id/ivVersion"
+        android:layout_below="@+id/tvMail"/>
+
+    <TextView
+        android:id="@+id/tvMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="54dp"
+        android:text="minhhue651999@gmail.com"
+        android:textSize="14sp"
+        android:layout_toEndOf="@+id/ivMail"
+        android:layout_below="@+id/tvAppDescription"/>
+
+    <ImageView
+        android:id="@+id/ivAppLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_splash_logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="LGBTQ Dictionary"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/ivAppLogo"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tvAppDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAppName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="@string/aboutAppDescription"
+        android:textSize="14sp" />
+
+
+</RelativeLayout>
