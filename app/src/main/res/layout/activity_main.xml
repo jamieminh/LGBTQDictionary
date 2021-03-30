@@ -5,63 +5,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_gradient_bg"
-    android:paddingTop="16dp"
     tools:context=".MainActivity">
 
-
-    <EditText
-        android:id="@+id/etSearchBox"
-        android:layout_width="300dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clHeaderArea"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_box_outline"
-        android:hint="Find a word"
-        android:inputType="text"
-        android:paddingVertical="5dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="20dp"
-        android:textColor="#5C5C5C"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/etSearchBox"
-        android:layout_marginEnd="10dp"
-        android:layout_weight="1"
-        android:contentDescription="search-icon"
-        app:layout_constraintBottom_toBottomOf="@+id/etSearchBox"
-        app:layout_constraintEnd_toEndOf="@+id/etSearchBox"
-        app:layout_constraintTop_toTopOf="@+id/etSearchBox"
-        app:srcCompat="@drawable/ic_search_18" />
-
-
-    <TextView
-        android:id="@+id/tvFragmentLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/oswald"
-        android:text="HOME"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSearchBox" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/etSearchBox"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back_24" />
+
+        <EditText
+            android:id="@+id/etSearchBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_box_outline"
+            android:hint="Find a word"
+            android:inputType="text"
+            android:paddingVertical="5dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            android:textColor="#5C5C5C"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/etSearchBox"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:contentDescription="search-icon"
+            app:layout_constraintBottom_toBottomOf="@+id/etSearchBox"
+            app:layout_constraintEnd_toEndOf="@+id/etSearchBox"
+            app:layout_constraintTop_toTopOf="@+id/etSearchBox"
+            app:srcCompat="@drawable/ic_search_18" />
+
+
+        <TextView
+            android:id="@+id/tvFragmentLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:fontFamily="@font/oswald"
+            android:text="HOME"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etSearchBox" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <FrameLayout
         android:id="@+id/flFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFragmentLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/clHeaderArea" />
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav_bar"
@@ -73,19 +97,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/flFragmentContainer" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/etSearchBox"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="?selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        app:srcCompat="@drawable/ic_arrow_back_24" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,8 @@
 package com.jamie.lgbtqdictionary
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -15,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var categoriesFragment: CategoriesFragment
     private lateinit var bookmarksFragment: BookmarksFragment
     private lateinit var settingsFragment: SettingsFragment
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +39,10 @@ class MainActivity : AppCompatActivity() {
         // set initial active nav item in the nav bar
         binding.bottomNavBar.setItemSelected(R.id.nav_home)
         // setup home fragment as the first fragment user see
+        Log.i("HeaderAreaOnCreate", clHeaderArea.visibility.toString())
+        clHeaderArea.visibility = View.GONE;
+        Log.i("HeaderAreaOnCreate", clHeaderArea.visibility.toString())
+
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragmentContainer, homeFragment)
             commit()
@@ -59,15 +64,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun transactNavigationFragment(fragment: Fragment, label: String) {
+
         tvFragmentLabel.text = label
+        Log.i("HeaderArea", clHeaderArea.visibility.toString())
+
+        if (fragment is HomeFragment) {
+            // hide the general header area
+            clHeaderArea.visibility = View.GONE;
+        }
+        else {
+//            val currentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)
+            // un-hide the header area
+//            if (currentFragment is HomeFragment)
+            clHeaderArea.visibility = View.VISIBLE;
+        }
+
+
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragmentContainer, fragment)
             addToBackStack(null)
             commit()
         }
+        Log.i("HeaderArea", clHeaderArea.visibility.toString())
+
     }
 
-    public fun updateFragmentLabel(label: String) {
-        tvFragmentLabel.text = label
-    }
 }

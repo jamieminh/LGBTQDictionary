@@ -107,7 +107,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
                     bundle.putString("id", id)
                     bundle.putString("title", model.title)
 
-                    val wordFragment = WordFragment()
+                    val wordFragment = GeneralWordFragment()
                     wordFragment.arguments = bundle
                     fragmentLabel = activity!!.findViewById(R.id.tvFragmentLabel)
                     fragmentLabel.text = model.title

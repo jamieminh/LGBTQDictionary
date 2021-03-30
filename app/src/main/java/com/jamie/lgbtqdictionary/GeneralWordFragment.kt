@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 
-class WordFragment : Fragment(R.layout.fragment_word) {
+class GeneralWordFragment : Fragment(R.layout.fragment_word) {
     lateinit var tvID : TextView
     lateinit var tvTitle : TextView
 
