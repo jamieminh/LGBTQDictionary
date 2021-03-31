@@ -2,6 +2,7 @@ package com.jamie.lgbtqdictionary
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,16 +20,27 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
 
     @SuppressLint("SetTextI18n")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
         rlAbout = view.findViewById(R.id.rlAboutInfo)
         fragmentLabel = activity!!.findViewById(R.id.tvFragmentLabel)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
+        var mainHeaderStack = (activity as MainActivity).mainHeaderStack
+
 
         // on clicking 'about'
         rlAbout.setOnClickListener{
+            mainHeaderStack.push(fragmentLabel.text.toString())
+            mainHeaderStack.toArray().forEach { it -> Log.i(
+                "StackElements",
+                it.toString()
+            ) }
             fragmentLabel.text = "ABOUT"
             val aboutFragment = AboutFragment()
             val fragmentManager = activity!!.supportFragmentManager
@@ -41,6 +53,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         return view
     }
+
+
 
 
 }

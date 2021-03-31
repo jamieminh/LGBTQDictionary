@@ -1,6 +1,5 @@
 package com.jamie.lgbtqdictionary
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +20,10 @@ import com.google.firebase.storage.FirebaseStorage
 class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     lateinit var categoriesRV: RecyclerView
-    lateinit var thisContext: Context
     lateinit var fragmentLabel : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        thisContext = activity!!.applicationContext
     }
 
     override fun onCreateView(
@@ -44,15 +40,6 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         return view
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//
-//        categoriesRV = view.findViewById(R.id.rvCategories)
-//        categoriesRV.setHasFixedSize(true)
-//        categoriesRV.layoutManager = LinearLayoutManager(this.context)
-//        showCategories()
-//    }
 
     private fun showCategories() {
         val dbRef = FirebaseDatabase.getInstance().getReference("categories")
@@ -87,21 +74,12 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
                 model: Categories
             ) {
                 Log.i("MODEL", model.title + '-' + model.cover_img)
-                val url =
-                    "https://images.theconversation.com/files/161211/original/image-20170316-10898-1jrtrw4.jpg?ixlib=rb-1.1.0&rect=0%2C977%2C5306%2C2573&q=45&auto=format&w=1356&h=668&fit=crop"
 
-                storageRef.child(model.cover_img).downloadUrl.addOnSuccessListener {
-                    Log.i("COVER_URI", it.toString())
-                    holder.setDetails(model.title, it.toString(), thisContext)
-                }.addOnFailureListener {
-                    holder.setDetails(model.title, url, thisContext)
-                }
+                holder.setDetails(model.title, model.cover_img)
 
                 holder.itemView.setOnClickListener {
                     val id = getRef(position).key.toString()
                     Log.i("POS.KEY", id)
-
-                    Toast.makeText(thisContext, "ONCLICK $id", Toast.LENGTH_LONG).show()
 
                     val bundle = Bundle()
                     bundle.putString("id", id)
@@ -132,12 +110,12 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
             itemVIew
         ) {
 
-        fun setDetails(title: String, cover: String, context: Context) {
+        fun setDetails(title: String, cover: String) {
             val catTitle = itemView.findViewById<TextView>(R.id.tvTitle)
             val catCover = itemView.findViewById<ImageView>(R.id.ivCover)
 
             catTitle.text = title
-            Glide.with(context).load(cover).into(catCover)
+            Glide.with(catCover.context).load(cover).into(catCover)
 
         }
     }

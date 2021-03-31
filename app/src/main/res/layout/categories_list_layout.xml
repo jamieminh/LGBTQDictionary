@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="210dp"
-        android:layout_marginVertical="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_centerHorizontal="true"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginVertical="15dp"
         android:background="@drawable/ripple_effect"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="#00AAA9"
+        app:cardCornerRadius="5dp"
         app:cardElevation="0.5dp"
-        app:cardCornerRadius="5dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.61"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/ivCover"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:scaleType="centerCrop"
+                android:layout_height="0dp"
                 android:layout_centerHorizontal="true"
-                tools:srcCompat="@tools:sample/avatars"
-                android:contentDescription="Category Image" />
+                android:contentDescription="Category Image"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="1:0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ivCover"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="4dp"
+                android:layout_marginHorizontal="16dp"
                 android:fontFamily="@font/oswald"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivCover" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-</RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

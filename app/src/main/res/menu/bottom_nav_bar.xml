@@ -4,27 +4,27 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home_24"
+        android:icon="@drawable/ic_tab_home_24"
         android:title="@string/nav_text_home"
         app:cnb_iconColor="#C2160A"
         app:cnb_backgroundColor="@color/white" />
     <item
         android:id="@+id/nav_categories"
-        android:icon="@drawable/ic_categories_24"
+        android:icon="@drawable/ic_tab_categories_24"
         android:title="@string/nav_text_categories"
         app:cnb_iconColor="#009688"
         app:cnb_backgroundColor="@color/white" />
 
     <item
         android:id="@+id/nav_bookmarks"
-        android:icon="@drawable/ic_bookmark_24"
+        android:icon="@drawable/ic_tab_bookmark_24"
         android:title="@string/nav_text_bookmark"
         app:cnb_iconColor="#015798"
         app:cnb_backgroundColor="@color/white" />
 
     <item
         android:id="@+id/nav_settings"
-        android:icon="@drawable/ic_settings_24"
+        android:icon="@drawable/ic_tab_settings_24"
         android:title="@string/nav_text_settings"
         app:cnb_iconColor="#673AB7"
         app:cnb_backgroundColor="@color/white" />
