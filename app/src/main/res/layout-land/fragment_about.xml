@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".AboutFragment">
+
+    <ImageView
+        android:id="@+id/ivMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAppDescription"
+        android:src="@drawable/ic_about_mail_24"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineUpperArea" />
+
+    <ImageView
+        android:id="@+id/ivVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvMail"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_about_version_24"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+        app:layout_constraintTop_toBottomOf="@+id/ivMail" />
+
+    <ImageView
+        android:id="@+id/ivCopyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvVersion"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_about_copyright_24"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+        app:layout_constraintTop_toBottomOf="@+id/ivVersion" />
+
+    <TextView
+        android:id="@+id/tvCopyright"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvVersion"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/ivCopyright"
+        android:text="2021 Hue Nguyen. All Rights Reserved."
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineMainMid"
+        app:layout_constraintStart_toEndOf="@+id/ivCopyright"
+        app:layout_constraintTop_toBottomOf="@+id/tvVersion" />
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvMail"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/ivVersion"
+        android:text="Version 1.0.0"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/ivVersion"
+        app:layout_constraintTop_toBottomOf="@+id/tvMail" />
+
+    <TextView
+        android:id="@+id/tvMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAppDescription"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/ivMail"
+        android:text="minhhue651999@gmail.com"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/ivMail"
+        app:layout_constraintTop_toTopOf="@+id/guidelineUpperArea" />
+
+    <ImageView
+        android:id="@+id/ivAppLogo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_splash_logo"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineAppLogoRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineAppLogoLeft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineMainTop" />
+
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivAppLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="LGBTQ Dictionary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineMainMid"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+        app:layout_constraintTop_toBottomOf="@+id/ivAppLogo" />
+
+    <TextView
+        android:id="@+id/tvAppDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAppName"
+        android:layout_centerHorizontal="true"
+        android:text="@string/aboutAppDescription"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineMainRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainMid"
+        app:layout_constraintTop_toTopOf="@+id/guidelineMainTop" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMainTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMainLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineAppLogoLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.24" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineAppLogoRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.32" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMainRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineUpperArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMainMid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
