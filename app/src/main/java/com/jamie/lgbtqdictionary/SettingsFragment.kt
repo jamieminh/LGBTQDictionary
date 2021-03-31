@@ -2,12 +2,10 @@ package com.jamie.lgbtqdictionary
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.jamie.lgbtqdictionary.databinding.ActivityMainBinding
 
@@ -15,7 +13,6 @@ import com.jamie.lgbtqdictionary.databinding.ActivityMainBinding
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     lateinit var rlAbout: RelativeLayout
-    lateinit var fragmentLabel : TextView
     lateinit var binding: ActivityMainBinding
 
 
@@ -28,20 +25,15 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
         rlAbout = view.findViewById(R.id.rlAboutInfo)
-        fragmentLabel = activity!!.findViewById(R.id.tvFragmentLabel)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-        var mainHeaderStack = (activity as MainActivity).mainHeaderStack
+        var navItemBackStack = (activity as MainActivity).navItemBackStack
 
 
         // on clicking 'about'
-        rlAbout.setOnClickListener{
-            mainHeaderStack.push(fragmentLabel.text.toString())
-            mainHeaderStack.toArray().forEach { it -> Log.i(
-                "StackElements",
-                it.toString()
-            ) }
-            fragmentLabel.text = "ABOUT"
+        rlAbout.setOnClickListener {
+            navItemBackStack.push("SETTINGS")
+
             val aboutFragment = AboutFragment()
             val fragmentManager = activity!!.supportFragmentManager
             fragmentManager.beginTransaction().apply {
@@ -53,8 +45,6 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         return view
     }
-
-
 
 
 }

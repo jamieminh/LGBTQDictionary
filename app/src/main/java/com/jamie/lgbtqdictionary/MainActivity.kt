@@ -21,11 +21,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var categoriesFragment: CategoriesFragment
     private lateinit var bookmarksFragment: BookmarksFragment
     private lateinit var settingsFragment: SettingsFragment
+
     private var backPressTime : Long = 0
 
-    var backPressedOnce = false
-
-    var mainHeaderStack = Stack<String>()
+    var navItemBackStack = Stack<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,15 +52,12 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setInitTab() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)
-        Toast.makeText(this, (currentFragment == null).toString(), Toast.LENGTH_LONG).show()
 
         // only init when the fragmentContainer is empty aka. when app is opened
         // prevent reset when orientation changes
         if (currentFragment == null) {
             // set initial active nav item in the nav bar
             bottom_nav_bar.setItemSelected(R.id.nav_home)
-            tvFragmentLabel.text = "HOME"
-
             // setup home fragment as the first fragment user see
             clHeaderArea.visibility = View.GONE
 
@@ -87,18 +83,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)
-        Toast.makeText(this, (currentFragment == null).toString(), Toast.LENGTH_LONG).show()
     }
 
     private fun transactNavigationFragment(fragment: Fragment, label: String) {
-        // push the current label before transitioning
-        mainHeaderStack.push(tvFragmentLabel.text.toString())
-//        Toast.makeText(this, tvFragmentLabel.text.toString(), Toast.LENGTH_LONG).show()
-        Toast.makeText(this, "Fragment transaction", Toast.LENGTH_LONG).show()
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)
+        Toast.makeText(this, currentFragment.toString(), Toast.LENGTH_LONG).show()
 
-        tvFragmentLabel.text = label
-        mainHeaderStack.toArray().forEach { Log.i("NEWNAV.StackElements", it.toString()) }
+        // add the current fragment label to a stack to later pop them and set selected item accordingly
+        when(currentFragment) {
+            is HomeFragment -> navItemBackStack.push("HOME")
+            is CategoriesFragment, is WordsFragment -> navItemBackStack.push("CATEGORIES")
+            is BookmarksFragment -> navItemBackStack.push("BOOKMARKS")
+            is SettingsFragment, is AboutFragment -> navItemBackStack.push("SETTINGS")
+        }
+        // push the current label before transitioning
+        navItemBackStack.toArray().forEach { Log.i("NAVITEM", it.toString()) }
 
         if (fragment is HomeFragment) {
             clHeaderArea.visibility = View.GONE         // hide the general header area
@@ -116,7 +115,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (mainHeaderStack.isEmpty()) {
+        if (navItemBackStack.isEmpty()) {
             // if the user press back again within 2s, exit the application
             // source: https://codinginflow.com/tutorials/android/press-back-again-to-exit
             if (backPressTime + 2000 > System.currentTimeMillis()) {
@@ -130,13 +129,12 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             super.onBackPressed()
-            val prevHeader = mainHeaderStack.pop()
-            mainHeaderStack.toArray().forEach { Log.i("BACKSTACK.StackElements", it.toString()) }
+            val prevHeader = navItemBackStack.pop()
+            navItemBackStack.toArray().forEach { Log.i("BACKSTACK", it.toString()) }
 
             if (prevHeader == "HOME") {
                 clHeaderArea.visibility = View.GONE         // hide the general header area
             }
-            tvFragmentLabel.text = prevHeader
 
             // listener when back-stack -> do nothing
             bottom_nav_bar.setOnItemSelectedListener {
@@ -147,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                 "HOME" -> bottom_nav_bar.setItemSelected(R.id.nav_home)
                 "CATEGORIES" -> bottom_nav_bar.setItemSelected(R.id.nav_categories)
                 "BOOKMARKS" -> bottom_nav_bar.setItemSelected(R.id.nav_bookmarks)
-                "SETTINGS", "ABOUT" -> bottom_nav_bar.setItemSelected(R.id.nav_settings)
+                "SETTINGS" -> bottom_nav_bar.setItemSelected(R.id.nav_settings)
             }
 
             // after changing the checked nav item, resume the usual setOnItemSelectedListener

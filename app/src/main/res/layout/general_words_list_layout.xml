@@ -17,10 +17,11 @@
             android:padding="12dp">
 
             <TextView
+                android:id="@+id/tvGeneralWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="A dictionary word"
+                android:text="a word please"
                 android:textColor="#343434"/>
 
             <ImageView

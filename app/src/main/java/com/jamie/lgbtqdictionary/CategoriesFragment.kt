@@ -15,12 +15,15 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.jamie.lgbtqdictionary.models.categories.Category
+import java.util.*
 
 
 class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     lateinit var categoriesRV: RecyclerView
-    lateinit var fragmentLabel : TextView
+    lateinit var navItemBackStack : Stack<String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,8 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         categoriesRV = view.findViewById(R.id.rvCategories)
         categoriesRV.setHasFixedSize(true)
         categoriesRV.layoutManager = LinearLayoutManager(this.context)
+        navItemBackStack = (activity as MainActivity).navItemBackStack
+
         showCategories()
         return view
     }
@@ -46,13 +51,11 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         val storageRef = FirebaseStorage.getInstance().reference
         Log.i("DB.REF", dbRef.toString())
 
-        val options = FirebaseRecyclerOptions.Builder<Categories>()
-            .setQuery(dbRef, Categories::class.java)
+        val options = FirebaseRecyclerOptions.Builder<Category>()
+            .setQuery(dbRef, Category::class.java)
             .build()
-        Log.i("DB.OPTIONS", options.toString())
 
-
-        val adapter = object : FirebaseRecyclerAdapter<Categories, CategoriesViewHolder>(options) {
+        val adapter = object : FirebaseRecyclerAdapter<Category, CategoriesViewHolder>(options) {
 
             override fun onCreateViewHolder(
                 parent: ViewGroup,
@@ -71,24 +74,22 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
             override fun onBindViewHolder(
                 holder: CategoriesViewHolder,
                 position: Int,
-                model: Categories
+                model: Category
             ) {
                 Log.i("MODEL", model.title + '-' + model.cover_img)
 
                 holder.setDetails(model.title, model.cover_img)
 
                 holder.itemView.setOnClickListener {
-                    val id = getRef(position).key.toString()
-                    Log.i("POS.KEY", id)
+                    val id = getRef(position).key.toString()        // key of item in firebase
+                    navItemBackStack.push("CATEGORIES")
 
                     val bundle = Bundle()
-                    bundle.putString("id", id)
+                    bundle.putString("id", model.id)
                     bundle.putString("title", model.title)
 
-                    val wordFragment = GeneralWordFragment()
+                    val wordFragment = WordsFragment()
                     wordFragment.arguments = bundle
-                    fragmentLabel = activity!!.findViewById(R.id.tvFragmentLabel)
-                    fragmentLabel.text = model.title
 
                     val fragmentManager = activity!!.supportFragmentManager
                     fragmentManager.beginTransaction().apply {
@@ -119,7 +120,5 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
         }
     }
-
-
 
 }
