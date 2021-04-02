@@ -23,7 +23,7 @@ class RoomWordViewModel(application: Application) : AndroidViewModel(application
         return repository.getAllWordsDesc()
     }
 
-    fun getOne(wordId: String): RoomWord {
+    fun getOne(wordId: String): LiveData<RoomWord> {
         return repository.getOne(wordId)
     }
 

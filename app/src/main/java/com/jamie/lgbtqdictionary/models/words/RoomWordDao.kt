@@ -13,7 +13,7 @@ interface RoomWordDao {
     fun getAll(): LiveData<List<RoomWord>>
 
     @Query("SELECT * FROM word_table WHERE id = :wordId")
-    fun getWordById(wordId: String): RoomWord
+    fun getWordById(wordId: String): LiveData<RoomWord>
 
     @Insert
     fun insert(word: RoomWord)

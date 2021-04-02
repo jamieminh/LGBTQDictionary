@@ -32,7 +32,7 @@ class RoomWordRepository(application: Application?) {
         return wordDao.getAllWordsDesc()
     }
 
-    fun getOne(wordId: String): RoomWord {
+    fun getOne(wordId: String): LiveData<RoomWord> {
         return wordDao.getWordById(wordId)
     }
 
@@ -56,6 +56,14 @@ class RoomWordRepository(application: Application?) {
         AsyncTask<RoomWord, Void, Void>() {
         override fun doInBackground(vararg params: RoomWord): Void? {
             wordDao.insert(params[0])
+            return null
+        }
+    }
+
+    private class GetOneRecordAsyncTask(private val wordDao: RoomWordDao) :
+        AsyncTask<RoomWord, Void, Void>() {
+        override fun doInBackground(vararg params: RoomWord): Void? {
+            wordDao.getWordById(params[0].id)
             return null
         }
     }

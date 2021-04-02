@@ -61,23 +61,6 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         toggleBookmark = view.findViewById(R.id.ivToggleBookmark)
         hearPronunciation = view.findViewById(R.id.ivHearSpelling)
 
-        if (!checkIsBookmarkedFromLocal()) {        // if word is not already bookmarked
-            toggleBookmark.tag = addBookmarkDrawable
-        } else {
-            toggleBookmark.setImageResource(removeBookmarkDrawable)
-            toggleBookmark.tag = removeBookmarkDrawable
-        }
-
-        roomWord = RoomWord(
-            word.id,
-            word.word,
-            word.pronunciation,
-            word.definition,
-            word.extent,
-            word.offensive,
-            word.source,
-            word.flag
-        )
 
         wordWord.text = word.word
         wordSpelling.text = word.pronunciation
@@ -113,45 +96,76 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         val factory = RoomWordViewModelFactory(activity!!.application)
         roomWordViewModel = ViewModelProvider(this, factory).get(RoomWordViewModel::class.java)
 
-        toggleBookmark.setOnClickListener { onTapBookmarkToggle() }
+
+        roomWordViewModel.getOne(word.id).observe(this, {
+            // true means the word is not found in db, thus this word is not bookmarked
+            if (it == null) {
+                toggleBookmark.setImageResource(addBookmarkDrawable)
+                toggleBookmark.tag = addBookmarkDrawable
+            }
+            else {
+                toggleBookmark.setImageResource(removeBookmarkDrawable)
+                toggleBookmark.tag = removeBookmarkDrawable
+            }
+
+        })
+
+
+        toggleBookmark.setOnClickListener { onTapBookmarkToggle(word) }
         hearPronunciation.setOnClickListener { onTapHearPronunciation() }
 
         return view
     }
 
     // look in local storage if the word is bookmarked and change the bookmark icon accordingly
-    private fun checkIsBookmarkedFromLocal(): Boolean {
+    private fun checkIsBookmarkedFromLocal(word: Word): Boolean {
         // CHECK IF WORD IS IN LOCAL STORAGE
-        return false
+        var isBookmarked = false
+        roomWordViewModel.getOne(word.id).observe(this, {
+            // true means the word is not found in db, thus this word is not bookmarked
+            isBookmarked = it != null
+            Log.i("NO.Data", (isBookmarked).toString())
+
+        })
+
+        Log.i("NO.Data", (isBookmarked).toString())
+
+        return isBookmarked
     }
 
     // function to adding the word to user bookmarks, which is in local storage
-    private fun onTapBookmarkToggle() {
+    private fun onTapBookmarkToggle(word: Word) {
         bindingMain.bottomNavBar.showBadge(R.id.nav_bookmarks)
+        roomWord = RoomWord(
+            word.id,
+            word.word,
+            word.pronunciation,
+            word.definition,
+            word.extent,
+            word.offensive,
+            word.source,
+            word.flag
+        )
 
         // if current icon is 'add', then add this word to the local storage
         if (toggleBookmark.tag == addBookmarkDrawable) {
-            Toast.makeText(this.context, "WORD IS ADDED TO LOCAL STORAGE", Toast.LENGTH_LONG).show()
+            Toast.makeText(this.context, "'${word.word}' has been added to your bookmarks", Toast.LENGTH_LONG).show()
             // ADD WORD TO LOCAL STORAGE
             roomWordViewModel.insert(roomWord)
-            Log.i("ROOMWORD", roomWord.toString())
 
             // switch to 'remove' icon
             toggleBookmark.setImageResource(removeBookmarkDrawable)
             toggleBookmark.tag = removeBookmarkDrawable
         } else {
-            Toast.makeText(this.context, "WORD IS REMOVED TO LOCAL STORAGE", Toast.LENGTH_LONG)
+            Toast.makeText(this.context, "'${word.word}' has been removed from your bookmarks", Toast.LENGTH_LONG)
                 .show()
             // REMOVE WORD FROM LOCAL STORAGE
-//            roomWordViewModel.delete(roomWord)
-            Log.i("ROOMWORD", roomWord.toString())
+            roomWordViewModel.delete(roomWord)
 
             // switch to 'add' icon
             toggleBookmark.setImageResource(addBookmarkDrawable)
             toggleBookmark.tag = addBookmarkDrawable
         }
-
-
     }
 
     // function to convert word text to speech for user

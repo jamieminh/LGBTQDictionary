@@ -39,7 +39,7 @@ class CategoryRepo constructor(private val catModels: MutableList<Category>){
             }
 
             override fun onCancelled(error: DatabaseError) {
-                
+
             }
 
         })
