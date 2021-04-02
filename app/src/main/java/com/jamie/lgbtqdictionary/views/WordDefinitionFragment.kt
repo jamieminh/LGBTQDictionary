@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -53,6 +54,9 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         val view = inflater.inflate(R.layout.fragment_word_definition, container, false)
         bindingMain = (activity as MainActivity).binding
         val word = arguments!!.getSerializable("word") as Word
+        val clHeader = activity!!.findViewById<ConstraintLayout>(R.id.clHeaderArea)
+        // un-hide the header area when loading words in case user came from HOME
+        clHeader.visibility = ConstraintLayout.VISIBLE
 
         wordWord = view.findViewById(R.id.tvSingleWordWord)
         wordSpelling = view.findViewById(R.id.tvSingleWordSpelling)

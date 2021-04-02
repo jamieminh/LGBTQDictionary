@@ -1,19 +1,28 @@
 package com.jamie.lgbtqdictionary.adapters
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.PagerAdapter
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.models.words.Word
+import com.jamie.lgbtqdictionary.views.WordDefinitionFragment
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.util.*
 
-class RandomWordsAdapter (private val cards: List<Word>, private val context: Context) : PagerAdapter() {
+class RandomWordsAdapter(
+    private val cards: List<Word>,
+    private val context: Context,
+    var navItemBackStack: Stack<String>,
+    private val supportFragmentManager: FragmentManager
+) : PagerAdapter() {
 
     private lateinit var layoutInflater: LayoutInflater
 
@@ -36,16 +45,27 @@ class RandomWordsAdapter (private val cards: List<Word>, private val context: Co
         val see = view.findViewById<TextView>(R.id.tvRandomWordSee)
 
         // populate card items data
-        val date = LocalDateTime.now();
+        val date = LocalDateTime.now()
         word.text = cards[position].word
         pronunciation.text = cards[position].pronunciation
         today.text = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
 
         container.addView(view, 0)
 
-        // set on tapping a card
+        // set on tapping a card, go to that word definition
         see.setOnClickListener {
             Toast.makeText(this.context, "See definitions", Toast.LENGTH_SHORT).show()
+            navItemBackStack.push("HOME")
+            val bundle = Bundle()
+            val wordDefinitionFragment = WordDefinitionFragment()
+            bundle.putSerializable("word", cards[position])
+            wordDefinitionFragment.arguments = bundle
+
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragmentContainer, wordDefinitionFragment)
+                addToBackStack(null)
+                commit()
+            }
         }
 
         return view
@@ -55,7 +75,6 @@ class RandomWordsAdapter (private val cards: List<Word>, private val context: Co
         container.removeView(`object` as View)
     }
 }
-
 
 
 // made with changes from source: https://codinginsight.live/t_android_swipe_viewpager.html?i=1

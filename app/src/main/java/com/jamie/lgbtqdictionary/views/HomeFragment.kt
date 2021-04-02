@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.firebase.database.*
+import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.adapters.RandomWordsAdapter
 import com.jamie.lgbtqdictionary.models.words.Word
@@ -19,12 +20,14 @@ import kotlin.random.Random
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var cardsPager: ViewPager
-    private lateinit var adapter: RandomWordsAdapter
-    private var words = mutableListOf<Word>()
-    private lateinit var wordsDayDbRef: DatabaseReference
-    lateinit var colors: List<Int>
-    var argbEvaluator = ArgbEvaluator()
     private lateinit var progressBar: ProgressBar
+    private lateinit var adapter: RandomWordsAdapter
+    private lateinit var wordsDayDbRef: DatabaseReference
+    private lateinit var globalProps : GlobalProperties
+    private lateinit var colors: List<Int>
+    var argbEvaluator = ArgbEvaluator()
+    private var words = mutableListOf<Word>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +35,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+        globalProps = this.context?.applicationContext as GlobalProperties
         progressBar = view.findViewById(R.id.wordsDayProgressBar)
 
         // get data from firebase
@@ -60,7 +64,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     words.add(snapshot.children.elementAt(rand).getValue(Word::class.java)!!)
                 }
 
-                adapter = RandomWordsAdapter(words, context!!)
+                adapter = RandomWordsAdapter(words, context!!, globalProps.navStack, activity!!.supportFragmentManager)
                 cardsPager.adapter = adapter
 
                 cardsPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
