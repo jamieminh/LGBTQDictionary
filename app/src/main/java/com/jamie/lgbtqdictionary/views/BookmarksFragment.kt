@@ -46,13 +46,15 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
         sortBtn = view.findViewById(R.id.ivBookmarksSort)
         deleteAllBtn = view.findViewById(R.id.ivBookmarksDeleteAll)
 
-        adapter = BookmarksAdapter(globalProps.navStack, activity!!.supportFragmentManager)
+        val factory = RoomWordViewModelFactory(activity!!.application)
+        roomWordViewModel = ViewModelProvider(this, factory).get(RoomWordViewModel::class.java)
+
+        adapter = BookmarksAdapter(roomWordViewModel, globalProps.navStack, activity!!.supportFragmentManager)
         bookmarksRv.adapter = adapter
         bookmarksRv.setHasFixedSize(true)
         bookmarksRv.layoutManager = LinearLayoutManager(this.context)
 
-        val factory = RoomWordViewModelFactory(activity!!.application)
-        roomWordViewModel = ViewModelProvider(this, factory).get(RoomWordViewModel::class.java)
+
         roomWordViewModel.getAllWords().observe(this, { words ->
             words.forEach{ Log.i("Room Words", it.word)}
             adapter.setChangedWords(words)
