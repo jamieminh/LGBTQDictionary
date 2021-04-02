@@ -13,4 +13,7 @@
     <string name="random_word_discovery">random discovery</string>
     <string name="bookmarked_arrow">an arrow indicating that this word can be clicked</string>
     <string name="bookmarked_remove">tap this trash can symbol to remove this bookmarked word</string>
+    <string name="back_arrow">an arrow button to go back to previous screen</string>
+    <string name="search_bar_hint">Search dictionary</string>
+    <string name="search_icon">search-icon</string>
 </resources>

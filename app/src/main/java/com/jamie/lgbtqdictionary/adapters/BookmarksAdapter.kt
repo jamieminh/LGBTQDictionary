@@ -1,6 +1,7 @@
 package com.jamie.lgbtqdictionary.adapters
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.models.words.RoomWord
+import com.jamie.lgbtqdictionary.models.words.Word
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
+import com.jamie.lgbtqdictionary.views.WordDefinitionFragment
 import java.util.*
 
 class BookmarksAdapter(
@@ -20,7 +23,7 @@ class BookmarksAdapter(
     var roomWordViewModel: RoomWordViewModel,
     var navItemBackStack: Stack<String>,
     private val supportFragmentManager: FragmentManager
-): RecyclerView.Adapter<BookmarksViewHolder>() {
+) : RecyclerView.Adapter<BookmarksViewHolder>() {
 
     // a sample init so the app wont crash, the value doesn't matter
     // since it will later be replaced
@@ -43,14 +46,36 @@ class BookmarksAdapter(
         val currentWord = words[position]
         holder.setDetails(currentWord.word, currentWord.definition)
 
+        // on clicking a bookmarked word, go to its definition page
         bookmarkedCard.setOnClickListener {
             Log.i("Bookmark.Card", "Clicked")
+            navItemBackStack.push("BOOKMARKS")
+
+            val bundle = Bundle()
+            val wordDefinitionFragment = WordDefinitionFragment()
+            val word = Word(
+                currentWord.word,
+                currentWord.id,
+                currentWord.pronunciation,
+                currentWord.definition,
+                currentWord.extent,
+                "",
+                currentWord.offensive,
+                currentWord.source,
+                currentWord.flag
+            )
+            bundle.putSerializable("word", word)
+            wordDefinitionFragment.arguments = bundle
+
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragmentContainer, wordDefinitionFragment)
+                addToBackStack(null)
+                commit()
+            }
         }
 
         removeBookmark.setOnClickListener {
-            Log.i("Bookmark.Remove", "Clicked")
             roomWordViewModel.delete(words[position])
-
         }
     }
 
@@ -76,8 +101,7 @@ class BookmarksViewHolder(itemVIew: View) :
         bookmarkWord.text = word
         if (definition.length > 80) {
             bookmarkDefinition.text = definition.substring(0, 80) + "..."
-        }
-        else {
+        } else {
             bookmarkDefinition.text = definition
         }
     }

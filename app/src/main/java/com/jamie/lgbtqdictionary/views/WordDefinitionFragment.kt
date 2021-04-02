@@ -117,25 +117,8 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         return view
     }
 
-    // look in local storage if the word is bookmarked and change the bookmark icon accordingly
-    private fun checkIsBookmarkedFromLocal(word: Word): Boolean {
-        // CHECK IF WORD IS IN LOCAL STORAGE
-        var isBookmarked = false
-        roomWordViewModel.getOne(word.id).observe(this, {
-            // true means the word is not found in db, thus this word is not bookmarked
-            isBookmarked = it != null
-            Log.i("NO.Data", (isBookmarked).toString())
-
-        })
-
-        Log.i("NO.Data", (isBookmarked).toString())
-
-        return isBookmarked
-    }
-
     // function to adding the word to user bookmarks, which is in local storage
     private fun onTapBookmarkToggle(word: Word) {
-        bindingMain.bottomNavBar.showBadge(R.id.nav_bookmarks)
         roomWord = RoomWord(
             word.id,
             word.word,
@@ -152,6 +135,9 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
             Toast.makeText(this.context, "'${word.word}' has been added to your bookmarks", Toast.LENGTH_LONG).show()
             // ADD WORD TO LOCAL STORAGE
             roomWordViewModel.insert(roomWord)
+
+            // show a badge on the bookmark nav icon
+            bindingMain.bottomNavBar.showBadge(R.id.nav_bookmarks)
 
             // switch to 'remove' icon
             toggleBookmark.setImageResource(removeBookmarkDrawable)

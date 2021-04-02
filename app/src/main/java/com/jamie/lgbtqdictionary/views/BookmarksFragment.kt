@@ -60,6 +60,8 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
             adapter.setChangedWords(words)
         })
 
+        sortBtn.setImageResource(R.drawable.ic_sort_asc)
+        sortBtn.tag = R.drawable.ic_sort_asc
         sortBtn.setOnClickListener { onSortHandler() }
         deleteAllBtn.setOnClickListener { deleteAllHandler() }
 
@@ -74,7 +76,9 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
     private fun onSortHandler() {
         if (currentSortOrder == "asc") {
             currentSortOrder = "desc"
-            Toast.makeText(this.context, "SORTING IN DESCENDING ORDER", Toast.LENGTH_LONG).show()
+            sortBtn.setImageResource(R.drawable.ic_sort_asc)
+            sortBtn.tag = R.drawable.ic_sort_asc
+
             roomWordViewModel.getAllWordsDesc().observe(this, { words ->
                 words.forEach{ Log.i("Room Words", it.word)}
                 adapter.setChangedWords(words)
@@ -82,7 +86,9 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
         }
         else {
             currentSortOrder = "asc"
-            Toast.makeText(this.context, "SORTING IN ASCENDING ORDER", Toast.LENGTH_LONG).show()
+            sortBtn.setImageResource(R.drawable.ic_sort_desc)
+            sortBtn.tag = R.drawable.ic_sort_desc
+
             roomWordViewModel.getAllWordsAsc().observe(this, { words ->
                 words.forEach{ Log.i("Room Words", it.word)}
                 adapter.setChangedWords(words)
