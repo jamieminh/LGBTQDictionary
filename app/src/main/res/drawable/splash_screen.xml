@@ -4,7 +4,7 @@
         android:drawable="@drawable/welcome_splash_bg"/>
 
     <item
-        android:drawable="@drawable/ic_splash_logo"
+        android:drawable="@drawable/ic_splash_screen_logo"
         android:gravity="center"/>
 
 </layer-list>

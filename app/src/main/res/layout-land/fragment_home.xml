@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/welcome_splash_bg"
-    tools:context=".HomeFragment">
+    tools:context=".views.HomeFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHomeTop"
@@ -62,7 +62,7 @@
                 android:layout_width="180dp"
                 android:layout_height="40dp"
                 android:layout_toEndOf="@id/ivAppLogoHome"
-                android:src="@drawable/splash_app_text" />
+                android:src="@drawable/app_logo_text_white" />
 
         </RelativeLayout>
 
@@ -113,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.53" />
+        app:layout_constraintGuide_percent="0.57" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -131,60 +131,60 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:padding="10dp">
+            android:padding="8dp">
 
             <TextView
-                android:id="@+id/tvWoddLabel"
+                android:id="@+id/tvRandomWordLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="WORD OF THE DAY"
                 android:textColor="#343434"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tvWordOfTheDay"
+                app:layout_constraintBottom_toTopOf="@+id/tvRandomWordWord"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="spread_inside" />
 
             <TextView
-                android:id="@+id/tvWordOfTheDay"
+                android:id="@+id/tvRandomWordWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvWoddLabel"
+                android:layout_below="@id/tvRandomWordLabel"
                 android:text="homosexual"
                 android:textColor="#343434"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tvWoddSee"
+                app:layout_constraintBottom_toTopOf="@+id/tvRandomWordSee"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvWoddLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/tvRandomWordLabel" />
 
             <TextView
-                android:id="@+id/tvWoddPronounce"
+                android:id="@+id/tvRandomWordSpelling"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/tvWordOfTheDay"
+                android:layout_toEndOf="@+id/tvRandomWordWord"
                 android:text="/ˌhōməˈsekSH(o͞o)əl/"
                 android:textColor="#343434"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tvWoddDate"
+                app:layout_constraintBottom_toTopOf="@+id/tvRandomWordDate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvWoddSee"
+                android:id="@+id/tvRandomWordSee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:text="SEE DEFINITIONS &amp; EXAMPLES"
                 android:textColor="@color/teal_700"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvWordOfTheDay" />
+                app:layout_constraintTop_toBottomOf="@+id/tvRandomWordWord" />
 
             <TextView
-                android:id="@+id/tvWoddDate"
+                android:id="@+id/tvRandomWordDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -223,7 +223,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:text="RECENT SEARCHES"
             android:textColor="@color/black"
             android:textStyle="bold"

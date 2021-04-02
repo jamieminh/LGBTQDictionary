@@ -1,21 +1,27 @@
-package com.jamie.lgbtqdictionary
+package com.jamie.lgbtqdictionary.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
-import com.jamie.lgbtqdictionary.models.generalword.Word
+import com.jamie.lgbtqdictionary.GlobalProperties
+import com.jamie.lgbtqdictionary.R
+import com.jamie.lgbtqdictionary.adapters.WordsAdapter
+import com.jamie.lgbtqdictionary.models.words.Word
 
 class WordsFragment : Fragment(R.layout.fragment_words) {
 
     lateinit var wordsRV : RecyclerView
+    lateinit var label: TextView
+    lateinit var loader : ProgressBar
+    private lateinit var globalProps : GlobalProperties
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +35,12 @@ class WordsFragment : Fragment(R.layout.fragment_words) {
         wordsRV.setHasFixedSize(true)
         wordsRV.layoutManager = LinearLayoutManager(this.context)
 
+        label = view.findViewById(R.id.tvWordsFragmentLabel)
+        label.text = arguments!!.get("title").toString()
         val categoryId = arguments!!.get("id")
+
+        loader = view.findViewById(R.id.wordsProgressBar)
+        globalProps = this.context?.applicationContext as GlobalProperties
 
         showCategoryWords(categoryId.toString())
 
@@ -38,49 +49,16 @@ class WordsFragment : Fragment(R.layout.fragment_words) {
     }
 
     private fun showCategoryWords(categoryId: String) {
-        val dbRef = FirebaseDatabase.getInstance().getReference("words").orderByChild("category").equalTo(categoryId)
+        val dbRef = FirebaseDatabase.getInstance().getReference("words")
+            .orderByChild("categories/$categoryId").equalTo("true")
 
         val options = FirebaseRecyclerOptions.Builder<Word>()
             .setQuery(dbRef, Word::class.java)
             .build()
 
-        val adapter = object : FirebaseRecyclerAdapter<Word, CategoryWordsViewHolder>(options) {
-            override fun onCreateViewHolder(
-                parent: ViewGroup,
-                viewType: Int
-            ): CategoryWordsViewHolder {
-                val view = LayoutInflater.from(parent.context).inflate(
-                    R.layout.general_words_list_layout,
-                    parent,
-                    false
-                )
-
-                return CategoryWordsViewHolder(view)
-            }
-
-            override fun onBindViewHolder(
-                holder: CategoryWordsViewHolder,
-                position: Int,
-                model: Word
-            ) {
-                holder.setDetails(model.word)
-            }
-
-        }
-
+        val adapter = WordsAdapter(loader, options, globalProps.navStack, activity!!.supportFragmentManager)
         wordsRV.adapter = adapter
         adapter.startListening()
     }
 
-
-    class CategoryWordsViewHolder(itemVIew: View) :
-        RecyclerView.ViewHolder(
-            itemVIew
-        ) {
-
-        fun setDetails(word: String) {
-            val catWord = itemView.findViewById<TextView>(R.id.tvGeneralWord)
-            catWord.text = word
-        }
-    }
 }

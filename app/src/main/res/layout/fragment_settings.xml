@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@android:color/white"
-    tools:context=".SettingsFragment">
+    tools:context=".views.SettingsFragment">
 
 
     <RelativeLayout
@@ -73,6 +74,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="2dp"
             android:layout_toEndOf="@+id/ivShareApp"
+            android:fontFamily="@font/open_sans"
             android:text="Share This App"
             android:textColor="#000000" />
 
@@ -112,6 +114,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="2dp"
             android:layout_toEndOf="@+id/ivAboutInfo"
+            android:fontFamily="@font/open_sans"
             android:text="About"
             android:textColor="#000000" />
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".AboutFragment">
+    tools:context=".views.AboutFragment">
 
     <ImageView
         android:id="@+id/ivMail"
@@ -44,6 +44,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/ivCopyright"
+        android:fontFamily="@font/open_sans"
         android:text="2021 Hue Nguyen. All Rights Reserved."
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/ivCopyright"
@@ -57,6 +58,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/ivVersion"
+        android:fontFamily="@font/open_sans"
         android:text="Version 1.0.0"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/ivVersion"
@@ -70,6 +72,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivMail"
+        android:fontFamily="@font/open_sans"
         android:text="minhhue651999@gmail.com"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/ivMail"
@@ -87,15 +90,14 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineAppLogo1"
         app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
-    <TextView
+    <ImageView
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivAppLogo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/nunito_bold"
-        android:text="LGBTQ Dictionary"
+        android:src="@drawable/app_logo_text"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -109,6 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvAppName"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/open_sans"
         android:text="@string/aboutAppDescription"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineUpperArea"

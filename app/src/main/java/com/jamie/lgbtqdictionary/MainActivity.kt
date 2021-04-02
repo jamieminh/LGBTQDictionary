@@ -4,27 +4,29 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.jamie.lgbtqdictionary.databinding.ActivityMainBinding
+import com.jamie.lgbtqdictionary.views.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
     // create view binding for the bottom nav bar
-    private lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private lateinit var homeFragment: HomeFragment
     private lateinit var categoriesFragment: CategoriesFragment
     private lateinit var bookmarksFragment: BookmarksFragment
     private lateinit var settingsFragment: SettingsFragment
+    private lateinit var backBtn: ImageView
+
+    private lateinit var globalProps : GlobalProperties
 
     private var backPressTime : Long = 0
-
-    var navItemBackStack = Stack<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         // replace the splash screen theme with the main theme BEFORE setContentView
         setTheme(R.style.Theme_LGBTQDictionary)
-
         setContentView(binding.root)
 
         // stop dark mode
@@ -42,10 +43,17 @@ class MainActivity : AppCompatActivity() {
         categoriesFragment = CategoriesFragment()
         bookmarksFragment = BookmarksFragment()
         settingsFragment = SettingsFragment()
+        backBtn = findViewById(R.id.ivBackBtn)
 
+        backBtn.setOnClickListener { onBackPressed() }
+
+        // use navStack as global variable to add labels of nav items to later display then when
+        // user press back button. Using global prevent its destruction when orientation changes
+        globalProps = application.applicationContext as GlobalProperties
 
         setInitTab()
         tabBarChangeHandler()
+
 
     }
 
@@ -73,12 +81,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun tabBarChangeHandler() {
         bottom_nav_bar.setOnItemSelectedListener {
             when (it) {
                 R.id.nav_home -> transactNavigationFragment(homeFragment, "HOME")
                 R.id.nav_categories -> transactNavigationFragment(categoriesFragment,"CATEGORIES")
-                R.id.nav_bookmarks -> transactNavigationFragment(bookmarksFragment, "BOOKMARKS")
+                R.id.nav_bookmarks -> {
+                    binding.bottomNavBar.dismissBadge(R.id.nav_bookmarks)
+                    transactNavigationFragment(bookmarksFragment, "BOOKMARKS")
+                }
                 R.id.nav_settings -> transactNavigationFragment(settingsFragment, "SETTINGS")
             }
         }
@@ -87,17 +99,22 @@ class MainActivity : AppCompatActivity() {
 
     private fun transactNavigationFragment(fragment: Fragment, label: String) {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)
-        Toast.makeText(this, currentFragment.toString(), Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, currentFragment.toString(), Toast.LENGTH_LONG).show()
 
         // add the current fragment label to a stack to later pop them and set selected item accordingly
         when(currentFragment) {
-            is HomeFragment -> navItemBackStack.push("HOME")
-            is CategoriesFragment, is WordsFragment -> navItemBackStack.push("CATEGORIES")
-            is BookmarksFragment -> navItemBackStack.push("BOOKMARKS")
-            is SettingsFragment, is AboutFragment -> navItemBackStack.push("SETTINGS")
+            is HomeFragment -> globalProps.navStack.push("HOME")
+            is CategoriesFragment, is WordsFragment -> globalProps.navStack.push("CATEGORIES")
+            is BookmarksFragment -> globalProps.navStack.push("BOOKMARKS")
+            is SettingsFragment, is AboutFragment -> globalProps.navStack.push("SETTINGS")
+            // handle cases for WordDefinitionFragment, because this one can be init from multiple places
+            else -> {
+                val fromFragment = globalProps.navStack.peek()
+                globalProps.navStack.push(fromFragment)
+            }
         }
         // push the current label before transitioning
-        navItemBackStack.toArray().forEach { Log.i("NAVITEM", it.toString()) }
+        globalProps.navStack.toArray().forEach { Log.i("NAVITEM", it.toString()) }
 
         if (fragment is HomeFragment) {
             clHeaderArea.visibility = View.GONE         // hide the general header area
@@ -107,6 +124,12 @@ class MainActivity : AppCompatActivity() {
 
 
         supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.slide_in_from_right,
+                R.anim.slide_out_from_right,
+                R.anim.slide_in_from_left,
+                R.anim.slide_out_from_left
+            )
             replace(R.id.flFragmentContainer, fragment)
             addToBackStack(null)
             commit()
@@ -115,7 +138,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (navItemBackStack.isEmpty()) {
+        if (globalProps.navStack.isEmpty()) {
             // if the user press back again within 2s, exit the application
             // source: https://codinginflow.com/tutorials/android/press-back-again-to-exit
             if (backPressTime + 2000 > System.currentTimeMillis()) {
@@ -129,8 +152,8 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             super.onBackPressed()
-            val prevHeader = navItemBackStack.pop()
-            navItemBackStack.toArray().forEach { Log.i("BACKSTACK", it.toString()) }
+            val prevHeader = globalProps.navStack.pop()
+            globalProps.navStack.toArray().forEach { Log.i("BACKSTACK", it.toString()) }
 
             if (prevHeader == "HOME") {
                 clHeaderArea.visibility = View.GONE         // hide the general header area

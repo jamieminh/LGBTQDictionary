@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CategoriesFragment"
+    tools:context=".views.CategoriesFragment"
     android:background="@android:color/white">
 
     <androidx.constraintlayout.widget.Guideline
@@ -36,5 +36,17 @@
         app:layout_constraintEnd_toStartOf="@+id/guidelineCategoriesRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineCategoriesLeft"
         app:layout_constraintTop_toTopOf="@+id/guidelineCategoriesTop" />
+
+    <ProgressBar
+        android:id="@+id/categoriesProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/custom_progress_bar"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/rvCategories"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
