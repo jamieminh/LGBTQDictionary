@@ -20,9 +20,9 @@ import com.jamie.lgbtqdictionary.models.words.Word
 
 class WordsFragment : Fragment(R.layout.fragment_words) {
 
-    lateinit var wordsRV : RecyclerView
-    lateinit var label: TextView
-    lateinit var loader : ProgressBar
+    private lateinit var wordsRV : RecyclerView
+    private lateinit var label: TextView
+    private lateinit var loader : ProgressBar
     private lateinit var globalProps : GlobalProperties
     private lateinit var mActivity: FragmentActivity
 

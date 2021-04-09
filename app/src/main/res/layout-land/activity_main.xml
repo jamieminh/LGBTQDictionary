@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="8dp"
-    android:background="@drawable/welcome_splash_bg"
+    android:background="@drawable/on_board_bg"
     tools:context=".MainActivity">
 
 
@@ -33,7 +33,6 @@
                 android:src="@drawable/app_logo" />
 
             <ImageView
-                android:id="@+id/imageView5"
                 android:layout_width="160dp"
                 android:layout_height="35dp"
                 android:layout_toEndOf="@id/ivAppLogoHome"

@@ -19,8 +19,8 @@ import com.jamie.lgbtqdictionary.views.WordDefinitionFragment
 import java.util.*
 
 class BookmarksAdapter(
-    var roomWordViewModel: RoomWordViewModel,
-    var navItemBackStack: Stack<String>,
+    private var roomWordViewModel: RoomWordViewModel,
+    private var navItemBackStack: Stack<String>,
     private val supportFragmentManager: FragmentManager
 ) : RecyclerView.Adapter<BookmarksViewHolder>() {
 

@@ -20,7 +20,7 @@ import java.util.*
 class WordsAdapter(
     private val loader : ProgressBar,
     options: FirebaseRecyclerOptions<Word>,
-    var navItemBackStack: Stack<String>,
+    private var navItemBackStack: Stack<String>,
     private val supportFragmentManager: FragmentManager
 ) : FirebaseRecyclerAdapter<Word, CategoryWordsViewHolder>(options) {
 

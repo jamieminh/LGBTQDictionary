@@ -6,10 +6,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="header_bg">#28A49A</color>
     <color name="card_bottom_border">#939393</color>
 
-    <color name="wordMainText">#FFFFFFFF</color>
     <color name="mainText">#FF000000</color>
     <color name="textAlt">#FF343434</color>
     <color name="background">#FFFFFFFF</color>
@@ -23,7 +21,6 @@
     <color name="onBoardEnd">#75E9BF</color>
 
     <color name="navNar">#24AE7D</color>
-    <color name="randomCard">#99636363</color>
     <color name="cardSlightTransparent">#99FFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
 </resources>

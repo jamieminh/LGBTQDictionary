@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">LGBTQDictionary</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nav_text_home">Home</string>
     <string name="nav_text_categories">Categories</string>
     <string name="nav_text_bookmark">Bookmark</string>
@@ -10,7 +9,6 @@
     <string name="bookmarks_sort">sort bookmarked words in ascending or decreasing order</string>
     <string name="random_word_see">SEE DEFINITIONS</string>
     <string name="random_word_discovery">random discovery</string>
-    <string name="bookmarked_arrow">an arrow indicating that this word can be clicked</string>
     <string name="bookmarked_remove">tap this trash can symbol to remove this bookmarked word</string>
     <string name="back_arrow">an arrow button to go back to previous screen</string>
     <string name="search_bar_hint">Search dictionary</string>
@@ -40,10 +38,6 @@
     <string name="sound_speed_slower">Slower</string>
     <string name="sound_speed_slow">Slow</string>
     <string name="sound_speed_normal">Normal</string>
-    <string name="sound_accent">Sound Accent</string>
-    <string name="sound_accent_icon_uk_or_us">sound accent icon, uk or us</string>
-    <string name="sound_accent_uk">UK</string>
-    <string name="sound_accent_us">US</string>
     <string name="report_bug_or_suggestions">Report bugs or suggestions</string>
     <string name="report_bug_or_send_suggestion_icon">report bug or send suggestion icon</string>
     <string name="settings_toggle_auto_rotation">Toggle Auto Rotation</string>

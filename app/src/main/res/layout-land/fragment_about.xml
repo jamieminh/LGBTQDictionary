@@ -40,7 +40,6 @@
         android:contentDescription="@string/about_copyright_icon" />
 
     <TextView
-        android:id="@+id/tvCopyright"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvVersion"

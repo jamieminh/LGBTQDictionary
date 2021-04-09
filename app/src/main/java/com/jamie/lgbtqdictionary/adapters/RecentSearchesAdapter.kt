@@ -12,13 +12,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.models.words.RecentSearchWord
-import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
 import com.jamie.lgbtqdictionary.views.SearchResultsFragment
 import java.util.*
 
 class RecentSearchesAdapter(
-    var roomWordViewModel: RoomWordViewModel,
-    var navItemBackStack: Stack<String>,
+    private var navItemBackStack: Stack<String>,
     private val supportFragmentManager: FragmentManager
 ) : RecyclerView.Adapter<RecentSearchesViewHolder>() {
 

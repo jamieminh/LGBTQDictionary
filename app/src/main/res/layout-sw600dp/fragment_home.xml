@@ -9,7 +9,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/fragmentHome"
     tools:context=".views.HomeFragment">
 
 
@@ -51,7 +50,6 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/white"

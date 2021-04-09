@@ -21,7 +21,7 @@ import java.util.*
 class SearchWordAdapter(
     private val loader : ProgressBar,
     options: FirebaseRecyclerOptions<Word>,
-    var navItemBackStack: Stack<String>,
+    private var navItemBackStack: Stack<String>,
     private val supportFragmentManager: FragmentManager
 ) : FirebaseRecyclerAdapter<Word, SearchWordsViewHolder>(options) {
 

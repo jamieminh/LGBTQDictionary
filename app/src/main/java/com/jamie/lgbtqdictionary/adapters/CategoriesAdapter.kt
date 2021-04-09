@@ -27,7 +27,7 @@ val options = FirebaseRecyclerOptions.Builder<Category>()
 
 class CategoriesAdapter(
     private val loader : ProgressBar,
-    var navItemBackStack: Stack<String>,
+    private var navItemBackStack: Stack<String>,
     private val supportFragmentManager: FragmentManager
 ) : FirebaseRecyclerAdapter<Category, CategoriesViewHolder>(options) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {

@@ -12,15 +12,13 @@ import androidx.viewpager.widget.PagerAdapter
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.models.words.Word
 import com.jamie.lgbtqdictionary.views.WordDefinitionFragment
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
+import java.text.SimpleDateFormat
 import java.util.*
 
 class RandomWordsAdapter(
     private val cards: List<Word>,
     private val context: Context,
-    var navItemBackStack: Stack<String>,
+    private var navItemBackStack: Stack<String>,
     private val supportFragmentManager: FragmentManager
 ) : PagerAdapter() {
 
@@ -45,10 +43,10 @@ class RandomWordsAdapter(
         val see = view.findViewById<TextView>(R.id.tvRandomWordSee)
 
         // populate card items data
-        val date = LocalDateTime.now()
+        val date = Locale.getDefault()
         word.text = cards[position].word
         pronunciation.text = cards[position].pronunciation
-        today.text = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM))
+        today.text = SimpleDateFormat("MMM d, yyyy", date).format(Date())
 
         container.addView(view, 0)
 

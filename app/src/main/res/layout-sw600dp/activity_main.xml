@@ -39,7 +39,6 @@
             android:contentDescription="@string/app_logo_on_home_screen" />
 
         <ImageView
-            android:id="@+id/imageView5"
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_toEndOf="@id/ivAppLogoHome"

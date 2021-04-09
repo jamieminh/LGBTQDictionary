@@ -17,8 +17,8 @@ import com.jamie.lgbtqdictionary.adapters.CategoriesAdapter
 
 class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
-    lateinit var categoriesRV: RecyclerView
-    lateinit var loader : ProgressBar
+    private lateinit var categoriesRV: RecyclerView
+    private lateinit var loader : ProgressBar
     private lateinit var globalProps : GlobalProperties
     private lateinit var mActivity: FragmentActivity
 

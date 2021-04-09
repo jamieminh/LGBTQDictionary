@@ -14,7 +14,7 @@ class GlobalProperties : Application() {
 
     var navStack = Stack<String>()
     var randomWords = mutableListOf<Word>()
-    lateinit var tts: TextToSpeech
+    private lateinit var tts: TextToSpeech
     var ttsSpeed = 0.5F
     lateinit var context: Context
 

@@ -56,10 +56,6 @@ class RoomWordRepository(application: Application?) {
         DeleteWordAsyncTask(bookmarkedWordDao).execute(word)
     }
 
-    fun deleteById(wordId: String) {
-
-    }
-
     fun deleteAll() {
         DeleteAllWordsAsyncTask(bookmarkedWordDao).execute()
     }
@@ -80,13 +76,6 @@ class RoomWordRepository(application: Application?) {
         }
     }
 
-    private class GetOneRecordAsyncTask(private val wordDao: BookmarkedWordDao) :
-        AsyncTask<BookmarkedWord, Void, Void>() {
-        override fun doInBackground(vararg params: BookmarkedWord): Void? {
-            wordDao.getWordById(params[0].id)
-            return null
-        }
-    }
 
     private class DeleteWordAsyncTask(private val wordDao: BookmarkedWordDao) :
         AsyncTask<BookmarkedWord, Void, Void>() {
