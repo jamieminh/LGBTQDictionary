@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/background">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvWordGeneral"
@@ -16,6 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/background"
             android:padding="12dp">
 
             <TextView
@@ -23,8 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="a word please"
-                android:textColor="#343434"/>
+                android:textColor="@color/mainText"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -32,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 app:srcCompat="@drawable/ic_word_arrow_24"
-                android:contentDescription="word arrow" />
+                android:contentDescription="@string/word_arrow" />
 
 
         </RelativeLayout>

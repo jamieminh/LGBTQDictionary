@@ -7,19 +7,19 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface RoomWordDao {
+interface BookmarkedWordDao {
 
     @Query("SELECT * FROM word_table")
-    fun getAll(): LiveData<List<RoomWord>>
+    fun getAll(): LiveData<List<BookmarkedWord>>
 
     @Query("SELECT * FROM word_table WHERE id = :wordId")
-    fun getWordById(wordId: String): LiveData<RoomWord>
+    fun getWordById(wordId: String): LiveData<BookmarkedWord>
 
     @Insert
-    fun insert(word: RoomWord)
+    fun insert(word: BookmarkedWord)
 
     @Delete
-    fun delete(word: RoomWord)
+    fun delete(word: BookmarkedWord)
 
     @Query("DELETE FROM word_table WHERE id = :wordId")
     fun deleteWordById(wordId: String)
@@ -28,9 +28,9 @@ interface RoomWordDao {
     fun deleteAllWords()
 
     @Query("SELECT * FROM word_table ORDER BY id ASC")
-    fun getAllWordsAsc(): LiveData<List<RoomWord>>
+    fun getAllWordsAsc(): LiveData<List<BookmarkedWord>>
 
     @Query("SELECT * FROM word_table ORDER BY id DESC")
-    fun getAllWordsDesc(): LiveData<List<RoomWord>>
+    fun getAllWordsDesc(): LiveData<List<BookmarkedWord>>
 
 }

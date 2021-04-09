@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        app:contentPadding="5dp"
+        app:cardBackgroundColor="@color/background"
         app:cardElevation="0.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,17 +20,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:paddingHorizontal="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="0dp">
+            android:background="@color/transparent"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineHomeWordDayCardTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.22" />
+                app:layout_constraintGuide_percent="0.2" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineHomeWordDayCardBottom"
@@ -45,8 +45,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/random_word_discovery"
                 android:textAllCaps="true"
-                android:textColor="#343434"
+                android:textColor="@color/textAlt"
                 android:textStyle="bold"
+                android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,8 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvRandomWordLabel"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="homosexual"
-                android:textColor="#343434"
+                android:textColor="@color/textAlt"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guidelineHomeWordDayCardTop" />
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvRandomWordWord"
-                android:textColor="#343434"
+                android:textColor="@color/textAlt"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:textColor="#343434"
+                android:textColor="@color/textAlt"
                 android:textSize="14sp"
                 android:paddingVertical="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"

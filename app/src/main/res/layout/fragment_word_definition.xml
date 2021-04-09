@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:text="A single word"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="32sp"
             android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="The spelling"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSingleWordWord" />
@@ -76,7 +76,8 @@
             android:focusable="true"
             android:src="@drawable/ic_word_definition_add_bookmark_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/word_bookmark_icon"/>
 
 
         <ImageView
@@ -90,7 +91,8 @@
             android:focusable="true"
             android:src="@drawable/ic_word_definition_hear_spelling_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/ivToggleBookmark" />
+            app:layout_constraintEnd_toStartOf="@+id/ivToggleBookmark"
+            android:contentDescription="@string/word_hear"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -99,7 +101,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/white"
+        android:background="@color/background"
         android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +129,7 @@
             android:fontFamily="@font/montserrat"
             android:text="Definition"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/mainText"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
@@ -141,6 +143,7 @@
             android:layout_marginTop="8dp"
             android:text="The definition"
             android:textSize="16sp"
+            android:textColor="@color/textAlt"
             app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
             app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordDefinitionLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvDefinitionLabel" />
@@ -160,7 +163,7 @@
             android:fontFamily="@font/montserrat"
             android:text="Is it Offensive?"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/mainText"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
@@ -174,6 +177,7 @@
             android:layout_marginTop="8dp"
             android:text="text for levels of offensiveness"
             android:textSize="16sp"
+            android:textColor="@color/textAlt"
             app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
             app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordDefinitionLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvOffensiveLabel" />
@@ -187,7 +191,7 @@
             android:text="Flag"
             android:visibility="gone"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/mainText"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"

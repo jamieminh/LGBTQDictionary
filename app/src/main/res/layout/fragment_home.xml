@@ -1,181 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcome_splash_bg"
-    tools:context=".views.HomeFragment">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHomeTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.02" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHomeMid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clHomeUpper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHomeTop">
-
-        <RelativeLayout
-            android:id="@+id/rlAppHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/ivAppLogoHome"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_splash_screen_logo" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:layout_toEndOf="@id/ivAppLogoHome"
-                android:src="@drawable/app_logo_text_white" />
-
-        </RelativeLayout>
-
-
-        <EditText
-            android:id="@+id/etSearchBox"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/search_box_outline"
-            android:hint="Find a word"
-            android:inputType="text"
-            android:paddingVertical="7dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="20dp"
-            android:textColor="#5C5C5C"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rlAppHeader" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/etSearchBox"
-            android:layout_weight="1"
-            android:contentDescription="search-icon"
-            android:paddingEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/etSearchBox"
-            app:layout_constraintEnd_toEndOf="@+id/etSearchBox"
-            app:layout_constraintTop_toTopOf="@+id/etSearchBox"
-            app:srcCompat="@drawable/ic_search_18" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHomeWordDayTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.21" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHomeWordDayBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/relativeLayout"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragmentHome"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/clHomeUpper"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHomeMid">
+        android:layout_height="wrap_content"
+        tools:context=".views.HomeFragment">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRecentWordTop"
+            android:id="@+id/guidelineHomeMid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.26" />
+            app:layout_constraintGuide_percent="0.2" />
+
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRecentWordLeft"
+            android:id="@+id/guidelineHomeWordDayTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRecentWordRight"
+            android:id="@+id/guidelineHomeWordDayBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.95" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.4" />
 
-        <TextView
-            android:id="@+id/textView"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guidelineHomeMid">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRecentWordTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRecentWordLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRecentWordRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recent_searches_label"
+                android:textColor="@color/mainText"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guidelineRecentWordLeft"
+                app:layout_constraintTop_toTopOf="@+id/guidelineRecentWordTop" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRecentSearches"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineRecentWordRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineRecentWordLeft"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpWordsOfDay"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineHomeWordDayBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guidelineHomeWordDayTop" />
+
+        <ProgressBar
+            android:id="@+id/wordsDayProgressBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RECENT SEARCHES"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRecentWordLeft"
-            app:layout_constraintTop_toTopOf="@+id/guidelineRecentWordTop" />
+            android:indeterminateDrawable="@drawable/custom_progress_bar"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineHomeWordDayBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/vpWordsOfDay" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecentSearches"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineRecentWordRight"
-            app:layout_constraintStart_toStartOf="@+id/guidelineRecentWordLeft"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vpWordsOfDay"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:overScrollMode="never"
-        android:clipToPadding="false"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineHomeWordDayBottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHomeWordDayTop" />
-
-    <ProgressBar
-        android:id="@+id/wordsDayProgressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateDrawable="@drawable/custom_progress_bar"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineHomeWordDayBottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/vpWordsOfDay" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

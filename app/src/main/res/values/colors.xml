@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="primary">#106BDA</color>
+    <color name="primary_heavy">#0033B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
@@ -10,8 +9,21 @@
     <color name="header_bg">#28A49A</color>
     <color name="card_bottom_border">#939393</color>
 
+    <color name="wordMainText">#FFFFFFFF</color>
+    <color name="mainText">#FF000000</color>
+    <color name="textAlt">#FF343434</color>
+    <color name="background">#FFFFFFFF</color>
+
     <color name="card01">#E6C1586D</color>
     <color name="card02">#E6D1B633</color>
     <color name="card03">#E639BD98</color>
     <color name="card04">#E64574D1</color>
+
+    <color name="onBoard">#5FB2E0</color>
+    <color name="onBoardEnd">#75E9BF</color>
+
+    <color name="navNar">#24AE7D</color>
+    <color name="randomCard">#99636363</color>
+    <color name="cardSlightTransparent">#99FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

@@ -26,7 +26,7 @@ class WordsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryWordsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.general_words_list_layout,
+            R.layout.list_layout_words,
             parent,
             false
         )

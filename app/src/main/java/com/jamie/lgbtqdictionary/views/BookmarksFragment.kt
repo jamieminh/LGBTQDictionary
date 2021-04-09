@@ -1,5 +1,6 @@
 package com.jamie.lgbtqdictionary.views
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,15 +24,23 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
 
     private lateinit var roomWordViewModel: RoomWordViewModel
     private lateinit var globalProps : GlobalProperties
-    lateinit var bookmarksRv : RecyclerView
-
+    private lateinit var bookmarksRv : RecyclerView
     private lateinit var sortBtn: ImageView
     private lateinit var deleteAllBtn: ImageView
     private lateinit var adapter: BookmarksAdapter
+    private lateinit var mActivity: FragmentActivity
 
     // although when launched, the words are not ordered by alphabet, but buy inserted time,
     // this var is set to desc so that if user tap sort, words will be sorted in ascending order
     private var currentSortOrder = "desc"
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is FragmentActivity) {
+            mActivity = context
+        }
+    }
 
 
     override fun onCreateView(
@@ -46,16 +56,16 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
         sortBtn = view.findViewById(R.id.ivBookmarksSort)
         deleteAllBtn = view.findViewById(R.id.ivBookmarksDeleteAll)
 
-        val factory = RoomWordViewModelFactory(activity!!.application)
+        val factory = RoomWordViewModelFactory(mActivity.application)
         roomWordViewModel = ViewModelProvider(this, factory).get(RoomWordViewModel::class.java)
 
-        adapter = BookmarksAdapter(roomWordViewModel, globalProps.navStack, activity!!.supportFragmentManager)
+        adapter = BookmarksAdapter(roomWordViewModel, globalProps.navStack, mActivity.supportFragmentManager)
         bookmarksRv.adapter = adapter
         bookmarksRv.setHasFixedSize(true)
         bookmarksRv.layoutManager = LinearLayoutManager(this.context)
 
 
-        roomWordViewModel.getAllWords().observe(this, { words ->
+        roomWordViewModel.getAllBookmarks().observe(this, { words ->
             words.forEach{ Log.i("Room Words", it.word)}
             adapter.setChangedWords(words)
         })
@@ -70,7 +80,7 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
 
     private fun deleteAllHandler() {
         Toast.makeText(this.context, "DELETING ALL...", Toast.LENGTH_LONG).show()
-        roomWordViewModel.deleteAll()
+        roomWordViewModel.deleteAllBookmarks()
     }
 
     private fun onSortHandler() {
@@ -79,7 +89,7 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
             sortBtn.setImageResource(R.drawable.ic_sort_asc)
             sortBtn.tag = R.drawable.ic_sort_asc
 
-            roomWordViewModel.getAllWordsDesc().observe(this, { words ->
+            roomWordViewModel.getAllBookmarksDesc().observe(this, { words ->
                 words.forEach{ Log.i("Room Words", it.word)}
                 adapter.setChangedWords(words)
             })
@@ -89,7 +99,7 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
             sortBtn.setImageResource(R.drawable.ic_sort_desc)
             sortBtn.tag = R.drawable.ic_sort_desc
 
-            roomWordViewModel.getAllWordsAsc().observe(this, { words ->
+            roomWordViewModel.getAllBookmarksAsc().observe(this, { words ->
                 words.forEach{ Log.i("Room Words", it.word)}
                 adapter.setChangedWords(words)
             })

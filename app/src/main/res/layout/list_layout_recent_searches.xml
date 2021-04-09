@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
@@ -9,30 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentPaddingBottom="1dp"
-        app:cardBackgroundColor="@color/card_bottom_border"
-        >
-
+        android:background="@drawable/ripple_effect"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/card_bottom_border">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="12dp">
+        android:background="@color/background"
+        android:paddingVertical="8dp">
 
         <TextView
             android:id="@+id/tvRecentSearchWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="A dictionary word"
+            android:fontFamily="@font/open_sans"
+            android:textColor="@color/mainText"
             android:textSize="16sp"
-            android:textColor="#343434" />
-
-        <TextView
-            android:id="@+id/tvRecentSearchSpelling"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="spelling" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvRecentSearchDefinition"
@@ -40,10 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvRecentSearchWord"
             android:layout_marginTop="10dp"
-            android:text="Some long long long definition goes here"
+            android:textColor="@color/textAlt"
             />
-
-
 
 
     </RelativeLayout>

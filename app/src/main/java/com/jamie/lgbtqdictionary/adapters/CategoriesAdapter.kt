@@ -32,7 +32,7 @@ class CategoriesAdapter(
 ) : FirebaseRecyclerAdapter<Category, CategoriesViewHolder>(options) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.categories_list_layout,
+            R.layout.list_layout_categories,
             parent,
             false
         )

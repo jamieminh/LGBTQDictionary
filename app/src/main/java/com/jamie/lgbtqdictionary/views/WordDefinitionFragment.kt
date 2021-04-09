@@ -1,10 +1,8 @@
 package com.jamie.lgbtqdictionary.views
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
-import android.speech.tts.Voice
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +11,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.MainActivity
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.databinding.ActivityMainBinding
-import com.jamie.lgbtqdictionary.models.words.RoomWord
+import com.jamie.lgbtqdictionary.models.words.BookmarkedWord
 import com.jamie.lgbtqdictionary.models.words.Word
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModelFactory
@@ -36,13 +36,24 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
     private lateinit var hearPronunciation: ImageView
     private lateinit var flagLabel: TextView
     private lateinit var bindingMain: ActivityMainBinding
-    private lateinit var tts: TextToSpeech
+    private lateinit var globalProps: GlobalProperties
+
 
     private val addBookmarkDrawable = R.drawable.ic_word_definition_add_bookmark_24
     private val removeBookmarkDrawable = R.drawable.ic_word_definition_remove_bookmark_24
 
     private lateinit var roomWordViewModel: RoomWordViewModel
-    private lateinit var roomWord: RoomWord
+    private lateinit var bookmarkedWord: BookmarkedWord
+
+    private lateinit var mActivity: FragmentActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is FragmentActivity) {
+            mActivity = context
+        }
+    }
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -54,7 +65,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         val view = inflater.inflate(R.layout.fragment_word_definition, container, false)
         bindingMain = (activity as MainActivity).binding
         val word = arguments!!.getSerializable("word") as Word
-        val clHeader = activity!!.findViewById<ConstraintLayout>(R.id.clHeaderArea)
+        val clHeader = mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea)
         // un-hide the header area when loading words in case user came from HOME
         clHeader.visibility = ConstraintLayout.VISIBLE
 
@@ -77,17 +88,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
             else -> "TBD"
         }
 
-        // initialize TextToSpeech engine
-        tts = TextToSpeech(this.context) {
-            if (it == TextToSpeech.SUCCESS) {
-                val result = tts.setLanguage(Locale.ENGLISH)
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.e("TTS", "Language not supported")
-                }
-            } else {
-                Log.e("TTS", "Initialization failed")
-            }
-        }
+        globalProps = mActivity.application.applicationContext as GlobalProperties
 
         // if there's no flag attribute, display the label and the flag
         if (word.flag != "") {
@@ -97,11 +98,11 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
             Glide.with(wordFlag.context).load(word.flag).into(wordFlag)
         }
 
-        val factory = RoomWordViewModelFactory(activity!!.application)
+        val factory = RoomWordViewModelFactory(mActivity.application)
         roomWordViewModel = ViewModelProvider(this, factory).get(RoomWordViewModel::class.java)
 
 
-        roomWordViewModel.getOne(word.id).observe(this, {
+        roomWordViewModel.getOneBookmark(word.id).observe(this, {
             // true means the word is not found in db, thus this word is not bookmarked
             if (it == null) {
                 toggleBookmark.setImageResource(addBookmarkDrawable)
@@ -123,7 +124,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
 
     // function to adding the word to user bookmarks, which is in local storage
     private fun onTapBookmarkToggle(word: Word) {
-        roomWord = RoomWord(
+        bookmarkedWord = BookmarkedWord(
             word.id,
             word.word,
             word.pronunciation,
@@ -138,7 +139,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         if (toggleBookmark.tag == addBookmarkDrawable) {
             Toast.makeText(this.context, "'${word.word}' has been added to your bookmarks", Toast.LENGTH_LONG).show()
             // ADD WORD TO LOCAL STORAGE
-            roomWordViewModel.insert(roomWord)
+            roomWordViewModel.insertBookmark(bookmarkedWord)
 
             // show a badge on the bookmark nav icon
             bindingMain.bottomNavBar.showBadge(R.id.nav_bookmarks)
@@ -150,7 +151,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
             Toast.makeText(this.context, "'${word.word}' has been removed from your bookmarks", Toast.LENGTH_LONG)
                 .show()
             // REMOVE WORD FROM LOCAL STORAGE
-            roomWordViewModel.delete(roomWord)
+            roomWordViewModel.deleteBookmark(bookmarkedWord)
 
             // switch to 'add' icon
             toggleBookmark.setImageResource(addBookmarkDrawable)
@@ -160,22 +161,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
 
     // function to convert word text to speech for user
     private fun onTapHearPronunciation() {
-        val a: Set<String> = HashSet()
-        a.plus("female")
-
-        val voice = Voice(
-            "en-gb-x-rjs#female_1-local", Locale("en", "GB"),
-            Voice.QUALITY_VERY_HIGH, Voice.LATENCY_NORMAL,
-            true, a
-        )
-        tts.voice = voice
-        tts.setSpeechRate(0.4F)
-        tts.speak(wordWord.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+        globalProps.ttsSpeak(wordWord.text.toString())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        tts.stop()
-        tts.shutdown()
-    }
 }

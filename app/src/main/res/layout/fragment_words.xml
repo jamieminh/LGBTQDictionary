@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.WordsFragment">
 
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/oswald"
         android:textAllCaps="true"
-        android:textColor="#393939"
+        android:textColor="@color/mainText"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRecyclerRight"

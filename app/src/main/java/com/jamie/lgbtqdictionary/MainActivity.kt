@@ -1,15 +1,26 @@
 package com.jamie.lgbtqdictionary
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.jamie.lgbtqdictionary.databinding.ActivityMainBinding
+import com.jamie.lgbtqdictionary.models.words.RecentSearchWord
+import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
+import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModelFactory
 import com.jamie.lgbtqdictionary.views.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,37 +34,77 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bookmarksFragment: BookmarksFragment
     private lateinit var settingsFragment: SettingsFragment
     private lateinit var backBtn: ImageView
+    private lateinit var searchBtn: ImageView
+    private lateinit var appHeader: RelativeLayout
 
-    private lateinit var globalProps : GlobalProperties
+    private lateinit var globalProps: GlobalProperties
+    private var backPressTime: Long = 0
 
-    private var backPressTime : Long = 0
+    private lateinit var roomWordViewModel: RoomWordViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         // replace the splash screen theme with the main theme BEFORE setContentView
         setTheme(R.style.Theme_LGBTQDictionary)
         setContentView(binding.root)
 
-        // stop dark mode
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        val sharedPrefs = getSharedPreferences("prefs", MODE_PRIVATE)
+        val isNightMode = sharedPrefs.getBoolean("isNightMode", false)
+
+        if (isNightMode) {      // if user already set night mode
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
+        val isAutoRotate = sharedPrefs.getBoolean("isAutoRotate", true)
+        if (!isAutoRotate) {      // if user already set lock portrait
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
 
         homeFragment = HomeFragment()
         categoriesFragment = CategoriesFragment()
         bookmarksFragment = BookmarksFragment()
         settingsFragment = SettingsFragment()
         backBtn = findViewById(R.id.ivBackBtn)
+        searchBtn = findViewById(R.id.ivSearchBtn)
+        appHeader = findViewById(R.id.rlAppHeader)
 
         backBtn.setOnClickListener { onBackPressed() }
+        searchBtn.setOnClickListener { searchForWord() }
 
         // use navStack as global variable to add labels of nav items to later display then when
         // user press back button. Using global prevent its destruction when orientation changes
         globalProps = application.applicationContext as GlobalProperties
 
-        setInitTab()
-        tabBarChangeHandler()
+        // if there's no preference of this key, set the val to true
+        val isFirstTime = sharedPrefs.getBoolean("isFirstTime", true)
 
+        // if it's user first time (true), show the on board screen, else show Home screen
+        if (isFirstTime) {
+            // hide headers and nav bar
+            appHeader.visibility = RelativeLayout.GONE
+            findViewById<ConstraintLayout>(R.id.clHeaderArea).visibility = ConstraintLayout.GONE
+            findViewById<ConstraintLayout>(R.id.bottom_nav_bar).visibility = ConstraintLayout.GONE
+
+            // set main_activity background for on board screen
+            window.decorView.setBackgroundColor(R.drawable.on_board_bg)
+            sharedPrefs.edit().putBoolean("isFirstTime", false).apply()     // set isFirstTime to false
+            // load the onBoardFragment
+            val onBoardFragment = OnBoardFragment()
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragmentContainer, onBoardFragment)
+                commit()
+            }
+        }
+        else {
+            setInitTab()
+        }
+
+
+
+        tabBarChangeHandler()
 
     }
 
@@ -67,17 +118,28 @@ class MainActivity : AppCompatActivity() {
             // set initial active nav item in the nav bar
             bottom_nav_bar.setItemSelected(R.id.nav_home)
             // setup home fragment as the first fragment user see
-            clHeaderArea.visibility = View.GONE
+            showAppLogo(true)
 
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.flFragmentContainer, homeFragment)
                 commit()
             }
         }
+        else {
+            showAppLogo(currentFragment is HomeFragment)
+        }
 
-        // if the current tab is Home, prevent the general header from showing
-        if (currentFragment is HomeFragment) {
-            clHeaderArea.visibility = View.GONE
+    }
+
+    private fun showAppLogo(isHome: Boolean) {
+        // if the current tab is Home, show the logo area and hide the back btn
+        if (isHome) {
+            appHeader.visibility = View.VISIBLE
+            backBtn.visibility = ImageView.GONE
+        }
+        else {
+            appHeader.visibility = View.GONE
+            backBtn.visibility = ImageView.VISIBLE
         }
     }
 
@@ -85,43 +147,25 @@ class MainActivity : AppCompatActivity() {
     private fun tabBarChangeHandler() {
         bottom_nav_bar.setOnItemSelectedListener {
             when (it) {
-                R.id.nav_home -> transactNavigationFragment(homeFragment, "HOME")
-                R.id.nav_categories -> transactNavigationFragment(categoriesFragment,"CATEGORIES")
+                R.id.nav_home -> transactNavigationFragment(homeFragment)
+                R.id.nav_categories -> transactNavigationFragment(categoriesFragment)
                 R.id.nav_bookmarks -> {
                     binding.bottomNavBar.dismissBadge(R.id.nav_bookmarks)
-                    transactNavigationFragment(bookmarksFragment, "BOOKMARKS")
+                    transactNavigationFragment(bookmarksFragment)
                 }
-                R.id.nav_settings -> transactNavigationFragment(settingsFragment, "SETTINGS")
+                R.id.nav_settings -> transactNavigationFragment(settingsFragment)
             }
         }
 
     }
 
-    private fun transactNavigationFragment(fragment: Fragment, label: String) {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)
-//        Toast.makeText(this, currentFragment.toString(), Toast.LENGTH_LONG).show()
-
-        // add the current fragment label to a stack to later pop them and set selected item accordingly
-        when(currentFragment) {
-            is HomeFragment -> globalProps.navStack.push("HOME")
-            is CategoriesFragment, is WordsFragment -> globalProps.navStack.push("CATEGORIES")
-            is BookmarksFragment -> globalProps.navStack.push("BOOKMARKS")
-            is SettingsFragment, is AboutFragment -> globalProps.navStack.push("SETTINGS")
-            // handle cases for WordDefinitionFragment, because this one can be init from multiple places
-            else -> {
-                val fromFragment = globalProps.navStack.peek()
-                globalProps.navStack.push(fromFragment)
-            }
-        }
+    private fun transactNavigationFragment(fragment: Fragment) {
         // push the current label before transitioning
+        pushNavStack()
         globalProps.navStack.toArray().forEach { Log.i("NAVITEM", it.toString()) }
 
-        if (fragment is HomeFragment) {
-            clHeaderArea.visibility = View.GONE         // hide the general header area
-        } else {
-            clHeaderArea.visibility = View.VISIBLE      // un-hide the header area
-        }
-
+        // if the next fragment is Home, show the logo area and hide the back btn
+        showAppLogo(fragment is HomeFragment)
 
         supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(
@@ -134,8 +178,65 @@ class MainActivity : AppCompatActivity() {
             addToBackStack(null)
             commit()
         }
+    }
+
+    // initiate search when user press Enter on the keyboard
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        return when (keyCode) {
+            KeyEvent.KEYCODE_ENTER -> {
+                searchForWord()
+                true
+            }
+            else -> super.onKeyUp(keyCode, event)
+        }
+    }
+
+    // function to look for the user input query in firebase
+    private fun searchForWord() {
+        val searchQuery = etSearchBox.text.toString().trim()
+        if (searchQuery != "") {
+            val factory = RoomWordViewModelFactory(application)
+            roomWordViewModel = ViewModelProvider(this, factory).get(RoomWordViewModel::class.java)
+            Toast.makeText(this, (System.currentTimeMillis()/1000).toInt().toString(), Toast.LENGTH_LONG).show()
+            roomWordViewModel.insertOneRecentSearch(
+                RecentSearchWord(searchQuery, (System.currentTimeMillis()/1000).toInt()
+            ))
+            // send query to the search results fragment, where it will be searched and displayed by the firebase adapter
+            val searchResultsFragment = SearchResultsFragment()
+            val bundle = Bundle()
+            bundle.putString("query", searchQuery)
+
+            pushNavStack()
+            searchResultsFragment.arguments = bundle
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragmentContainer, searchResultsFragment)
+                addToBackStack(null)
+                commit()
+            }
+        }
+        // hide the keyboard from screen
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(
+            currentFocus!!.windowToken,
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
 
     }
+
+    private fun pushNavStack() {
+        when (supportFragmentManager.findFragmentById(R.id.flFragmentContainer)) {
+            is HomeFragment -> globalProps.navStack.push("HOME")
+            is CategoriesFragment, is WordsFragment -> globalProps.navStack.push("CATEGORIES")
+            is BookmarksFragment -> globalProps.navStack.push("BOOKMARKS")
+            is SettingsFragment, is AboutFragment -> globalProps.navStack.push("SETTINGS")
+            // handle cases for WordDefinitionFragment, because this one can be init from multiple places
+            else -> {
+                val fromFragment = globalProps.navStack.peek()
+                globalProps.navStack.push(fromFragment)
+            }
+        }
+    }
+
 
     override fun onBackPressed() {
         if (globalProps.navStack.isEmpty()) {
@@ -144,20 +245,16 @@ class MainActivity : AppCompatActivity() {
             if (backPressTime + 2000 > System.currentTimeMillis()) {
                 super.onBackPressed()
                 return
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Press back again to exit", Toast.LENGTH_LONG).show()
             }
             backPressTime = System.currentTimeMillis()
-        }
-        else {
+        } else {
             super.onBackPressed()
             val prevHeader = globalProps.navStack.pop()
             globalProps.navStack.toArray().forEach { Log.i("BACKSTACK", it.toString()) }
 
-            if (prevHeader == "HOME") {
-                clHeaderArea.visibility = View.GONE         // hide the general header area
-            }
+            showAppLogo(prevHeader == "HOME")
 
             // listener when back-stack -> do nothing
             bottom_nav_bar.setOnItemSelectedListener {

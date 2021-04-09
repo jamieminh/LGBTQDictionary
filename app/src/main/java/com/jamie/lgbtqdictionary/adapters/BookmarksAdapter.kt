@@ -6,39 +6,37 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jamie.lgbtqdictionary.R
-import com.jamie.lgbtqdictionary.models.words.RoomWord
+import com.jamie.lgbtqdictionary.models.words.BookmarkedWord
 import com.jamie.lgbtqdictionary.models.words.Word
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
 import com.jamie.lgbtqdictionary.views.WordDefinitionFragment
 import java.util.*
 
 class BookmarksAdapter(
-//    var words: List<RoomWord>,
     var roomWordViewModel: RoomWordViewModel,
     var navItemBackStack: Stack<String>,
     private val supportFragmentManager: FragmentManager
 ) : RecyclerView.Adapter<BookmarksViewHolder>() {
 
-    // a sample init so the app wont crash, the value doesn't matter
-    // since it will later be replaced
-    var words: List<RoomWord> = listOf(RoomWord("-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1"))
-    private lateinit var bookmarkedCard: CardView
-    private lateinit var removeBookmark: ImageView
+    // a placeholder so the app wont crash, the value doesn't matter, it will later be replaced
+    var words: List<BookmarkedWord> = listOf(BookmarkedWord("", "", "", "", "", "", "", ""))
+    private lateinit var bookmarkedCard: ConstraintLayout
+    private lateinit var removeBookmark: RelativeLayout
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarksViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.bookmarked_words_list_layout,
+            R.layout.list_layout_bookmarked_words,
             parent,
             false
         )
-        bookmarkedCard = view.findViewById(R.id.cvBookmarkedWord)
-        removeBookmark = view.findViewById(R.id.ivRemoveBookmarked)
+        bookmarkedCard = view.findViewById(R.id.clBookmarkedWord)
+        removeBookmark = view.findViewById(R.id.rlRemoveBookmark)
         return BookmarksViewHolder(view)
     }
 
@@ -75,7 +73,7 @@ class BookmarksAdapter(
         }
 
         removeBookmark.setOnClickListener {
-            roomWordViewModel.delete(words[position])
+            roomWordViewModel.deleteBookmark(words[position])
         }
     }
 
@@ -83,7 +81,7 @@ class BookmarksAdapter(
         return words.size
     }
 
-    fun setChangedWords(changedWords: List<RoomWord>) {
+    fun setChangedWords(changedWords: List<BookmarkedWord>) {
         words = changedWords
         notifyDataSetChanged()
     }
@@ -99,8 +97,8 @@ class BookmarksViewHolder(itemVIew: View) :
         val bookmarkWord = itemView.findViewById<TextView>(R.id.tvBookmarkedWord)
         val bookmarkDefinition = itemView.findViewById<TextView>(R.id.tvBookmarkedWordDefinition)
         bookmarkWord.text = word
-        if (definition.length > 80) {
-            bookmarkDefinition.text = definition.substring(0, 80) + "..."
+        if (definition.length > 70) {
+            bookmarkDefinition.text = definition.substring(0, 70) + "..."
         } else {
             bookmarkDefinition.text = definition
         }

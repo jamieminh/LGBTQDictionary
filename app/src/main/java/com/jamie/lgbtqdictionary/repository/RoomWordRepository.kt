@@ -3,45 +3,57 @@ package com.jamie.lgbtqdictionary.repository
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
-import com.jamie.lgbtqdictionary.models.words.RoomWord
-import com.jamie.lgbtqdictionary.models.words.RoomWordDao
-import com.jamie.lgbtqdictionary.models.words.RoomWordDatabase
+import com.jamie.lgbtqdictionary.models.words.*
 
 
 class RoomWordRepository(application: Application?) {
-    private var wordDao: RoomWordDao
-    private var allWords: LiveData<List<RoomWord>>
+    private var bookmarkedWordDao: BookmarkedWordDao
+    private var recentSearchesDao: RecentSearchWordDao
+    private var allWords: LiveData<List<BookmarkedWord>>
 
     init {
         val database = RoomWordDatabase.getInstance(application!!.applicationContext)
-        wordDao = database!!.noteDao()
-        allWords = wordDao.getAll()
+        bookmarkedWordDao = database!!.bookmarkedWordDao()
+        recentSearchesDao = database.recentSearchesDao()
+        allWords = bookmarkedWordDao.getAll()
+    }
+
+    fun getRecentSearches(): LiveData<List<RecentSearchWord>> {
+        return recentSearchesDao.getAllMostRecent()
+    }
+
+    fun insertRecentSearch(word: RecentSearchWord) {
+        InsertRecentSearchAsyncTask(recentSearchesDao).execute(word)
+    }
+
+    fun deleteOldSearches() {
+        DeleteNotRecentSearches(recentSearchesDao).execute()
     }
 
 
     // Live data are auto handled by room, but not other data
-    fun getAllWords(): LiveData<List<RoomWord>> {
+    fun getAllWords(): LiveData<List<BookmarkedWord>> {
         return allWords
     }
 
-    fun getAllWordsAsc(): LiveData<List<RoomWord>> {
-        return wordDao.getAllWordsAsc()
+    fun getAllWordsAsc(): LiveData<List<BookmarkedWord>> {
+        return bookmarkedWordDao.getAllWordsAsc()
     }
 
-    fun getAllWordsDesc(): LiveData<List<RoomWord>> {
-        return wordDao.getAllWordsDesc()
+    fun getAllWordsDesc(): LiveData<List<BookmarkedWord>> {
+        return bookmarkedWordDao.getAllWordsDesc()
     }
 
-    fun getOne(wordId: String): LiveData<RoomWord> {
-        return wordDao.getWordById(wordId)
+    fun getOne(wordId: String): LiveData<BookmarkedWord> {
+        return bookmarkedWordDao.getWordById(wordId)
     }
 
-    fun insert(word: RoomWord) {
-        InsertWordAsyncTask(wordDao).execute(word)
+    fun insert(word: BookmarkedWord) {
+        InsertWordAsyncTask(bookmarkedWordDao).execute(word)
     }
 
-    fun delete(word: RoomWord) {
-        DeleteWordAsyncTask(wordDao).execute(word)
+    fun delete(word: BookmarkedWord) {
+        DeleteWordAsyncTask(bookmarkedWordDao).execute(word)
     }
 
     fun deleteById(wordId: String) {
@@ -49,37 +61,53 @@ class RoomWordRepository(application: Application?) {
     }
 
     fun deleteAll() {
-        DeleteAllWordsAsyncTask(wordDao).execute()
+        DeleteAllWordsAsyncTask(bookmarkedWordDao).execute()
     }
 
-    private class InsertWordAsyncTask(private val wordDao: RoomWordDao) :
-        AsyncTask<RoomWord, Void, Void>() {
-        override fun doInBackground(vararg params: RoomWord): Void? {
+    private class InsertWordAsyncTask(private val wordDao: BookmarkedWordDao) :
+        AsyncTask<BookmarkedWord, Void, Void>() {
+        override fun doInBackground(vararg params: BookmarkedWord): Void? {
             wordDao.insert(params[0])
             return null
         }
     }
 
-    private class GetOneRecordAsyncTask(private val wordDao: RoomWordDao) :
-        AsyncTask<RoomWord, Void, Void>() {
-        override fun doInBackground(vararg params: RoomWord): Void? {
+    private class InsertRecentSearchAsyncTask(private val wordDao: RecentSearchWordDao) :
+        AsyncTask<RecentSearchWord, Void, Void>() {
+        override fun doInBackground(vararg params: RecentSearchWord): Void? {
+            wordDao.insert(params[0])
+            return null
+        }
+    }
+
+    private class GetOneRecordAsyncTask(private val wordDao: BookmarkedWordDao) :
+        AsyncTask<BookmarkedWord, Void, Void>() {
+        override fun doInBackground(vararg params: BookmarkedWord): Void? {
             wordDao.getWordById(params[0].id)
             return null
         }
     }
 
-    private class DeleteWordAsyncTask(private val wordDao: RoomWordDao) :
-        AsyncTask<RoomWord, Void, Void>() {
-        override fun doInBackground(vararg params: RoomWord): Void? {
+    private class DeleteWordAsyncTask(private val wordDao: BookmarkedWordDao) :
+        AsyncTask<BookmarkedWord, Void, Void>() {
+        override fun doInBackground(vararg params: BookmarkedWord): Void? {
             wordDao.delete(params[0])
             return null
         }
     }
 
-    private class DeleteAllWordsAsyncTask(private val wordDao: RoomWordDao) :
-        AsyncTask<RoomWord, Void, Void>() {
-        override fun doInBackground(vararg params: RoomWord): Void? {
+    private class DeleteAllWordsAsyncTask(private val wordDao: BookmarkedWordDao) :
+        AsyncTask<BookmarkedWord, Void, Void>() {
+        override fun doInBackground(vararg params: BookmarkedWord): Void? {
             wordDao.deleteAllWords()
+            return null
+        }
+    }
+
+    private class DeleteNotRecentSearches(private val wordDao: RecentSearchWordDao) :
+        AsyncTask<RecentSearchWord, Void, Void>() {
+        override fun doInBackground(vararg params: RecentSearchWord): Void? {
+            wordDao.deleteOldSearches()
             return null
         }
     }

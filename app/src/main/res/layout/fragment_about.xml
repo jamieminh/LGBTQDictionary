@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/background"
     tools:context=".views.AboutFragment">
 
     <ImageView
@@ -14,7 +14,8 @@
         android:layout_below="@+id/tvAppDescription"
         android:src="@drawable/ic_about_mail_24"
         app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
-        app:layout_constraintTop_toTopOf="@+id/guidelineUpperArea" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineUpperArea"
+        android:contentDescription="@string/about_email_icon" />
 
     <ImageView
         android:id="@+id/ivVersion"
@@ -24,7 +25,8 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_about_version_24"
         app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
-        app:layout_constraintTop_toBottomOf="@+id/ivMail" />
+        app:layout_constraintTop_toBottomOf="@+id/ivMail"
+        android:contentDescription="@string/about_version_icon" />
 
     <ImageView
         android:id="@+id/ivCopyright"
@@ -34,7 +36,8 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_about_copyright_24"
         app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
-        app:layout_constraintTop_toBottomOf="@+id/ivVersion" />
+        app:layout_constraintTop_toBottomOf="@+id/ivVersion"
+        android:contentDescription="@string/about_copyright_icon" />
 
     <TextView
         android:id="@+id/tvCopyright"
@@ -45,8 +48,9 @@
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/ivCopyright"
         android:fontFamily="@font/open_sans"
-        android:text="2021 Hue Nguyen. All Rights Reserved."
+        android:text="@string/about_copyright"
         android:textSize="14sp"
+        android:textColor="@color/textAlt"
         app:layout_constraintStart_toEndOf="@+id/ivCopyright"
         app:layout_constraintTop_toBottomOf="@+id/tvVersion" />
 
@@ -59,8 +63,9 @@
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/ivVersion"
         android:fontFamily="@font/open_sans"
-        android:text="Version 1.0.0"
+        android:text="@string/about_version"
         android:textSize="14sp"
+        android:textColor="@color/textAlt"
         app:layout_constraintStart_toEndOf="@+id/ivVersion"
         app:layout_constraintTop_toBottomOf="@+id/tvMail" />
 
@@ -73,8 +78,9 @@
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivMail"
         android:fontFamily="@font/open_sans"
-        android:text="minhhue651999@gmail.com"
+        android:text="@string/about_email"
         android:textSize="14sp"
+        android:textColor="@color/textAlt"
         app:layout_constraintStart_toEndOf="@+id/ivMail"
         app:layout_constraintTop_toTopOf="@+id/guidelineUpperArea" />
 
@@ -85,10 +91,11 @@
         app:layout_constraintDimensionRatio="1:1"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_splash_logo"
+        android:src="@drawable/app_logo"
         app:layout_constraintEnd_toStartOf="@+id/guidelineAppLogo2"
         app:layout_constraintStart_toStartOf="@+id/guidelineAppLogo1"
-        app:layout_constraintTop_toTopOf="@+id/guideline1" />
+        app:layout_constraintTop_toTopOf="@+id/guideline1"
+        android:contentDescription="@string/app_logo_in_about_screen"/>
 
     <ImageView
         android:id="@+id/tvAppName"
@@ -97,13 +104,12 @@
         android:layout_below="@+id/ivAppLogo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:src="@drawable/app_logo_text"
-        android:textSize="30sp"
-        android:textStyle="bold"
+        android:src="@drawable/app_logo_text_about"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
-        app:layout_constraintTop_toBottomOf="@+id/ivAppLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/ivAppLogo"
+        android:contentDescription="@string/app_text_logo_in_about_screen" />
 
     <TextView
         android:id="@+id/tvAppDescription"
@@ -113,7 +119,8 @@
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/open_sans"
         android:text="@string/aboutAppDescription"
-        android:textSize="14sp"
+        android:textSize="15sp"
+        android:textColor="@color/textAlt"
         app:layout_constraintBottom_toTopOf="@+id/guidelineUpperArea"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"

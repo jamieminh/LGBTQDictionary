@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "word_table")
-data class RoomWord(
+data class BookmarkedWord(
     @PrimaryKey val id: String,
     val word: String,
     val pronunciation: String,

@@ -1,152 +1,348 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".views.SettingsFragment">
+    android:fillViewport="true">
 
-
-    <RelativeLayout
-        android:id="@+id/rlToggleDarkMode"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ripple_effect"
-        android:paddingTop="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
-        app:layout_constraintTop_toTopOf="@+id/guidelineSettingsTop">
+        android:background="@color/background"
+        tools:context=".views.SettingsFragment">
 
-        <ImageView
-            android:id="@+id/ivToggleDarkMode"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clToggleDarkMode"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackground"
+            android:backgroundTint="@color/background"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
+            app:layout_constraintTop_toTopOf="@+id/guidelineSettingsTop">
+
+            <ImageView
+                android:id="@+id/ivToggleDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/settings_toggle_dark_mode_icon"
+                android:src="@drawable/ic_settings_dark_mode_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvToggleDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@string/settings_toggle_dark_mode"
+                android:textColor="@color/mainText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivToggleDarkMode"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clToggleAutoRotation"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackground"
+            android:backgroundTint="@color/background"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
+            app:layout_constraintTop_toBottomOf="@+id/clToggleDarkMode">
+
+            <ImageView
+                android:id="@+id/ivToggleAutoRotation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/settings_toggle_auto_rotation_icon"
+                android:src="@drawable/ic_settings_rotation_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvToggleAutoRotation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@string/settings_toggle_auto_rotation"
+                android:textColor="@color/mainText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivToggleAutoRotation"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clReport"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackground"
+            android:backgroundTint="@color/textAlt"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
+            app:layout_constraintTop_toBottomOf="@+id/clSoundSpeed">
+
+            <ImageView
+                android:id="@+id/ivReport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/report_bug_or_send_suggestion_icon"
+                android:src="@drawable/ic_settings_report_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvReport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/report_bug_or_suggestions"
+                android:textColor="@color/mainText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivReport"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clShareApp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackground"
+            android:backgroundTint="@color/background"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
+            app:layout_constraintTop_toBottomOf="@+id/clReport">
+
+            <ImageView
+                android:id="@+id/ivShareApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/settings_share_icon"
+                android:src="@drawable/ic_settings_share_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvShareApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_toEndOf="@+id/ivShareApp"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/settings_share_this_app"
+                android:textColor="@color/mainText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivShareApp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/tvShareApp"
+                android:layout_marginStart="16dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAboutInfo"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackground"
+            android:backgroundTint="@color/textAlt"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
+            app:layout_constraintTop_toBottomOf="@+id/clShareApp">
+
+            <ImageView
+                android:id="@+id/ivAboutInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/settings_about_icon"
+                android:src="@drawable/ic_settings_about_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAboutInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_toEndOf="@+id/ivAboutInfo"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/settings_about"
+                android:textColor="@color/mainText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivAboutInfo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSoundSpeed"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:background="@color/transparent"
+            android:backgroundTint="@color/background"
+            android:paddingTop="13dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
+            app:layout_constraintTop_toBottomOf="@+id/clToggleAutoRotation">
+
+            <ImageView
+                android:id="@+id/ivSoundSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/settings_change_sound_speed_icon"
+                android:src="@drawable/ic_settings_sound_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSoundSpeed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="3dp"
+                android:layout_toEndOf="@+id/ivSoundSpeed"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/sound_speed"
+                android:textColor="@color/mainText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivSoundSpeed"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="48dp" />
+
+            <RadioGroup
+                android:id="@+id/rgSoundSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toBottomOf="@+id/tvSoundSpeed">
+
+                <RadioButton
+                    android:id="@+id/rbSoundSpeedSlower"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sound_speed_slower" />
+
+                <RadioButton
+                    android:id="@+id/rbSoundSpeedSlow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/sound_speed_slow" />
+
+                <RadioButton
+                    android:id="@+id/rbSoundSpeedNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/sound_speed_normal" />
+
+            </RadioGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineSettingsLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Toggle dark mode icon"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_settings_dark_mode_24" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
 
-        <TextView
-            android:id="@+id/tvToggleDarkMode"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineSettingsRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="2dp"
-            android:layout_toEndOf="@+id/ivToggleDarkMode"
-            android:fontFamily="@font/open_sans"
-            android:text="Toggle Dark Mode"
-            android:textColor="#000000" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/tvToggleDarkMode"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="12dp"
-            android:background="@android:color/darker_gray" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlShareApp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ripple_effect"
-        android:paddingTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
-        app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
-        app:layout_constraintTop_toBottomOf="@+id/rlToggleDarkMode">
-
-        <ImageView
-            android:id="@+id/ivShareApp"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineSettingsTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Share All icon"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_settings_share_24" />
-
-        <TextView
-            android:id="@+id/tvShareApp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="2dp"
-            android:layout_toEndOf="@+id/ivShareApp"
-            android:fontFamily="@font/open_sans"
-            android:text="Share This App"
-            android:textColor="#000000" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/tvShareApp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="12dp"
-            android:background="@android:color/darker_gray" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlAboutInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ripple_effect"
-        android:paddingTop="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
-        app:layout_constraintTop_toBottomOf="@+id/rlShareApp">
-
-        <ImageView
-            android:id="@+id/ivAboutInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="About icon"
-            android:src="@drawable/ic_settings_about_24" />
-
-        <TextView
-            android:id="@+id/tvAboutInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="2dp"
-            android:layout_toEndOf="@+id/ivAboutInfo"
-            android:fontFamily="@font/open_sans"
-            android:text="About"
-            android:textColor="#000000" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/tvAboutInfo"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="12dp"
-            android:background="@android:color/darker_gray" />
-    </RelativeLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineSettingsLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineSettingsRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineSettingsTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.03" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
