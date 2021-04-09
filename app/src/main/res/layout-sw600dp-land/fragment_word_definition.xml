@@ -48,7 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
-            android:text="A single word"
             android:textColor="@color/white"
             android:textSize="32sp"
             android:textStyle="bold|italic"
@@ -60,7 +59,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="The spelling"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +72,7 @@
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
+            android:contentDescription="@string/word_bookmark_icon"
             android:src="@drawable/ic_word_definition_add_bookmark_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -88,6 +87,7 @@
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
+            android:contentDescription="@string/word_hear"
             android:src="@drawable/ic_word_definition_hear_spelling_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ivToggleBookmark" />
@@ -139,7 +139,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="The definition"
             android:textSize="16sp"
             android:textColor="@color/textAlt"
             app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
@@ -178,7 +177,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="text for levels of offensiveness"
                 android:textColor="@color/textAlt"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -227,7 +225,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvFlagLabel"
                 app:layout_constraintVertical_bias="1.0"
-                tools:src="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars"
+                android:contentDescription="@string/word_flag_img"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -55,4 +55,5 @@
     <string name="word_hear">tap icon to listen to pronunciation</string>
     <string name="word_bookmark_icon">tap icon to add this word to bookmarks. Tap again to remove it</string>
     <string name="word_flag_img">flag of this gender community</string>
+    <string name="category_image">Category Image</string>
 </resources>

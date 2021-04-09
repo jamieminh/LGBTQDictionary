@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_centerHorizontal="true"
-                android:contentDescription="Category Image"
+                android:contentDescription="@string/category_image"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="1:0.5"
                 app:layout_constraintEnd_toEndOf="parent"

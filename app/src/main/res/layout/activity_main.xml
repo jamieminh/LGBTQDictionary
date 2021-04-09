@@ -73,6 +73,7 @@
             android:paddingEnd="20dp"
             android:textColor="#5C5C5C"
             android:textSize="14sp"
+            android:importantForAutofill="no"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
