@@ -7,81 +7,6 @@
     android:background="#FFFFFF"
     tools:context=".views.AboutFragment">
 
-    <ImageView
-        android:id="@+id/ivMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAppDescription"
-        android:src="@drawable/ic_about_mail_24"
-        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
-        app:layout_constraintTop_toTopOf="@+id/guidelineUpperArea"
-        android:contentDescription="@string/about_email_icon"/>
-
-    <ImageView
-        android:id="@+id/ivVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvMail"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_about_version_24"
-        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
-        app:layout_constraintTop_toBottomOf="@+id/ivMail"
-        android:contentDescription="@string/about_version_icon"/>
-
-    <ImageView
-        android:id="@+id/ivCopyright"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvVersion"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_about_copyright_24"
-        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
-        app:layout_constraintTop_toBottomOf="@+id/ivVersion"
-        android:contentDescription="@string/about_copyright_icon" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvVersion"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/ivCopyright"
-        android:text="@string/about_copyright"
-        android:fontFamily="@font/open_sans"
-        android:textColor="@color/textAlt"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/ivCopyright"
-        app:layout_constraintTop_toBottomOf="@+id/tvVersion" />
-
-    <TextView
-        android:id="@+id/tvVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvMail"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/ivVersion"
-        android:textColor="@color/textAlt"
-        android:text="@string/about_version"
-        android:fontFamily="@font/open_sans"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/ivVersion"
-        app:layout_constraintTop_toBottomOf="@+id/tvMail" />
-
-    <TextView
-        android:id="@+id/tvMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvAppDescription"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
-        android:layout_toEndOf="@+id/ivMail"
-        android:textColor="@color/textAlt"
-        android:text="@string/about_email"
-        android:fontFamily="@font/open_sans"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/ivMail"
-        app:layout_constraintTop_toTopOf="@+id/guidelineUpperArea" />
 
     <ImageView
         android:id="@+id/ivAppLogo"
@@ -143,14 +68,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.36" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineAppLogoRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.64" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineMainRight"
@@ -164,7 +89,97 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.35" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineHeaderArea"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineUpperArea">
+
+        <ImageView
+            android:id="@+id/ivMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/about_email_icon"
+            android:src="@drawable/ic_about_mail_24" />
+
+        <TextView
+            android:id="@+id/tvMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/ivMail"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/about_email"
+            android:textColor="@color/textAlt"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/ivMail" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineHeaderArea"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+        <ImageView
+            android:id="@+id/ivVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/about_version_icon"
+            android:src="@drawable/ic_about_version_24" />
+
+        <TextView
+            android:id="@+id/tvVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/ivVersion"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/about_version"
+            android:textColor="@color/textAlt"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/ivVersion" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineHeaderArea"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+
+        <ImageView
+            android:id="@+id/ivCopyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/about_copyright_icon"
+            android:src="@drawable/ic_about_copyright_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/ivCopyright"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/about_copyright"
+            android:textColor="@color/textAlt"
+            android:textSize="13sp"
+            android:layout_centerVertical="true"
+            app:layout_constraintStart_toEndOf="@+id/ivCopyright" />
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

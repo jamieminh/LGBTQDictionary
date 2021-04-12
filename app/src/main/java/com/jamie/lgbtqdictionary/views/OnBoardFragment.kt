@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
@@ -87,11 +87,13 @@ class OnBoardFragment : Fragment() {
             if (currentPage != 2) {
                 viewPager.currentItem = currentPage + 1
             }
+            // at the last slide, tap "Start"
             else {
                 val homeFragment = HomeFragment()
-                mActivity.findViewById<RelativeLayout>(R.id.rlAppHeader).visibility = ConstraintLayout.VISIBLE
-                mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea).visibility = ConstraintLayout.VISIBLE
                 mActivity.findViewById<ConstraintLayout>(R.id.bottom_nav_bar).visibility = ConstraintLayout.VISIBLE
+
+                val sharedPrefs = mActivity.application.getSharedPreferences("prefs", AppCompatActivity.MODE_PRIVATE)
+                sharedPrefs.edit().putBoolean("isFirstTime", false).apply()     // set isFirstTime to false
 
                 mActivity.supportFragmentManager.beginTransaction().apply {
                     replace(R.id.flFragmentContainer, homeFragment)

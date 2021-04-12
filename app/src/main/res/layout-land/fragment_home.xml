@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/home_recent_searches_label"
-            android:textColor="@color/black"
+            android:textColor="@color/mainText"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guidelineRecentWordTop"
             app:layout_constraintStart_toStartOf="@+id/guidelineRecentWordLeft" />

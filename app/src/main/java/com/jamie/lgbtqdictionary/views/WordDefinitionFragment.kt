@@ -3,6 +3,9 @@ package com.jamie.lgbtqdictionary.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.speech.tts.Voice
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +41,9 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
     private lateinit var bindingMain: ActivityMainBinding
     private lateinit var globalProps: GlobalProperties
 
+    private lateinit var tts: TextToSpeech
+    private var isTTSInit = false
+
 
     private val addBookmarkDrawable = R.drawable.ic_word_definition_add_bookmark_24
     private val removeBookmarkDrawable = R.drawable.ic_word_definition_remove_bookmark_24
@@ -66,8 +72,13 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         bindingMain = (activity as MainActivity).binding
         val word = arguments!!.getSerializable("word") as Word
         val clHeader = mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea)
+        val clAppHeader = mActivity.findViewById<ConstraintLayout>(R.id.clAppHeader)
+        val ivBackBtn = mActivity.findViewById<ImageView>(R.id.ivBackBtn)
+
         // un-hide the header area when loading words in case user came from HOME
         clHeader.visibility = ConstraintLayout.VISIBLE
+        clAppHeader.visibility = ConstraintLayout.GONE
+        ivBackBtn.visibility = ImageView.VISIBLE
 
         wordWord = view.findViewById(R.id.tvSingleWordWord)
         wordSpelling = view.findViewById(R.id.tvSingleWordSpelling)
@@ -76,7 +87,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         toggleBookmark = view.findViewById(R.id.ivToggleBookmark)
         hearPronunciation = view.findViewById(R.id.ivHearSpelling)
 
-
+        // setup values on the fragment
         wordWord.text = word.word
         wordSpelling.text = word.pronunciation
         wordDefinition.text =
@@ -88,9 +99,8 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
             else -> "TBD"
         }
 
-        globalProps = mActivity.application.applicationContext as GlobalProperties
 
-        // if there's no flag attribute, display the label and the flag
+        // if there's a 'flag' image attribute, display the label and the flag
         if (word.flag != "") {
             flagLabel = view.findViewById(R.id.tvFlagLabel)
             wordFlag = view.findViewById(R.id.ivSingleWordFlag)
@@ -102,8 +112,10 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         roomWordViewModel = ViewModelProvider(this, factory).get(RoomWordViewModel::class.java)
 
 
-        roomWordViewModel.getOneBookmark(word.id).observe(this, {
-            // true means the word is not found in db, thus this word is not bookmarked
+        // check if the word is in local storage (bookmarked) and display the icon accordingly
+        Log.i("Definition.Word", word.word)
+        roomWordViewModel.getOneBookmark(word.word).observe(this, {
+            Log.i("Definition.Word.Exist", (it==null).toString())
             if (it == null) {
                 toggleBookmark.setImageResource(addBookmarkDrawable)
                 toggleBookmark.tag = addBookmarkDrawable
@@ -115,6 +127,35 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
 
         })
 
+        // setup text-to-speech engine
+        val a: Set<String> = HashSet()
+        a.plus("female")
+
+        val voice = Voice(
+            "en-gb-x-rjs#female_1-local", Locale("en", "GB"),
+            Voice.QUALITY_VERY_HIGH, Voice.LATENCY_NORMAL,
+            true, a
+        )
+
+        tts = TextToSpeech(this.context) {
+            if (it == TextToSpeech.SUCCESS) {
+                val result = tts.setLanguage(Locale.UK)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Log.e("TTS", "Language not supported")
+                }
+                else {
+                    isTTSInit = true
+                }
+
+            } else {
+                Log.e("TTS", "Initialization failed")
+            }
+        }
+
+        globalProps = mActivity.application.applicationContext as GlobalProperties
+        tts.voice = voice
+        tts.setSpeechRate(globalProps.ttsSpeed)
+
 
         toggleBookmark.setOnClickListener { onTapBookmarkToggle(word) }
         hearPronunciation.setOnClickListener { onTapHearPronunciation() }
@@ -125,7 +166,6 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
     // function to adding the word to user bookmarks, which is in local storage
     private fun onTapBookmarkToggle(word: Word) {
         bookmarkedWord = BookmarkedWord(
-            word.id,
             word.word,
             word.pronunciation,
             word.definition,
@@ -161,7 +201,15 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
 
     // function to convert word text to speech for user
     private fun onTapHearPronunciation() {
-        globalProps.ttsSpeak(wordWord.text.toString())
+
+        if (!isTTSInit) {
+            return
+        }
+
+        tts.speak(wordWord.text.toString(), TextToSpeech.QUEUE_FLUSH, null, null)
+
+
+
     }
 
 }

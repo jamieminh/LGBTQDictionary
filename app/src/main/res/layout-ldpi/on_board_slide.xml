@@ -21,21 +21,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.07" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.46" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <TextView
         android:id="@+id/tvSlideLabel"
@@ -44,7 +44,7 @@
         android:fontFamily="@font/montserrat"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
         android:id="@+id/tvSlideDescription"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/open_sans"
         android:textAlignment="center"
         android:textColor="#303030"

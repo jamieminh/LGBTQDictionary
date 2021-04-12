@@ -44,8 +44,8 @@ class RoomWordRepository(application: Application?) {
         return bookmarkedWordDao.getAllWordsDesc()
     }
 
-    fun getOne(wordId: String): LiveData<BookmarkedWord> {
-        return bookmarkedWordDao.getWordById(wordId)
+    fun getOne(word: String): LiveData<BookmarkedWord> {
+        return bookmarkedWordDao.getWordByName(word)
     }
 
     fun insert(word: BookmarkedWord) {

@@ -45,7 +45,7 @@ class WordsAdapter(
 
             val bundle = Bundle()
             val wordDefinitionFragment = WordDefinitionFragment()
-            model.id = getRef(position).key.toString()
+//            model.id = getRef(position).key.toString()
             bundle.putSerializable("word", model )
             wordDefinitionFragment.arguments = bundle
 

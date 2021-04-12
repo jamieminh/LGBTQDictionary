@@ -4,7 +4,7 @@
     <string name="nav_text_categories">Categories</string>
     <string name="nav_text_bookmark">Bookmark</string>
     <string name="nav_text_settings">Settings</string>
-    <string name="aboutAppDescription">LGBTQ Dictionary purpose is to provide accurate explanation on words that concern the LGBTQ community, to help bring understanding and knowledge and help people grow and accepted.</string>
+    <string name="aboutAppDescription">LGBTQ Dictionary purpose is to provide accurate explanation on words that concern the LGBTQ community, to help bring understanding and knowledge.</string>
     <string name="bookmarks_remove_all">remove all words from bookmarks</string>
     <string name="bookmarks_sort">sort bookmarked words in ascending or decreasing order</string>
     <string name="random_word_see">SEE DEFINITIONS</string>
@@ -23,7 +23,7 @@
     <string name="settings_about_icon">About icon</string>
     <string name="settings_share_this_app">Share This App</string>
     <string name="settings_share_icon">Share All icon</string>
-    <string name="settings_toggle_dark_mode">Toggle Dark Mode</string>
+    <string name="settings_toggle_dark_mode">Dark Mode</string>
     <string name="settings_toggle_dark_mode_icon">Toggle dark mode icon</string>
     <string name="app_logo_in_about_screen">app logo in about screen</string>
     <string name="about_email">lgbtqdictionary2021@gmail.com</string>
@@ -40,7 +40,7 @@
     <string name="sound_speed_normal">Normal</string>
     <string name="report_bug_or_suggestions">Report bugs or suggestions</string>
     <string name="report_bug_or_send_suggestion_icon">report bug or send suggestion icon</string>
-    <string name="settings_toggle_auto_rotation">Toggle Auto Rotation</string>
+    <string name="settings_toggle_auto_rotation">Auto Rotation</string>
     <string name="settings_toggle_auto_rotation_icon">toggle auto rotation icon</string>
     <string name="home_recent_searches_label">RECENT SEARCHES</string>
     <string name="word_definition">Definition</string>

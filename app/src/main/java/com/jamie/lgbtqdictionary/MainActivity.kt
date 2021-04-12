@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Guideline
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jamie.lgbtqdictionary.databinding.ActivityMainBinding
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var settingsFragment: SettingsFragment
     private lateinit var backBtn: ImageView
     private lateinit var searchBtn: ImageView
-    private lateinit var appHeader: RelativeLayout
+    private lateinit var appHeader: ConstraintLayout
 
     private lateinit var globalProps: GlobalProperties
     private var backPressTime: Long = 0
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         settingsFragment = SettingsFragment()
         backBtn = findViewById(R.id.ivBackBtn)
         searchBtn = findViewById(R.id.ivSearchBtn)
-        appHeader = findViewById(R.id.rlAppHeader)
+        appHeader = findViewById(R.id.clAppHeader)
 
         backBtn.setOnClickListener { onBackPressed() }
         searchBtn.setOnClickListener { searchForWord() }
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
             // set main_activity background for on board screen
             window.decorView.setBackgroundColor(R.drawable.on_board_bg)
-            sharedPrefs.edit().putBoolean("isFirstTime", false).apply()     // set isFirstTime to false
+
             // load the onBoardFragment
             val onBoardFragment = OnBoardFragment()
             supportFragmentManager.beginTransaction().apply {
@@ -101,7 +102,6 @@ class MainActivity : AppCompatActivity() {
         else {
             setInitTab()
         }
-
 
 
         tabBarChangeHandler()
@@ -132,15 +132,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAppLogo(isHome: Boolean) {
+        val guidelineMain = findViewById<Guideline>(R.id.guidelineHeaderArea)
+        val params = guidelineMain.layoutParams as ConstraintLayout.LayoutParams
+
         // if the current tab is Home, show the logo area and hide the back btn
         if (isHome) {
             appHeader.visibility = View.VISIBLE
             backBtn.visibility = ImageView.GONE
+
+            // enlarge the app logo area
+            params.guidePercent = 0.4F
         }
         else {
             appHeader.visibility = View.GONE
             backBtn.visibility = ImageView.VISIBLE
+
+            // shrink the app logo area
+            params.guidePercent = 0.15F
         }
+        guidelineMain.layoutParams = params
+
     }
 
 
@@ -161,7 +172,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun transactNavigationFragment(fragment: Fragment) {
         // push the current label before transitioning
-        pushNavStack()
+        if (fragment is HomeFragment) {
+            // clear back stack
+            val count = supportFragmentManager.backStackEntryCount
+            for (i in 0 until count) {
+                supportFragmentManager.popBackStack()
+            }
+            globalProps.navStack.clear()
+            Log.i("NavStack", globalProps.navStack.size.toString())
+
+        }
+        else {
+            pushNavStack()
+        }
         globalProps.navStack.toArray().forEach { Log.i("NAVITEM", it.toString()) }
 
         // if the next fragment is Home, show the logo area and hide the back btn

@@ -12,8 +12,8 @@ interface BookmarkedWordDao {
     @Query("SELECT * FROM word_table")
     fun getAll(): LiveData<List<BookmarkedWord>>
 
-    @Query("SELECT * FROM word_table WHERE id = :wordId")
-    fun getWordById(wordId: String): LiveData<BookmarkedWord>
+    @Query("SELECT * FROM word_table WHERE word = :word")
+    fun getWordByName(word: String): LiveData<BookmarkedWord>
 
     @Insert
     fun insert(word: BookmarkedWord)
@@ -21,16 +21,13 @@ interface BookmarkedWordDao {
     @Delete
     fun delete(word: BookmarkedWord)
 
-    @Query("DELETE FROM word_table WHERE id = :wordId")
-    fun deleteWordById(wordId: String)
-
     @Query("DELETE FROM word_table")
     fun deleteAllWords()
 
-    @Query("SELECT * FROM word_table ORDER BY id ASC")
+    @Query("SELECT * FROM word_table ORDER BY word ASC")
     fun getAllWordsAsc(): LiveData<List<BookmarkedWord>>
 
-    @Query("SELECT * FROM word_table ORDER BY id DESC")
+    @Query("SELECT * FROM word_table ORDER BY word DESC")
     fun getAllWordsDesc(): LiveData<List<BookmarkedWord>>
 
 }

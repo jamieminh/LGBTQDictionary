@@ -21,7 +21,7 @@ class RecentSearchesAdapter(
 ) : RecyclerView.Adapter<RecentSearchesViewHolder>() {
 
     // a placeholder so the app wont crash, the value doesn't matter, it will later be replaced
-    var words: List<RecentSearchWord> = listOf(RecentSearchWord("-1",  -1))
+    var words: List<RecentSearchWord> = listOf(RecentSearchWord("",  0))
     private lateinit var recentWordCard: CardView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentSearchesViewHolder {

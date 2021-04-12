@@ -4,7 +4,6 @@ import java.io.Serializable
 
 data class Word(
     val word: String,
-    var id: String,
     val pronunciation: String,
     val definition: String,
     val extent: String,
@@ -14,7 +13,7 @@ data class Word(
     val flag: String
 ) : Serializable {
 
-    constructor() : this("", "", "", "", "", "", "", "", "")
+    constructor() : this( "", "", "", "", "", "", "", "")
 
     override fun toString(): String {
         return "$word - $pronunciation"

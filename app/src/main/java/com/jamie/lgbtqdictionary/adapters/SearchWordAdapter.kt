@@ -38,7 +38,6 @@ class SearchWordAdapter(
     }
 
     override fun onBindViewHolder(holder: SearchWordsViewHolder, position: Int, model: Word) {
-        model.id = getRef(position).key.toString()
         holder.setDetails(model)
 
         // remove progress bar when the data is available
@@ -50,7 +49,7 @@ class SearchWordAdapter(
 
             val bundle = Bundle()
             val wordDefinitionFragment = WordDefinitionFragment()
-            model.id = getRef(position).key.toString()
+//            model.id = getRef(position).key.toString()
             bundle.putSerializable("word", model )
             wordDefinitionFragment.arguments = bundle
 

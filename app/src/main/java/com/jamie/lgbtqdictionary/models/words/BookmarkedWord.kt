@@ -5,8 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "word_table")
 data class BookmarkedWord(
-    @PrimaryKey val id: String,
-    val word: String,
+    @PrimaryKey val word: String,
     val pronunciation: String,
     val definition: String,
     val extent: String,
@@ -15,6 +14,6 @@ data class BookmarkedWord(
     val flag: String
 ) {
     override fun toString(): String {
-        return "$id - $word - $pronunciation - $definition - $extent - $offensive - $source - $flag"
+        return "$word - $pronunciation - $definition - $extent - $offensive - $source - $flag"
     }
 }

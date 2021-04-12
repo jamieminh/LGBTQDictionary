@@ -25,7 +25,7 @@ class BookmarksAdapter(
 ) : RecyclerView.Adapter<BookmarksViewHolder>() {
 
     // a placeholder so the app wont crash, the value doesn't matter, it will later be replaced
-    var words: List<BookmarkedWord> = listOf(BookmarkedWord("", "", "", "", "", "", "", ""))
+    var words: List<BookmarkedWord> = listOf(BookmarkedWord("", "", "", "", "", "", ""))
     private lateinit var bookmarkedCard: ConstraintLayout
     private lateinit var removeBookmark: RelativeLayout
 
@@ -53,7 +53,6 @@ class BookmarksAdapter(
             val wordDefinitionFragment = WordDefinitionFragment()
             val word = Word(
                 currentWord.word,
-                currentWord.id,
                 currentWord.pronunciation,
                 currentWord.definition,
                 currentWord.extent,
@@ -97,10 +96,7 @@ class BookmarksViewHolder(itemVIew: View) :
         val bookmarkWord = itemView.findViewById<TextView>(R.id.tvBookmarkedWord)
         val bookmarkDefinition = itemView.findViewById<TextView>(R.id.tvBookmarkedWordDefinition)
         bookmarkWord.text = word
-        if (definition.length > 70) {
-            bookmarkDefinition.text = definition.substring(0, 70) + "..."
-        } else {
-            bookmarkDefinition.text = definition
-        }
+        bookmarkDefinition.text = definition
     }
+
 }

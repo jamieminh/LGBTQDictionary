@@ -10,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -26,6 +28,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private lateinit var clReport: ConstraintLayout
     private lateinit var clShareApp: ConstraintLayout
     private lateinit var clAbout: ConstraintLayout
+    private lateinit var darkModeSwitch: SwitchCompat
+    private lateinit var autoRotateSwitch: SwitchCompat
 
     private lateinit var rgSoundSpeed: RadioGroup
 
@@ -53,7 +57,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         clAutoRotate = view.findViewById(R.id.clToggleAutoRotation)
         clReport = view.findViewById(R.id.clReport)
         clAbout = view.findViewById(R.id.clAboutInfo)
-
+        darkModeSwitch = view.findViewById(R.id.swDarkMode)
+        autoRotateSwitch = view.findViewById(R.id.swAutoRotate)
         rgSoundSpeed = view.findViewById(R.id.rgSoundSpeed)
 
         globalProps = this.context?.applicationContext as GlobalProperties
@@ -66,13 +71,23 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             0.5F -> rgSoundSpeed.check(R.id.rbSoundSpeedNormal)
         }
 
+        // set state of dark mode and auto rotate switches
+        if (sharedPrefs.getBoolean("isNightMode", false)) {
+            darkModeSwitch.isChecked = true
+        }
+        if (sharedPrefs.getBoolean("isAutoRotate", true)) {
+            autoRotateSwitch.isChecked = true
+        }
+
+
 
         // on clicking 'toggle dark mode'
-        clDarkMode.setOnClickListener { toggleDarkMode() }
+        clDarkMode.setOnClickListener { toggleDarkMode(true) }
+        darkModeSwitch.setOnClickListener { toggleDarkMode(false) }
 
         // on clicking 'toggle auto rotation'
-        clAutoRotate.setOnClickListener { toggleAutoRotation() }
-
+        clAutoRotate.setOnClickListener { toggleAutoRotation(true) }
+        autoRotateSwitch.setOnClickListener { toggleAutoRotation(false) }
         // onClick change sound speed
         changeSoundSpeed()
 
@@ -85,31 +100,40 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         return view
     }
 
-    private fun toggleDarkMode() {
+    private fun toggleDarkMode(tapCard: Boolean) {
         val isNightModeOn = sharedPrefs.getBoolean("isNightMode", false)
-        if (!isNightModeOn) {
+
+        if ((!tapCard && darkModeSwitch.isChecked) || (tapCard && !isNightModeOn)) {
             // turn on night mode and set isNightMode to false
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             sharedPrefs.edit().putBoolean("isNightMode", true).apply()
+            darkModeSwitch.isChecked = true
         }
-        else {
+        else if((!tapCard && !darkModeSwitch.isChecked) || (tapCard && isNightModeOn)) {
             // turn off night mode and set isNightMode to false
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             sharedPrefs.edit().putBoolean("isNightMode", false).apply()     // set isFirstTime to false
+            darkModeSwitch.isChecked = false
         }
     }
 
-    private fun toggleAutoRotation() {
+    private fun toggleAutoRotation(tapCard: Boolean) {
         val isAutoRotate = sharedPrefs.getBoolean("isAutoRotate", true)
-        if (!isAutoRotate) {
-            // auto rotate based on user phone setting and set isAutoRotate to false
+        if ((!tapCard && autoRotateSwitch.isChecked) || (tapCard && !isAutoRotate)) {
+            Toast.makeText(this.context, "Below" + (tapCard && !isAutoRotate).toString(), Toast.LENGTH_LONG).show()
+
+            // auto rotate based on user phone setting and set isAutoRotate to true
             activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             sharedPrefs.edit().putBoolean("isAutoRotate", true).apply()
+            autoRotateSwitch.isChecked = true
         }
-        else {
+        else if ((!tapCard && !autoRotateSwitch.isChecked) || (tapCard && isAutoRotate)){
+            Toast.makeText(this.context, "Below" + (tapCard && isAutoRotate).toString(), Toast.LENGTH_LONG).show()
+
             // no rotate, always in portrait mode and set isAutoRotate to false
             activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             sharedPrefs.edit().putBoolean("isAutoRotate", false).apply()
+            autoRotateSwitch.isChecked = false
         }
     }
 

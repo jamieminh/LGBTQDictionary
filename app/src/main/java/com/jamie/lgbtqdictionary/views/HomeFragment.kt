@@ -7,7 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Guideline
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -57,6 +60,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         progressBar = view.findViewById(R.id.wordsDayProgressBar)
         recentSearchesRV = view.findViewById(R.id.rvRecentSearches)
 
+        mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea).visibility = ConstraintLayout.VISIBLE
+        mActivity.findViewById<ConstraintLayout>(R.id.clAppHeader).visibility = ConstraintLayout.VISIBLE
+        mActivity.findViewById<ImageView>(R.id.ivBackBtn).visibility = ImageView.GONE
+
         // get data from firebase
         wordsDayDbRef = FirebaseDatabase.getInstance().getReference("words")
 
@@ -103,7 +110,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         if (globalProps.randomWords.size == 0) {
             wordsDayDbRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    for(i in 1..4) {
+                    for (i in 1..4) {
                         if (globalProps.randomWords.size == 4) {
                             break
                         }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".views.HomeFragment">
@@ -15,21 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.18" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineHomeLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.3" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineHomeRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.7" />
+            app:layout_constraintGuide_percent="0.25" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -37,14 +24,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.05" />
+            app:layout_constraintGuide_percent="0.03" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineHomeWordDayBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.45" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -52,61 +40,61 @@
             android:background="@color/background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guidelineHomeMid"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="@+id/guidelineHomeMid">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineRecentWordTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.25" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="@string/home_recent_searches_label"
-                android:textColor="@color/mainText"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineRecentWordTop"
-                app:layout_constraintStart_toStartOf="@+id/guidelineRecentWordLeft" />
+                app:layout_constraintGuide_percent="0.35" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineRecentWordLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.3" />
+                app:layout_constraintGuide_percent="0.05" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineRecentWordRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.7" />
+                app:layout_constraintGuide_percent="0.95" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recent_searches_label"
+                android:textColor="@color/mainText"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guidelineRecentWordLeft"
+                app:layout_constraintTop_toTopOf="@+id/guidelineRecentWordTop" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRecentSearches"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guidelineRecentWordRight"
                 app:layout_constraintStart_toStartOf="@+id/guidelineRecentWordLeft"
-                app:layout_constraintTop_toTopOf="@+id/guidelineRecentWordTop" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpWordsOfDay"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
             app:layout_constraintBottom_toTopOf="@+id/guidelineHomeWordDayBottom"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineHomeRight"
-            app:layout_constraintStart_toStartOf="@+id/guidelineHomeLeft"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guidelineHomeWordDayTop" />
 
         <ProgressBar
@@ -121,6 +109,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/vpWordsOfDay" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

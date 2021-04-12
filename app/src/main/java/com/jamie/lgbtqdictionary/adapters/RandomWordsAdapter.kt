@@ -2,6 +2,7 @@ package com.jamie.lgbtqdictionary.adapters
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +57,7 @@ class RandomWordsAdapter(
             navItemBackStack.push("HOME")
             val bundle = Bundle()
             val wordDefinitionFragment = WordDefinitionFragment()
+            Log.i("Random.Word.Clicked", cards[position].toString())
             bundle.putSerializable("word", cards[position])
             wordDefinitionFragment.arguments = bundle
 
