@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:paddingBottom="8dp"
+        tools:context=".views.AboutFragment">
+
+
+        <ImageView
+            android:id="@+id/ivAppLogo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/app_logo"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineAppLogo2"
+            app:layout_constraintStart_toStartOf="@+id/guidelineAppLogo1"
+            app:layout_constraintTop_toTopOf="@+id/guideline1"
+            android:contentDescription="@string/app_logo_in_about_screen"/>
+
+        <ImageView
+            android:id="@+id/tvAppName"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivAppLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/app_logo_text_about"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineHeaderArea"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+            app:layout_constraintTop_toBottomOf="@+id/ivAppLogo"
+            android:contentDescription="@string/app_text_logo_in_about_screen" />
+
+        <TextView
+            android:id="@+id/tvAppDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAppName"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/aboutAppDescription"
+            android:textColor="@color/textAlt"
+            android:textSize="13sp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineHeaderArea"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+            app:layout_constraintTop_toBottomOf="@+id/tvAppName" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.02" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineMainLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineAppLogo1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.38" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineAppLogo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.63" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineHeaderArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineHeaderArea"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+            app:layout_constraintTop_toBottomOf="@+id/tvAppDescription">
+
+            <ImageView
+                android:id="@+id/ivMail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/about_email_icon"
+                android:src="@drawable/ic_about_mail_24" />
+
+            <TextView
+                android:id="@+id/tvMail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/ivMail"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/about_email"
+                android:textColor="@color/textAlt"
+                android:textSize="13sp"
+                app:layout_constraintStart_toEndOf="@+id/ivMail" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineHeaderArea"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+            <ImageView
+                android:id="@+id/ivVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/about_version_icon"
+                android:src="@drawable/ic_about_version_24" />
+
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/ivVersion"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/about_version"
+                android:textColor="@color/textAlt"
+                android:textSize="13sp"
+                app:layout_constraintStart_toEndOf="@+id/ivVersion" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineHeaderArea"
+            app:layout_constraintStart_toStartOf="@+id/guidelineMainLeft"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+
+            <ImageView
+                android:id="@+id/ivCopyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/about_copyright_icon"
+                android:src="@drawable/ic_about_copyright_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@+id/ivCopyright"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/about_copyright"
+                android:textColor="@color/textAlt"
+                android:textSize="13sp"
+                android:layout_centerVertical="true"
+                app:layout_constraintStart_toEndOf="@+id/ivCopyright" />
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.WordDefinitionFragment">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineSingleWordUpper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineSingleWordLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineSingleWordRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineSingleWordUpper"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordLeft"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvSingleWordWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/white"
+            android:textSize="23sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSingleWordSpelling"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSingleWordWord" />
+
+        <ImageView
+            android:id="@+id/ivToggleBookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/word_bookmark_icon"
+            android:focusable="true"
+            android:src="@drawable/ic_word_definition_add_bookmark_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/ivHearSpelling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/word_hear"
+            android:focusable="true"
+            android:src="@drawable/ic_word_definition_hear_spelling_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivToggleBookmark" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineSingleWordUpper">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:paddingTop="10dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guidelineSingleWordUpper">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineSingleWordDefinitionLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.1" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineSingleWordDefinitionRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.9" />
+
+            <TextView
+                android:id="@+id/tvDefinitionLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/word_definition"
+                android:textAllCaps="true"
+                android:textColor="@color/mainText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordDefinitionLeft"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSingleWordDefinition"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/textAlt"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordDefinitionLeft"
+                app:layout_constraintTop_toBottomOf="@+id/tvDefinitionLabel" />
+
+
+            <TextView
+                android:id="@+id/tvOffensiveLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/word_offensive"
+                android:textAllCaps="true"
+                android:textColor="@color/mainText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordDefinitionLeft"
+                app:layout_constraintTop_toBottomOf="@+id/tvSingleWordDefinition" />
+
+            <TextView
+                android:id="@+id/tvSingleWordOffensive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/textAlt"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordDefinitionLeft"
+                app:layout_constraintTop_toBottomOf="@+id/tvOffensiveLabel" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineMid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.35" />
+
+
+            <TextView
+                android:id="@+id/tvFlagLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/word_flag"
+                android:textAllCaps="true"
+                android:textColor="@color/mainText"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordDefinitionRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordDefinitionLeft"
+                app:layout_constraintTop_toBottomOf="@+id/tvSingleWordOffensive" />
+
+            <ImageView
+                android:id="@+id/ivSingleWordFlag"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/word_flag_img"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="1:0.6"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineMid"
+                app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordDefinitionLeft"
+                app:layout_constraintTop_toBottomOf="@+id/tvFlagLabel"
+                tools:src="@tools:sample/avatars" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
