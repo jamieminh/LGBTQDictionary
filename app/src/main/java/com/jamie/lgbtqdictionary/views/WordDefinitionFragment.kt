@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.MainActivity
 import com.jamie.lgbtqdictionary.R
@@ -72,13 +73,13 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         bindingMain = (activity as MainActivity).binding
         val word = arguments!!.getSerializable("word") as Word
         val clHeader = mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea)
-        val clAppHeader = mActivity.findViewById<ConstraintLayout>(R.id.clAppHeader)
-        val ivBackBtn = mActivity.findViewById<ImageView>(R.id.ivBackBtn)
 
         // un-hide the header area when loading words in case user came from HOME
         clHeader.visibility = ConstraintLayout.VISIBLE
-        clAppHeader.visibility = ConstraintLayout.GONE
-        ivBackBtn.visibility = ImageView.VISIBLE
+        (activity as MainActivity).showAppLogo(false)
+
+        // deselect nav bar item
+        mActivity.findViewById<ChipNavigationBar>(R.id.bottom_nav_bar).setItemSelected(-1)
 
         wordWord = view.findViewById(R.id.tvSingleWordWord)
         wordSpelling = view.findViewById(R.id.tvSingleWordSpelling)

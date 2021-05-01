@@ -6,11 +6,9 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -36,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var settingsFragment: SettingsFragment
     private lateinit var backBtn: ImageView
     private lateinit var searchBtn: ImageView
-    private lateinit var appHeader: ConstraintLayout
+    private lateinit var homeAppText: ImageView
 
     private lateinit var globalProps: GlobalProperties
     private var backPressTime: Long = 0
@@ -70,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         settingsFragment = SettingsFragment()
         backBtn = findViewById(R.id.ivBackBtn)
         searchBtn = findViewById(R.id.ivSearchBtn)
-        appHeader = findViewById(R.id.clAppHeader)
+        homeAppText = findViewById(R.id.HomeAppText)
 
         backBtn.setOnClickListener { onBackPressed() }
         searchBtn.setOnClickListener { searchForWord() }
@@ -85,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         // if it's user first time (true), show the on board screen, else show Home screen
         if (isFirstTime) {
             // hide headers and nav bar
-            appHeader.visibility = RelativeLayout.GONE
+            homeAppText.visibility = ImageView.GONE
             findViewById<ConstraintLayout>(R.id.clHeaderArea).visibility = ConstraintLayout.GONE
             findViewById<ConstraintLayout>(R.id.bottom_nav_bar).visibility = ConstraintLayout.GONE
 
@@ -98,11 +96,9 @@ class MainActivity : AppCompatActivity() {
                 replace(R.id.flFragmentContainer, onBoardFragment)
                 commit()
             }
-        }
-        else {
+        } else {
             setInitTab()
         }
-
 
         tabBarChangeHandler()
 
@@ -124,27 +120,25 @@ class MainActivity : AppCompatActivity() {
                 replace(R.id.flFragmentContainer, homeFragment)
                 commit()
             }
-        }
-        else {
+        } else {
             showAppLogo(currentFragment is HomeFragment)
         }
 
     }
 
-    private fun showAppLogo(isHome: Boolean) {
+    fun showAppLogo(isHome: Boolean) {
         val guidelineMain = findViewById<Guideline>(R.id.guidelineHeaderArea)
         val params = guidelineMain.layoutParams as ConstraintLayout.LayoutParams
 
         // if the current tab is Home, show the logo area and hide the back btn
         if (isHome) {
-            appHeader.visibility = View.VISIBLE
+            homeAppText.visibility = ImageView.VISIBLE
             backBtn.visibility = ImageView.GONE
 
             // enlarge the app logo area
             params.guidePercent = 0.4F
-        }
-        else {
-            appHeader.visibility = View.GONE
+        } else {
+            homeAppText.visibility = ImageView.GONE
             backBtn.visibility = ImageView.VISIBLE
 
             // shrink the app logo area
@@ -155,10 +149,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun tabBarChangeHandler() {
+    fun tabBarChangeHandler() {
+        // this function is only called when user select a non-active nav item
         bottom_nav_bar.setOnItemSelectedListener {
             when (it) {
-                R.id.nav_home -> transactNavigationFragment(homeFragment)
+                R.id.nav_home -> {
+                    transactNavigationFragment(homeFragment)
+                }
                 R.id.nav_categories -> transactNavigationFragment(categoriesFragment)
                 R.id.nav_bookmarks -> {
                     binding.bottomNavBar.dismissBadge(R.id.nav_bookmarks)
@@ -180,26 +177,47 @@ class MainActivity : AppCompatActivity() {
             }
             globalProps.navStack.clear()
             Log.i("NavStack", globalProps.navStack.size.toString())
-
-        }
-        else {
+        } else {
             pushNavStack()
         }
         globalProps.navStack.toArray().forEach { Log.i("NAVITEM", it.toString()) }
 
         // if the next fragment is Home, show the logo area and hide the back btn
         showAppLogo(fragment is HomeFragment)
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)
+        val animations = transactFragmentAnimation(currentFragment!!, fragment)
 
         supportFragmentManager.beginTransaction().apply {
+            // changing fragment animation
             setCustomAnimations(
+                animations[0], animations[1], animations[2], animations[3]
+            )
+            replace(R.id.flFragmentContainer, fragment)
+            addToBackStack(null)
+            commit()
+        }
+    }
+
+    private fun transactFragmentAnimation(currentFragment: Fragment, nextFragment: Fragment): List<Int> {
+        // ensure fragments come in and out in the right directions
+        if ((nextFragment is HomeFragment) ||
+            (nextFragment is CategoriesFragment) && (currentFragment !is HomeFragment) ||
+            (nextFragment is BookmarksFragment) && (currentFragment is SettingsFragment)
+        ) {
+            return listOf(
+                R.anim.slide_in_from_left,
+                R.anim.slide_out_from_left,
+                R.anim.slide_in_from_right,
+                R.anim.slide_out_from_right
+            )
+        }
+        else {
+            return listOf(
                 R.anim.slide_in_from_right,
                 R.anim.slide_out_from_right,
                 R.anim.slide_in_from_left,
                 R.anim.slide_out_from_left
             )
-            replace(R.id.flFragmentContainer, fragment)
-            addToBackStack(null)
-            commit()
         }
     }
 
@@ -220,10 +238,11 @@ class MainActivity : AppCompatActivity() {
         if (searchQuery != "") {
             val factory = RoomWordViewModelFactory(application)
             roomWordViewModel = ViewModelProvider(this, factory).get(RoomWordViewModel::class.java)
-            Toast.makeText(this, (System.currentTimeMillis()/1000).toInt().toString(), Toast.LENGTH_LONG).show()
             roomWordViewModel.insertOneRecentSearch(
-                RecentSearchWord(searchQuery, (System.currentTimeMillis()/1000).toInt()
-            ))
+                RecentSearchWord(
+                    searchQuery, (System.currentTimeMillis() / 1000).toInt()
+                )
+            )
             // send query to the search results fragment, where it will be searched and displayed by the firebase adapter
             val searchResultsFragment = SearchResultsFragment()
             val bundle = Bundle()
@@ -246,16 +265,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // push the current fragment type into nav name stack
     private fun pushNavStack() {
         when (supportFragmentManager.findFragmentById(R.id.flFragmentContainer)) {
             is HomeFragment -> globalProps.navStack.push("HOME")
-            is CategoriesFragment, is WordsFragment -> globalProps.navStack.push("CATEGORIES")
+            is CategoriesFragment -> globalProps.navStack.push("CATEGORIES")
             is BookmarksFragment -> globalProps.navStack.push("BOOKMARKS")
-            is SettingsFragment, is AboutFragment -> globalProps.navStack.push("SETTINGS")
-            // handle cases for WordDefinitionFragment, because this one can be init from multiple places
+            is SettingsFragment -> globalProps.navStack.push("SETTINGS")
+
+            // for other fragment, a placeholder item is added
             else -> {
-                val fromFragment = globalProps.navStack.peek()
-                globalProps.navStack.push(fromFragment)
+                globalProps.navStack.push("")
             }
         }
     }
@@ -280,8 +300,7 @@ class MainActivity : AppCompatActivity() {
             showAppLogo(prevHeader == "HOME")
 
             // listener when back-stack -> do nothing
-            bottom_nav_bar.setOnItemSelectedListener {
-            }
+            bottom_nav_bar.setOnItemSelectedListener {}
 
             // reverse navigation bar selected item
             when (prevHeader) {
@@ -289,6 +308,7 @@ class MainActivity : AppCompatActivity() {
                 "CATEGORIES" -> bottom_nav_bar.setItemSelected(R.id.nav_categories)
                 "BOOKMARKS" -> bottom_nav_bar.setItemSelected(R.id.nav_bookmarks)
                 "SETTINGS" -> bottom_nav_bar.setItemSelected(R.id.nav_settings)
+                else -> bottom_nav_bar.setItemSelected(-1)
             }
 
             // after changing the checked nav item, resume the usual setOnItemSelectedListener

@@ -1,7 +1,6 @@
 package com.jamie.lgbtqdictionary.adapters
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +30,6 @@ class SearchWordAdapter(
             parent,
             false
         )
-        Log.i("Search.OnCreate", "ON CREATE VIEW HOLDER")
-
 
         return SearchWordsViewHolder(view)
     }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.adapters.WordsAdapter
@@ -45,6 +46,9 @@ class WordsFragment : Fragment(R.layout.fragment_words) {
         wordsRV = view.findViewById(R.id.rvCategoryWords)
         wordsRV.setHasFixedSize(true)
         wordsRV.layoutManager = LinearLayoutManager(this.context)
+
+        // deselect nav bar item
+        mActivity.findViewById<ChipNavigationBar>(R.id.bottom_nav_bar).setItemSelected(-1)
 
         label = view.findViewById(R.id.tvWordsFragmentLabel)
         label.text = arguments!!.get("title").toString()

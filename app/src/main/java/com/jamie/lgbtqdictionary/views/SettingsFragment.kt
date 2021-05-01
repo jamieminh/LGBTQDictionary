@@ -17,6 +17,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.R
 
@@ -175,6 +176,8 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private fun about() {
         globalProps.navStack.push("SETTINGS")
+        mActivity.findViewById<ChipNavigationBar>(R.id.bottom_nav_bar).setItemSelected(-1)
+
         val aboutFragment = AboutFragment()
         val fragmentManager = mActivity.supportFragmentManager
         fragmentManager.beginTransaction().apply {

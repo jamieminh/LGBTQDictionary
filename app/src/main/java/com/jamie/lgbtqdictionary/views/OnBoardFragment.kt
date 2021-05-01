@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.ViewPager
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.adapters.OnBoardPagerAdapter
@@ -87,15 +89,31 @@ class OnBoardFragment : Fragment() {
             if (currentPage != 2) {
                 viewPager.currentItem = currentPage + 1
             }
-            // at the last slide, tap "Start"
+            // at the last slide, tap "Start" to load Home fragment
             else {
                 val homeFragment = HomeFragment()
-                mActivity.findViewById<ConstraintLayout>(R.id.bottom_nav_bar).visibility = ConstraintLayout.VISIBLE
+                val bottomNavBar = mActivity.findViewById<ChipNavigationBar>(R.id.bottom_nav_bar)
+                bottomNavBar.visibility = ConstraintLayout.VISIBLE
+                mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea).visibility = ConstraintLayout.VISIBLE
+                mActivity.findViewById<ImageView>(R.id.ivBackBtn).visibility = ImageView.GONE
+                mActivity.findViewById<ImageView>(R.id.HomeAppText).visibility = ImageView.VISIBLE
 
+                // set isFirstTime to false so user wont see on board screen again
                 val sharedPrefs = mActivity.application.getSharedPreferences("prefs", AppCompatActivity.MODE_PRIVATE)
-                sharedPrefs.edit().putBoolean("isFirstTime", false).apply()     // set isFirstTime to false
+                sharedPrefs.edit().putBoolean("isFirstTime", false).apply()
+
+                // set initial active nav item in the nav bar
+//                bottomNavBar.setOnItemSelectedListener {}
+                bottomNavBar.setItemSelected(R.id.nav_home)
+                // enlarge the app logo area
+//                val guidelineMain = mActivity.findViewById<Guideline>(R.id.guidelineHeaderArea)
+//                val params = guidelineMain.layoutParams as ConstraintLayout.LayoutParams
+//                params.guidePercent = 0.4F
+
+//                (activity as MainActivity).tabBarChangeHandler()
 
                 mActivity.supportFragmentManager.beginTransaction().apply {
+                    remove(this@OnBoardFragment)
                     replace(R.id.flFragmentContainer, homeFragment)
                     commit()
                 }

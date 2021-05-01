@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.ProgressBar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.Guideline
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -60,9 +57,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         progressBar = view.findViewById(R.id.wordsDayProgressBar)
         recentSearchesRV = view.findViewById(R.id.rvRecentSearches)
 
-        mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea).visibility = ConstraintLayout.VISIBLE
-        mActivity.findViewById<ConstraintLayout>(R.id.clAppHeader).visibility = ConstraintLayout.VISIBLE
-        mActivity.findViewById<ImageView>(R.id.ivBackBtn).visibility = ImageView.GONE
+        // display the header area, hide the back button
+//        mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea).visibility = ConstraintLayout.VISIBLE
+//        mActivity.findViewById<ImageView>(R.id.HomeAppText).visibility = ImageView.VISIBLE
+//        mActivity.findViewById<ImageView>(R.id.ivBackBtn).visibility = ImageView.GONE
+
+        // enlarge the header area
+//        val guidelineMain = mActivity.findViewById<Guideline>(R.id.guidelineHeaderArea)
+//        val params = guidelineMain.layoutParams as ConstraintLayout.LayoutParams
+//        params.guidePercent = 0.4F
 
         // get data from firebase
         wordsDayDbRef = FirebaseDatabase.getInstance().getReference("words")
@@ -134,11 +137,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     private fun callAdapter(words: List<Word>) {
-        Log.i("NUll.Context", (globalProps.context == null).toString())
-        Log.i("NUll.words", (words.size).toString())
-        Log.i("NUll.navStack", (globalProps.navStack.size).toString())
-        Log.i("NUll.activity", (activity == null).toString())
-        Log.i("NUll.mActivity", (mActivity == null).toString())
+//        Log.i("NUll.Context", (globalProps.context == null).toString())
+//        Log.i("NUll.words", (words.size).toString())
+//        Log.i("NUll.navStack", (globalProps.navStack.size).toString())
+//        Log.i("NUll.activity", (activity == null).toString())
+//        Log.i("NUll.mActivity", (mActivity == null).toString())
         adapter = RandomWordsAdapter(
             words,
             globalProps.context,
