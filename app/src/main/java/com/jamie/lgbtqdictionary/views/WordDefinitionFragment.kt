@@ -27,6 +27,7 @@ import com.jamie.lgbtqdictionary.models.words.Word
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModelFactory
 import java.util.*
+import kotlin.math.floor
 
 
 class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
@@ -177,7 +178,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
                 word.offensive,
                 word.source,
                 word.flag,
-                Calendar.getInstance().time
+                floor(System.currentTimeMillis().toDouble() / 1000).toInt()
             )
 
             // ADD WORD TO LOCAL STORAGE

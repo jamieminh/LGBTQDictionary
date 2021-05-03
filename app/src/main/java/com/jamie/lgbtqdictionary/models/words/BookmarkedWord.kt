@@ -2,7 +2,6 @@ package com.jamie.lgbtqdictionary.models.words
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(tableName = "word_table")
 data class BookmarkedWord(
@@ -13,7 +12,7 @@ data class BookmarkedWord(
     val offensive: String,
     val source: String,
     val flag: String,
-    val timeAdded: Date
+    val timeAdded: Int
 ) {
     override fun toString(): String {
         return "$word - $pronunciation - $definition - $extent - $offensive - $source - $flag - $timeAdded"

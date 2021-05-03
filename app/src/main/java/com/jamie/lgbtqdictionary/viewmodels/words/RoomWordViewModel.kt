@@ -22,15 +22,19 @@ class RoomWordViewModel(application: Application) : AndroidViewModel(application
         repository.insertRecentSearch(word)
     }
 
-    fun getAllBookmarks(): LiveData<List<BookmarkedWord>> {
+    fun getAllBookmarksAscTime(): LiveData<List<BookmarkedWord>> {
         return repository.getAllWordsAscTime()
     }
 
-    fun getAllBookmarksAsc(): LiveData<List<BookmarkedWord>> {
+    fun getAllBookmarksDescTime(): LiveData<List<BookmarkedWord>> {
+        return repository.getAllWordsDescTime()
+    }
+
+    fun getAllBookmarksAscAlphabet(): LiveData<List<BookmarkedWord>> {
         return repository.getAllWordsAscAlphabet()
     }
 
-    fun getAllBookmarksDesc(): LiveData<List<BookmarkedWord>> {
+    fun getAllBookmarksDescAlphabet(): LiveData<List<BookmarkedWord>> {
         return repository.getAllWordsDescAlphabet()
     }
 

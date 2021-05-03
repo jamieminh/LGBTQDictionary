@@ -20,7 +20,7 @@ class ConfirmDeleteAlertDialog(
         alertBuilder.setTitle("Are you sure")
             .setMessage("Are you sure you want to remove \"${word.word}\" from bookmarks?")
             .setPositiveButton("Yes") { _, _ ->
-                roomWordViewModel.deleteBookmark(word)
+                roomWordViewModel.deleteBookmark(word.word)
             }
             .setNegativeButton("No") { _, _ -> {  }}
 

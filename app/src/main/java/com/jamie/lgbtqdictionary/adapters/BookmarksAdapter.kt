@@ -27,7 +27,7 @@ class BookmarksAdapter(
 ) : RecyclerView.Adapter<BookmarksViewHolder>() {
 
     // a placeholder so the app wont crash, the value doesn't matter, it will later be replaced
-    var words: List<BookmarkedWord> = listOf(BookmarkedWord("", "", "", "", "", "", "", Calendar.getInstance().time))
+    var words: List<BookmarkedWord> = listOf(BookmarkedWord("", "", "", "", "", "", "", 0))
     private lateinit var bookmarkedCard: ConstraintLayout
     private lateinit var removeBookmark: RelativeLayout
 
