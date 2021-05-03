@@ -4,53 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="10dp"
     android:background="@drawable/on_board_bg"
     tools:context=".MainActivity">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clAppHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/ivAppLogoHome"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="@string/app_logo_on_home_screen"
-            android:src="@drawable/app_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:layout_toEndOf="@id/ivAppLogoHome"
-            android:contentDescription="@string/app_name_on_home_screen"
-            android:src="@drawable/app_logo_text_main"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivAppLogoHome"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHeaderArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingEnd="3dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clAppHeader"
-        tools:ignore="RtlSymmetry">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/HomeAppText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name_on_home_screen"
+            android:src="@drawable/app_logo_text_main"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/etSearchBox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ivBackBtn"
@@ -58,9 +33,9 @@
             android:layout_height="wrap_content"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:contentDescription="@string/back_arrow"
             android:focusable="true"
-            android:padding="4dp"
+            android:contentDescription="@string/back_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/etSearchBox"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +44,9 @@
 
         <EditText
             android:id="@+id/etSearchBox"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/search_box_outline"
             android:hint="@string/search_bar_hint"
             android:inputType="text"
@@ -82,8 +58,8 @@
             android:importantForAutofill="no"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/ivBackBtn"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="@+id/guidelineHeaderArea"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -103,8 +79,26 @@
             app:layout_constraintTop_toTopOf="@+id/etSearchBox"
             app:srcCompat="@drawable/ic_search_18" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineHeaderArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.yinglan.shadowimageview.ShadowImageView
+        android:id="@+id/ivNoConnection"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="5dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shadowColor="#E6D8D8D8"
+        app:shadowRound="100dp"
+        app:shadowSrc="@drawable/ic_no_internet" />
 
     <FrameLayout
         android:id="@+id/flFragmentContainer"
@@ -114,7 +108,11 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clHeaderArea" />
+        app:layout_constraintTop_toBottomOf="@+id/clHeaderArea" >
+
+    </FrameLayout>
+
+
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav_bar"

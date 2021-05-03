@@ -40,12 +40,12 @@ class WordsAdapter(
         // remove progress bar when the data is available
         loader.visibility = ConstraintLayout.GONE
 
+        // on cling a word, go to its definition screen
         holder.itemView.setOnClickListener {
-            navItemBackStack.push("CATEGORIES")
+            navItemBackStack.push("")
 
             val bundle = Bundle()
             val wordDefinitionFragment = WordDefinitionFragment()
-//            model.id = getRef(position).key.toString()
             bundle.putSerializable("word", model )
             wordDefinitionFragment.arguments = bundle
 

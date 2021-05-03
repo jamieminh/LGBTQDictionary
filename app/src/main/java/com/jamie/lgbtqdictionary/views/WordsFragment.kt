@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.adapters.WordsAdapter
@@ -23,6 +25,7 @@ class WordsFragment : Fragment(R.layout.fragment_words) {
     private lateinit var wordsRV : RecyclerView
     private lateinit var label: TextView
     private lateinit var loader : ProgressBar
+    private lateinit var sortBtn: ImageView
     private lateinit var globalProps : GlobalProperties
     private lateinit var mActivity: FragmentActivity
 
@@ -46,6 +49,10 @@ class WordsFragment : Fragment(R.layout.fragment_words) {
         wordsRV.setHasFixedSize(true)
         wordsRV.layoutManager = LinearLayoutManager(this.context)
 
+        // deselect nav bar item
+        mActivity.findViewById<ChipNavigationBar>(R.id.bottom_nav_bar).setItemSelected(-1)
+
+        // set title of this fragment to category name
         label = view.findViewById(R.id.tvWordsFragmentLabel)
         label.text = arguments!!.get("title").toString()
         val categoryId = arguments!!.get("id")
@@ -53,6 +60,7 @@ class WordsFragment : Fragment(R.layout.fragment_words) {
         loader = view.findViewById(R.id.wordsProgressBar)
         globalProps = this.context?.applicationContext as GlobalProperties
 
+        // call adapter to show words
         showCategoryWords(categoryId.toString())
 
         return view

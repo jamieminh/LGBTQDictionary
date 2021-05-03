@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.PagerAdapter
 import com.jamie.lgbtqdictionary.R
@@ -53,7 +52,7 @@ class RandomWordsAdapter(
 
         // set on tapping a card, go to that word definition
         see.setOnClickListener {
-            Toast.makeText(this.context, "See definitions", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this.context, "See definitions", Toast.LENGTH_SHORT).show()
             navItemBackStack.push("HOME")
             val bundle = Bundle()
             val wordDefinitionFragment = WordDefinitionFragment()

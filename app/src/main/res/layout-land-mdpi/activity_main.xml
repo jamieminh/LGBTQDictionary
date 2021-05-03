@@ -8,6 +8,18 @@
     android:background="@drawable/on_board_bg"
     tools:context=".MainActivity">
 
+    <com.yinglan.shadowimageview.ShadowImageView
+        android:id="@+id/ivNoConnection"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="5dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shadowColor="#E6D8D8D8"
+        app:shadowRound="100dp"
+        app:shadowSrc="@drawable/ic_no_internet" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHeaderArea"
         android:layout_width="match_parent"
@@ -15,38 +27,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clAppHeader"
+        <ImageView
+            android:id="@+id/HomeAppText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_height="0dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name_on_home_screen"
+            android:src="@drawable/app_logo_text_main"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/etSearchBox"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivAppLogoHome"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="@string/app_logo_on_home_screen"
-                android:src="@drawable/app_logo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/ivAppLogoHome"
-                android:contentDescription="@string/app_name_on_home_screen"
-                android:src="@drawable/app_logo_text_main"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivAppLogoHome"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/ivBackBtn"
@@ -105,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.38" />
+            app:layout_constraintGuide_percent="0.4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

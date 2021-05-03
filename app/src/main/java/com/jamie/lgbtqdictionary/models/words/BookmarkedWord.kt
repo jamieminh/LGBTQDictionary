@@ -11,9 +11,10 @@ data class BookmarkedWord(
     val extent: String,
     val offensive: String,
     val source: String,
-    val flag: String
+    val flag: String,
+    val timeAdded: Int
 ) {
     override fun toString(): String {
-        return "$word - $pronunciation - $definition - $extent - $offensive - $source - $flag"
+        return "$word - $pronunciation - $definition - $extent - $offensive - $source - $flag - $timeAdded"
     }
 }

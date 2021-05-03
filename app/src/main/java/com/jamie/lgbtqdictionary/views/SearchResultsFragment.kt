@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.FirebaseDatabase
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.adapters.SearchWordAdapter
@@ -46,6 +48,13 @@ class SearchResultsFragment : Fragment(R.layout.fragment_search_results) {
 
         globalProps = this.context?.applicationContext as GlobalProperties
         val query = arguments!!.getString("query")!!.trim()
+
+        // deselect nav bar item
+        mActivity.findViewById<ChipNavigationBar>(R.id.bottom_nav_bar).setItemSelected(-1)
+
+        // make sure the back button is visible instead of the logo in case search was made in Home
+        mActivity.findViewById<ImageView>(R.id.HomeAppText).visibility = ImageView.GONE
+        mActivity.findViewById<ImageView>(R.id.ivBackBtn).visibility = ImageView.VISIBLE
 
         getResults(query)
 

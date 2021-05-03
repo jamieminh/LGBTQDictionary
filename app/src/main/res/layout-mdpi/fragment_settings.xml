@@ -36,6 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -45,6 +46,16 @@
                 app:layout_constraintStart_toEndOf="@+id/ivToggleDarkMode"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/switch_thumb"
+                app:layout_constraintBottom_toBottomOf="@+id/clToggleDarkMode"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/clToggleDarkMode"
+                app:track="@drawable/switch_track" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -53,6 +64,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clToggleAutoRotation"
@@ -93,6 +106,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/swAutoRotate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumb="@drawable/switch_thumb"
+                app:layout_constraintBottom_toBottomOf="@+id/clToggleAutoRotation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/clToggleAutoRotation"
+                app:track="@drawable/switch_track" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

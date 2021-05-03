@@ -1,5 +1,6 @@
 package com.jamie.lgbtqdictionary.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jamie.lgbtqdictionary.GlobalProperties
+import com.jamie.lgbtqdictionary.InternetConnection
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.adapters.CategoriesAdapter
 
@@ -30,6 +32,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +47,14 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         loader = view.findViewById(R.id.categoriesProgressBar)
         globalProps = this.context?.applicationContext as GlobalProperties
 
-        showCategories()
+        val internetConnection = InternetConnection(mActivity)
+
+        internetConnection.observe(this, { isConnected ->
+            if (isConnected) {
+                showCategories()
+            }
+        })
+
         return view
     }
 

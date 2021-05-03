@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.MainActivity
 import com.jamie.lgbtqdictionary.R
@@ -26,6 +27,7 @@ import com.jamie.lgbtqdictionary.models.words.Word
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModelFactory
 import java.util.*
+import kotlin.math.floor
 
 
 class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
@@ -72,13 +74,13 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         bindingMain = (activity as MainActivity).binding
         val word = arguments!!.getSerializable("word") as Word
         val clHeader = mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea)
-        val clAppHeader = mActivity.findViewById<ConstraintLayout>(R.id.clAppHeader)
-        val ivBackBtn = mActivity.findViewById<ImageView>(R.id.ivBackBtn)
 
         // un-hide the header area when loading words in case user came from HOME
         clHeader.visibility = ConstraintLayout.VISIBLE
-        clAppHeader.visibility = ConstraintLayout.GONE
-        ivBackBtn.visibility = ImageView.VISIBLE
+        (activity as MainActivity).showAppLogo(false)
+
+        // deselect nav bar item
+        mActivity.findViewById<ChipNavigationBar>(R.id.bottom_nav_bar).setItemSelected(-1)
 
         wordWord = view.findViewById(R.id.tvSingleWordWord)
         wordSpelling = view.findViewById(R.id.tvSingleWordSpelling)
@@ -165,19 +167,20 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
 
     // function to adding the word to user bookmarks, which is in local storage
     private fun onTapBookmarkToggle(word: Word) {
-        bookmarkedWord = BookmarkedWord(
-            word.word,
-            word.pronunciation,
-            word.definition,
-            word.extent,
-            word.offensive,
-            word.source,
-            word.flag
-        )
 
         // if current icon is 'add', then add this word to the local storage
         if (toggleBookmark.tag == addBookmarkDrawable) {
-            Toast.makeText(this.context, "'${word.word}' has been added to your bookmarks", Toast.LENGTH_LONG).show()
+            bookmarkedWord = BookmarkedWord(
+                word.word,
+                word.pronunciation,
+                word.definition,
+                word.extent,
+                word.offensive,
+                word.source,
+                word.flag,
+                floor(System.currentTimeMillis().toDouble() / 1000).toInt()
+            )
+
             // ADD WORD TO LOCAL STORAGE
             roomWordViewModel.insertBookmark(bookmarkedWord)
 
@@ -191,7 +194,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
             Toast.makeText(this.context, "'${word.word}' has been removed from your bookmarks", Toast.LENGTH_LONG)
                 .show()
             // REMOVE WORD FROM LOCAL STORAGE
-            roomWordViewModel.deleteBookmark(bookmarkedWord)
+            roomWordViewModel.deleteBookmark(word.word)
 
             // switch to 'add' icon
             toggleBookmark.setImageResource(addBookmarkDrawable)
