@@ -68,12 +68,12 @@
 
 
         <ImageView
-            android:id="@+id/ivBookmarksSort"
+            android:id="@+id/ivBookmarksAlphabetSort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:contentDescription="@string/bookmarks_remove_all"
+            android:contentDescription="@string/bookmarks_alphabet_sort"
             android:focusable="true"
             android:layout_marginStart="7dp"
             android:src="@drawable/ic_sort_asc"
@@ -82,12 +82,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/ivBookmarksTimeSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/bookmarks_time_sort"
+            android:focusable="true"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_clockwise"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivBookmarksAlphabetSort"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
             android:id="@+id/ivBookmarksDeleteAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:contentDescription="@string/bookmarks_sort"
+            android:contentDescription="@string/bookmarks_remove_all"
             android:focusable="true"
             android:src="@drawable/ic_bookmarks_delete_all_24"
             app:layout_constraintBottom_toBottomOf="parent"

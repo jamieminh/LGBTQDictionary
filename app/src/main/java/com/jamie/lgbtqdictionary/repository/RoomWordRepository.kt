@@ -15,7 +15,7 @@ class RoomWordRepository(application: Application?) {
         val database = RoomWordDatabase.getInstance(application!!.applicationContext)
         bookmarkedWordDao = database!!.bookmarkedWordDao()
         recentSearchesDao = database.recentSearchesDao()
-        allWords = bookmarkedWordDao.getAll()
+        allWords = bookmarkedWordDao.getAllWordsAscTime()
     }
 
     fun getRecentSearches(): LiveData<List<RecentSearchWord>> {
@@ -32,16 +32,20 @@ class RoomWordRepository(application: Application?) {
 
 
     // Live data are auto handled by room, but not other data
-    fun getAllWords(): LiveData<List<BookmarkedWord>> {
+    fun getAllWordsAscTime(): LiveData<List<BookmarkedWord>> {
         return allWords
     }
 
-    fun getAllWordsAsc(): LiveData<List<BookmarkedWord>> {
-        return bookmarkedWordDao.getAllWordsAsc()
+    fun getAllWordsDescTime(): LiveData<List<BookmarkedWord>> {
+        return bookmarkedWordDao.getAllWordsDescTime()
     }
 
-    fun getAllWordsDesc(): LiveData<List<BookmarkedWord>> {
-        return bookmarkedWordDao.getAllWordsDesc()
+    fun getAllWordsAscAlphabet(): LiveData<List<BookmarkedWord>> {
+        return bookmarkedWordDao.getAllWordsAscAlphabet()
+    }
+
+    fun getAllWordsDescAlphabet(): LiveData<List<BookmarkedWord>> {
+        return bookmarkedWordDao.getAllWordsDescAlphabet()
     }
 
     fun getOne(word: String): LiveData<BookmarkedWord> {
@@ -52,7 +56,7 @@ class RoomWordRepository(application: Application?) {
         InsertWordAsyncTask(bookmarkedWordDao).execute(word)
     }
 
-    fun delete(word: BookmarkedWord) {
+    fun delete(word: String) {
         DeleteWordAsyncTask(bookmarkedWordDao).execute(word)
     }
 
@@ -78,11 +82,12 @@ class RoomWordRepository(application: Application?) {
 
 
     private class DeleteWordAsyncTask(private val wordDao: BookmarkedWordDao) :
-        AsyncTask<BookmarkedWord, Void, Void>() {
-        override fun doInBackground(vararg params: BookmarkedWord): Void? {
+        AsyncTask<String, Void, Void>() {
+        override fun doInBackground(vararg params: String): Void? {
             wordDao.delete(params[0])
             return null
         }
+
     }
 
     private class DeleteAllWordsAsyncTask(private val wordDao: BookmarkedWordDao) :

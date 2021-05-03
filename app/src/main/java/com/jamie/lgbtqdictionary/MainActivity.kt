@@ -21,6 +21,7 @@ import com.jamie.lgbtqdictionary.models.words.RecentSearchWord
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModelFactory
 import com.jamie.lgbtqdictionary.views.*
+import com.yinglan.shadowimageview.ShadowImageView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var backBtn: ImageView
     private lateinit var searchBtn: ImageView
     private lateinit var homeAppText: ImageView
+    private lateinit var ivNoConnection: ShadowImageView
 
     private lateinit var globalProps: GlobalProperties
     private var backPressTime: Long = 0
@@ -46,10 +48,31 @@ class MainActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
+
         // replace the splash screen theme with the main theme BEFORE setContentView
         setTheme(R.style.Theme_LGBTQDictionary)
         setContentView(binding.root)
 
+        // check internet status and display an alert box if not connected
+        ivNoConnection = findViewById(R.id.ivNoConnection)
+        val internetConnection = InternetConnection(applicationContext)
+        val noConnectionAlert = SimpleAlertDialog(
+            this,
+            "No Internet Connection",
+            "Some features may be inaccessible while offline.",
+        )
+        internetConnection.observe(this, { isConnected ->
+            if (!isConnected) {
+                noConnectionAlert.show(supportFragmentManager, "No connection")
+                ivNoConnection.visibility = ShadowImageView.VISIBLE
+            }
+            else {
+                ivNoConnection.visibility = ShadowImageView.GONE
+            }
+        })
+
+
+        // check user stored preference (dark mode and auto rotation)
         val sharedPrefs = getSharedPreferences("prefs", MODE_PRIVATE)
         val isNightMode = sharedPrefs.getBoolean("isNightMode", false)
 
@@ -198,7 +221,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun transactFragmentAnimation(currentFragment: Fragment, nextFragment: Fragment): List<Int> {
+    private fun transactFragmentAnimation(
+        currentFragment: Fragment,
+        nextFragment: Fragment
+    ): List<Int> {
         // ensure fragments come in and out in the right directions
         if ((nextFragment is HomeFragment) ||
             (nextFragment is CategoriesFragment) && (currentFragment !is HomeFragment) ||
@@ -210,8 +236,7 @@ class MainActivity : AppCompatActivity() {
                 R.anim.slide_in_from_right,
                 R.anim.slide_out_from_right
             )
-        }
-        else {
+        } else {
             return listOf(
                 R.anim.slide_in_from_right,
                 R.anim.slide_out_from_right,

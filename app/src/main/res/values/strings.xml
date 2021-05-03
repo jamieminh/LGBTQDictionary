@@ -6,7 +6,8 @@
     <string name="nav_text_settings">Settings</string>
     <string name="aboutAppDescription">LGBTQ Dictionary purpose is to provide accurate explanation on words that concern the LGBTQ community, to help bring understanding and knowledge.</string>
     <string name="bookmarks_remove_all">remove all words from bookmarks</string>
-    <string name="bookmarks_sort">sort bookmarked words in ascending or decreasing order</string>
+    <string name="bookmarks_alphabet_sort">sort bookmarked words in ascending or decreasing alphabetical order</string>
+    <string name="bookmarks_time_sort">sort bookmarked words in ascending or decreasing time added order</string>
     <string name="random_word_see">SEE DEFINITIONS</string>
     <string name="random_word_discovery">random discovery</string>
     <string name="bookmarked_remove">tap this trash can symbol to remove this bookmarked word</string>
@@ -50,4 +51,7 @@
     <string name="word_bookmark_icon">tap icon to add this word to bookmarks. Tap again to remove it</string>
     <string name="word_flag_img">flag of this gender community</string>
     <string name="category_image">Category Image</string>
+    <string name="no_connection_icon">no connection icon</string>
+    <string name="no_connection_desc">You are disconnected, some features can be inaccessible.</string>
+    <string name="iv_no_connection">not currently connected to the internet</string>
 </resources>

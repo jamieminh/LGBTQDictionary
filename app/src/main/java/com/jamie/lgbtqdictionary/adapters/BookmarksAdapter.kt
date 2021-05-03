@@ -1,8 +1,8 @@
 package com.jamie.lgbtqdictionary.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jamie.lgbtqdictionary.ConfirmDeleteAlertDialog
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.models.words.BookmarkedWord
 import com.jamie.lgbtqdictionary.models.words.Word
@@ -21,11 +22,12 @@ import java.util.*
 class BookmarksAdapter(
     private var roomWordViewModel: RoomWordViewModel,
     private var navItemBackStack: Stack<String>,
-    private val supportFragmentManager: FragmentManager
+    private val supportFragmentManager: FragmentManager,
+    private val context: Context
 ) : RecyclerView.Adapter<BookmarksViewHolder>() {
 
     // a placeholder so the app wont crash, the value doesn't matter, it will later be replaced
-    var words: List<BookmarkedWord> = listOf(BookmarkedWord("", "", "", "", "", "", ""))
+    var words: List<BookmarkedWord> = listOf(BookmarkedWord("", "", "", "", "", "", "", Calendar.getInstance().time))
     private lateinit var bookmarkedCard: ConstraintLayout
     private lateinit var removeBookmark: RelativeLayout
 
@@ -46,7 +48,6 @@ class BookmarksAdapter(
 
         // on clicking a bookmarked word, go to its definition page
         bookmarkedCard.setOnClickListener {
-            Log.i("Bookmark.Card", "Clicked")
             navItemBackStack.push("BOOKMARKS")
 
             val bundle = Bundle()
@@ -71,8 +72,14 @@ class BookmarksAdapter(
             }
         }
 
+        // removing a bookmark, show a confirm dialog modal
         removeBookmark.setOnClickListener {
-            roomWordViewModel.deleteBookmark(words[position])
+            val confirmDelete = ConfirmDeleteAlertDialog(
+                context,
+                words[position],
+                roomWordViewModel
+            )
+            confirmDelete.show(supportFragmentManager, "Confirm delete")
         }
     }
 

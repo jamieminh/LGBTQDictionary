@@ -23,15 +23,15 @@ class RoomWordViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun getAllBookmarks(): LiveData<List<BookmarkedWord>> {
-        return repository.getAllWords()
+        return repository.getAllWordsAscTime()
     }
 
     fun getAllBookmarksAsc(): LiveData<List<BookmarkedWord>> {
-        return repository.getAllWordsAsc()
+        return repository.getAllWordsAscAlphabet()
     }
 
     fun getAllBookmarksDesc(): LiveData<List<BookmarkedWord>> {
-        return repository.getAllWordsDesc()
+        return repository.getAllWordsDescAlphabet()
     }
 
     fun getOneBookmark(wordId: String): LiveData<BookmarkedWord> {
@@ -42,7 +42,7 @@ class RoomWordViewModel(application: Application) : AndroidViewModel(application
         repository.insert(word)
     }
 
-    fun deleteBookmark(word: BookmarkedWord) {
+    fun deleteBookmark(word: String) {
         repository.delete(word)
     }
 

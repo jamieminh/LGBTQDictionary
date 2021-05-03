@@ -166,19 +166,20 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
 
     // function to adding the word to user bookmarks, which is in local storage
     private fun onTapBookmarkToggle(word: Word) {
-        bookmarkedWord = BookmarkedWord(
-            word.word,
-            word.pronunciation,
-            word.definition,
-            word.extent,
-            word.offensive,
-            word.source,
-            word.flag
-        )
 
         // if current icon is 'add', then add this word to the local storage
         if (toggleBookmark.tag == addBookmarkDrawable) {
-            Toast.makeText(this.context, "'${word.word}' has been added to your bookmarks", Toast.LENGTH_LONG).show()
+            bookmarkedWord = BookmarkedWord(
+                word.word,
+                word.pronunciation,
+                word.definition,
+                word.extent,
+                word.offensive,
+                word.source,
+                word.flag,
+                Calendar.getInstance().time
+            )
+
             // ADD WORD TO LOCAL STORAGE
             roomWordViewModel.insertBookmark(bookmarkedWord)
 
@@ -192,7 +193,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
             Toast.makeText(this.context, "'${word.word}' has been removed from your bookmarks", Toast.LENGTH_LONG)
                 .show()
             // REMOVE WORD FROM LOCAL STORAGE
-            roomWordViewModel.deleteBookmark(bookmarkedWord)
+            roomWordViewModel.deleteBookmark(word.word)
 
             // switch to 'add' icon
             toggleBookmark.setImageResource(addBookmarkDrawable)
