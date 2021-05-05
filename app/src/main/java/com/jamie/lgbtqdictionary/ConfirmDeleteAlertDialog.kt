@@ -22,7 +22,7 @@ class ConfirmDeleteAlertDialog(
             .setPositiveButton("Yes") { _, _ ->
                 roomWordViewModel.deleteBookmark(word.word)
             }
-            .setNegativeButton("No") { _, _ -> {  }}
+            .setNegativeButton("No") { dialog, _ -> dialog.dismiss()}
 
         return alertBuilder.create()
     }

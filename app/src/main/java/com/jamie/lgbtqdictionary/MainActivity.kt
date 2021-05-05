@@ -21,8 +21,8 @@ import com.jamie.lgbtqdictionary.models.words.RecentSearchWord
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModelFactory
 import com.jamie.lgbtqdictionary.views.*
-import com.yinglan.shadowimageview.ShadowImageView
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,10 +33,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var categoriesFragment: CategoriesFragment
     private lateinit var bookmarksFragment: BookmarksFragment
     private lateinit var settingsFragment: SettingsFragment
+    private lateinit var onBoardFragment: OnBoardFragment
     private lateinit var backBtn: ImageView
     private lateinit var searchBtn: ImageView
     private lateinit var homeAppText: ImageView
-    private lateinit var ivNoConnection: ShadowImageView
+    private lateinit var ivNoConnection: ImageView
 
     private lateinit var globalProps: GlobalProperties
     private var backPressTime: Long = 0
@@ -48,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
-
         // replace the splash screen theme with the main theme BEFORE setContentView
         setTheme(R.style.Theme_LGBTQDictionary)
         setContentView(binding.root)
@@ -56,18 +56,20 @@ class MainActivity : AppCompatActivity() {
         // check internet status and display an alert box if not connected
         ivNoConnection = findViewById(R.id.ivNoConnection)
         val internetConnection = InternetConnection(applicationContext)
-        val noConnectionAlert = SimpleAlertDialog(
-            this,
-            "No Internet Connection",
-            "Some features may be inaccessible while offline.",
-        )
         internetConnection.observe(this, { isConnected ->
             if (!isConnected) {
+                val noConnectionAlert = SimpleAlertDialog(
+                    this,
+                    "No Internet Connection",
+                    "Some features may be inaccessible while offline.",
+                )
                 noConnectionAlert.show(supportFragmentManager, "No connection")
-                ivNoConnection.visibility = ShadowImageView.VISIBLE
+                ivNoConnection.visibility = ImageView.VISIBLE
+                globalProps.isInternetConnected = false
             }
             else {
-                ivNoConnection.visibility = ShadowImageView.GONE
+                ivNoConnection.visibility = ImageView.GONE
+                globalProps.isInternetConnected = true
             }
         })
 
@@ -115,6 +117,7 @@ class MainActivity : AppCompatActivity() {
 
             // load the onBoardFragment
             val onBoardFragment = OnBoardFragment()
+            globalProps.onBoardFragment = onBoardFragment
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.flFragmentContainer, onBoardFragment)
                 commit()
@@ -122,6 +125,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             setInitTab()
         }
+
+
 
         tabBarChangeHandler()
 
@@ -172,19 +177,17 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun tabBarChangeHandler() {
+    private fun tabBarChangeHandler() {
         // this function is only called when user select a non-active nav item
         bottom_nav_bar.setOnItemSelectedListener {
             when (it) {
-                R.id.nav_home -> {
-                    transactNavigationFragment(homeFragment)
-                }
+                R.id.nav_home ->  transactNavigationFragment(homeFragment)
                 R.id.nav_categories -> transactNavigationFragment(categoriesFragment)
+                R.id.nav_settings -> transactNavigationFragment(settingsFragment)
                 R.id.nav_bookmarks -> {
                     binding.bottomNavBar.dismissBadge(R.id.nav_bookmarks)
                     transactNavigationFragment(bookmarksFragment)
                 }
-                R.id.nav_settings -> transactNavigationFragment(settingsFragment)
             }
         }
 
@@ -194,12 +197,10 @@ class MainActivity : AppCompatActivity() {
         // push the current label before transitioning
         if (fragment is HomeFragment) {
             // clear back stack
-            val count = supportFragmentManager.backStackEntryCount
-            for (i in 0 until count) {
+            for (i in 0 until supportFragmentManager.backStackEntryCount) {
                 supportFragmentManager.popBackStack()
             }
             globalProps.navStack.clear()
-            Log.i("NavStack", globalProps.navStack.size.toString())
         } else {
             pushNavStack()
         }
@@ -292,6 +293,7 @@ class MainActivity : AppCompatActivity() {
 
     // push the current fragment type into nav name stack
     private fun pushNavStack() {
+        Log.i("CurrentFragment", supportFragmentManager.findFragmentById(R.id.flFragmentContainer).toString())
         when (supportFragmentManager.findFragmentById(R.id.flFragmentContainer)) {
             is HomeFragment -> globalProps.navStack.push("HOME")
             is CategoriesFragment -> globalProps.navStack.push("CATEGORIES")
@@ -303,6 +305,7 @@ class MainActivity : AppCompatActivity() {
                 globalProps.navStack.push("")
             }
         }
+        Log.i("navStack", Arrays.toString(globalProps.navStack.toArray()))
     }
 
 

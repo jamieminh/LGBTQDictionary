@@ -115,9 +115,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
 
 
         // check if the word is in local storage (bookmarked) and display the icon accordingly
-        Log.i("Definition.Word", word.word)
         roomWordViewModel.getOneBookmark(word.word).observe(this, {
-            Log.i("Definition.Word.Exist", (it==null).toString())
             if (it == null) {
                 toggleBookmark.setImageResource(addBookmarkDrawable)
                 toggleBookmark.tag = addBookmarkDrawable

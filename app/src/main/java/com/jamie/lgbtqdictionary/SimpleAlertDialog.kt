@@ -17,7 +17,7 @@ class SimpleAlertDialog(
         val alertBuilder = AlertDialog.Builder(mainContext)
         alertBuilder.setTitle(title)
             .setMessage(message)
-            .setPositiveButton("OK") { _, _ -> { }}
+            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
 
         return alertBuilder.create()
     }

@@ -65,8 +65,6 @@
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clToggleAutoRotation"
             android:layout_width="0dp"
@@ -313,7 +311,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginVertical="8dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
                 app:layout_constraintTop_toBottomOf="@+id/tvSoundSpeed">
 
@@ -321,25 +319,20 @@
                     android:id="@+id/rbSoundSpeedSlower"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
-
                     android:text="@string/sound_speed_slower" />
 
                 <RadioButton
                     android:id="@+id/rbSoundSpeedSlow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_marginTop="5dp"
-
+                    android:layout_marginStart="0dp"
                     android:text="@string/sound_speed_slow" />
 
                 <RadioButton
                     android:id="@+id/rbSoundSpeedNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="0dp"
                     android:text="@string/sound_speed_normal" />
 
             </RadioGroup>
@@ -368,6 +361,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.03" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

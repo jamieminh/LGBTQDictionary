@@ -57,15 +57,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         progressBar = view.findViewById(R.id.wordsDayProgressBar)
         recentSearchesRV = view.findViewById(R.id.rvRecentSearches)
 
-        // display the header area, hide the back button
-//        mActivity.findViewById<ConstraintLayout>(R.id.clHeaderArea).visibility = ConstraintLayout.VISIBLE
-//        mActivity.findViewById<ImageView>(R.id.HomeAppText).visibility = ImageView.VISIBLE
-//        mActivity.findViewById<ImageView>(R.id.ivBackBtn).visibility = ImageView.GONE
-
-        // enlarge the header area
-//        val guidelineMain = mActivity.findViewById<Guideline>(R.id.guidelineHeaderArea)
-//        val params = guidelineMain.layoutParams as ConstraintLayout.LayoutParams
-//        params.guidePercent = 0.4F
+        // fix the bug where on board screen not removed for the first time
+        if (globalProps.isOnBoardInit()) {
+            mActivity.supportFragmentManager.beginTransaction().apply {
+                remove(globalProps.onBoardFragment)
+                commit()
+            }
+        }
 
         // get data from firebase
         wordsDayDbRef = FirebaseDatabase.getInstance().getReference("words")

@@ -8,6 +8,19 @@
     android:background="@drawable/on_board_bg"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/ivNoConnection"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/flFragmentContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_no_internet"
+        android:contentDescription="@string/no_connection_desc" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHeaderArea"
         android:layout_width="match_parent"
@@ -88,17 +101,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.yinglan.shadowimageview.ShadowImageView
-        android:id="@+id/ivNoConnection"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:elevation="5dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:shadowColor="#E6D8D8D8"
-        app:shadowRound="100dp"
-        app:shadowSrc="@drawable/ic_no_internet" />
 
     <FrameLayout
         android:id="@+id/flFragmentContainer"

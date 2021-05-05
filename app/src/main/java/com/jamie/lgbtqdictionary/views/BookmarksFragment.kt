@@ -33,10 +33,9 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
 
     // although when launched, the words are not ordered by alphabet, but by inserted time,
     // this var is set to desc so that if user tap sort, words will be sorted in ascending order
-    private var currentAlphabetOrder =
-        "desc"       // technically, it's undecided, but for visual purpose, set it to 'desc'
-    private var currentTimeOrder =
-        "asc"            // words taken from db are already sorted in 'asc' order
+
+    private var currentAlphabetOrder = "desc"
+    private var currentTimeOrder = "asc"   // words taken from db are already sorted in 'asc' order
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -80,9 +79,6 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
             adapter.setChangedWords(words)
         })
 
-        // must be programmatically set first
-//        alphabetSortBtn.setImageResource(R.drawable.ic_sort_asc)
-//        alphabetSortBtn.tag = R.drawable.ic_sort_asc
         alphabetSortBtn.setOnClickListener { onAlphabetSortHandler() }
         timeSortBtn.setOnClickListener { onTimeSortHandler() }
         deleteAllBtn.setOnClickListener { deleteAllHandler() }

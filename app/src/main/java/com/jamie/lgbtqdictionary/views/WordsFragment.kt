@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -25,7 +24,6 @@ class WordsFragment : Fragment(R.layout.fragment_words) {
     private lateinit var wordsRV : RecyclerView
     private lateinit var label: TextView
     private lateinit var loader : ProgressBar
-    private lateinit var sortBtn: ImageView
     private lateinit var globalProps : GlobalProperties
     private lateinit var mActivity: FragmentActivity
 

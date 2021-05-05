@@ -8,17 +8,18 @@
     android:background="@drawable/on_board_bg"
     tools:context=".MainActivity">
 
-    <com.yinglan.shadowimageview.ShadowImageView
+    <ImageView
         android:id="@+id/ivNoConnection"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:elevation="5dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/flFragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:shadowColor="#E6D8D8D8"
-        app:shadowRound="100dp"
-        app:shadowSrc="@drawable/ic_no_internet" />
+        app:srcCompat="@drawable/ic_no_internet"
+        android:contentDescription="@string/no_connection_desc" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clHeaderArea"
@@ -109,7 +110,10 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clHeaderArea" />
+        app:layout_constraintTop_toBottomOf="@+id/clHeaderArea" >
+
+
+    </FrameLayout>
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav_bar"

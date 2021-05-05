@@ -103,14 +103,9 @@ class OnBoardFragment : Fragment() {
                 sharedPrefs.edit().putBoolean("isFirstTime", false).apply()
 
                 // set initial active nav item in the nav bar
-//                bottomNavBar.setOnItemSelectedListener {}
                 bottomNavBar.setItemSelected(R.id.nav_home)
-                // enlarge the app logo area
-//                val guidelineMain = mActivity.findViewById<Guideline>(R.id.guidelineHeaderArea)
-//                val params = guidelineMain.layoutParams as ConstraintLayout.LayoutParams
-//                params.guidePercent = 0.4F
 
-//                (activity as MainActivity).tabBarChangeHandler()
+                viewPager.adapter = null
 
                 mActivity.supportFragmentManager.beginTransaction().apply {
                     remove(this@OnBoardFragment)

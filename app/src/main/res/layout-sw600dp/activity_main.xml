@@ -7,17 +7,18 @@
     android:background="@drawable/on_board_bg"
     tools:context=".MainActivity">
 
-    <com.yinglan.shadowimageview.ShadowImageView
+    <ImageView
         android:id="@+id/ivNoConnection"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:elevation="5dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/flFragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:shadowColor="#E6D8D8D8"
-        app:shadowRound="100dp"
-        app:shadowSrc="@drawable/ic_no_internet" />
+        app:srcCompat="@drawable/ic_no_internet"
+        android:contentDescription="@string/no_connection_desc" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineMainLeft"

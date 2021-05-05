@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        app:cardBackgroundColor="@color/background"
+        app:cardBackgroundColor="@color/white"
         app:cardElevation="0.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.15" />
+                app:layout_constraintGuide_percent="0.13" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineHomeWordDayCardBottom"
@@ -46,7 +46,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/textAlt"
                 android:textStyle="bold"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,7 +57,7 @@
                 android:layout_below="@id/tvRandomWordLabel"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/textAlt"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guidelineHomeWordDayCardTop" />
@@ -70,8 +70,9 @@
                 android:textColor="@color/textAlt"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guidelineHomeWordDayCardBottom" />
+                app:layout_constraintTop_toBottomOf="@+id/tvRandomWordWord" />
 
             <TextView
                 android:id="@+id/tvRandomWordSee"

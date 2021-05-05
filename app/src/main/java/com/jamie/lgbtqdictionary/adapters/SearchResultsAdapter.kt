@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
@@ -18,15 +16,16 @@ import java.util.*
 
 
 class SearchWordAdapter(
-    private val loader : ProgressBar,
     options: FirebaseRecyclerOptions<Word>,
     private var navItemBackStack: Stack<String>,
     private val supportFragmentManager: FragmentManager
 ) : FirebaseRecyclerAdapter<Word, SearchWordsViewHolder>(options) {
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchWordsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.list_layout_recent_searches,
+            R.layout.list_layout_search_result,
             parent,
             false
         )
@@ -34,15 +33,13 @@ class SearchWordAdapter(
         return SearchWordsViewHolder(view)
     }
 
+
+
     override fun onBindViewHolder(holder: SearchWordsViewHolder, position: Int, model: Word) {
         holder.setDetails(model)
 
-        // remove progress bar when the data is available
-        loader.visibility = ConstraintLayout.GONE
-
         holder.itemView.setOnClickListener {
-            val fromFragment = navItemBackStack.peek()
-            navItemBackStack.push(fromFragment)
+            navItemBackStack.push("")
 
             val bundle = Bundle()
             val wordDefinitionFragment = WordDefinitionFragment()

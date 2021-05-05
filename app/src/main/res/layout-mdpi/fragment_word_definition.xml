@@ -15,13 +15,6 @@
         app:layout_constraintGuide_percent="0.01" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineSingleWordUpper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineSingleWordLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,8 +31,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineSingleWordUpper"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
         app:layout_constraintEnd_toStartOf="@+id/guidelineSingleWordRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineSingleWordLeft"
         app:layout_constraintTop_toTopOf="@+id/guidelineSingleWordTop">
@@ -50,7 +44,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:textColor="@color/white"
-            android:textSize="27sp"
+            android:textSize="25sp"
             android:textStyle="bold|italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -102,7 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineSingleWordUpper">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

@@ -68,9 +68,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    // drop shadow for images
-    compile 'com.yinglan.shadowimageview:shadowimageview:1.0.4'
-
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
 

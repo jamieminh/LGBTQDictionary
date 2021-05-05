@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        app:cardBackgroundColor="@color/background"
+        app:cardBackgroundColor="@color/white"
         app:cardElevation="0.5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -55,6 +55,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/textAlt"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guidelineHomeWordDayCardTop" />
 
