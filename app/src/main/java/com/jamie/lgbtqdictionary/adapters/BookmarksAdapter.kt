@@ -77,7 +77,8 @@ class BookmarksAdapter(
             val confirmDelete = ConfirmDeleteAlertDialog(
                 context,
                 words[position],
-                roomWordViewModel
+                roomWordViewModel,
+                false
             )
             confirmDelete.show(supportFragmentManager, "Confirm delete")
         }

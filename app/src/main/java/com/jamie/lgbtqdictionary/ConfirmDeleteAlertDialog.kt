@@ -12,15 +12,22 @@ class ConfirmDeleteAlertDialog(
     private val mainContext: Context,
     private val word: BookmarkedWord,
     private var roomWordViewModel: RoomWordViewModel,
+    private val isRemoveAll: Boolean
 ) :
     AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val alertBuilder = AlertDialog.Builder(mainContext)
+        val deleteSubject = if (isRemoveAll) "all words" else "\"${word.word}\""
         alertBuilder.setTitle("Are you sure")
-            .setMessage("Are you sure you want to remove \"${word.word}\" from bookmarks?")
+            .setMessage("Are you sure you want to remove $deleteSubject from bookmarks?")
             .setPositiveButton("Yes") { _, _ ->
-                roomWordViewModel.deleteBookmark(word.word)
+                if (!isRemoveAll) {
+                    roomWordViewModel.deleteBookmark(word.word)
+                }
+                else {
+                    roomWordViewModel.deleteAllBookmarks()
+                }
             }
             .setNegativeButton("No") { dialog, _ -> dialog.dismiss()}
 

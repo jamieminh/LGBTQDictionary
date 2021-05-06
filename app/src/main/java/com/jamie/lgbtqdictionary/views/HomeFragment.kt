@@ -87,7 +87,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val roomWordViewModel = ViewModelProvider(this, factory).get(RoomWordViewModel::class.java)
 
         val adapter = RecentSearchesAdapter(
-//            roomWordViewModel,
             globalProps.navStack,
             mActivity.supportFragmentManager
         )
@@ -135,11 +134,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     private fun callAdapter(words: List<Word>) {
-//        Log.i("NUll.Context", (globalProps.context == null).toString())
-//        Log.i("NUll.words", (words.size).toString())
-//        Log.i("NUll.navStack", (globalProps.navStack.size).toString())
-//        Log.i("NUll.activity", (activity == null).toString())
-//        Log.i("NUll.mActivity", (mActivity == null).toString())
         adapter = RandomWordsAdapter(
             words,
             globalProps.context,

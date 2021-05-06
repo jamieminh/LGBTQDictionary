@@ -24,14 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.03" />
+            app:layout_constraintGuide_percent="0.01" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineHomeWordDayBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.55" />
+            app:layout_constraintGuide_percent="0.53" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.42" />
+                app:layout_constraintGuide_percent="0.38" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineRecentWordLeft"

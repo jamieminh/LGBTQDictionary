@@ -23,7 +23,7 @@ class OnBoardPagerAdapter(private val context: Context): PagerAdapter() {
         "Bookmark Your Favorite Words")
 
     private val descriptions = listOf(
-        "The goto app for the LGBTQ+ community and allies.",
+        "The first app you need to understand the LGBTQ+ community.",
         "We offer over a hundred words that you can look up from any screen.",
         "So you can review them anytime even when you’re offline!")
 

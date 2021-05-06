@@ -2,7 +2,6 @@ package com.jamie.lgbtqdictionary.adapters
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +39,6 @@ class RecentSearchesAdapter(
 
         // on clicking a bookmarked word, go to its definition page
         recentWordCard.setOnClickListener {
-            Log.i("RECENTSEARCHES.Card", "Clicked")
             navItemBackStack.push("HOME")
 
             val bundle = Bundle()

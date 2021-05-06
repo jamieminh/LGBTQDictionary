@@ -62,6 +62,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
         }
     }
 
+    
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -108,6 +109,7 @@ class WordDefinitionFragment : Fragment(R.layout.fragment_word_definition) {
             wordFlag = view.findViewById(R.id.ivSingleWordFlag)
             flagLabel.visibility = TextView.VISIBLE
             Glide.with(wordFlag.context).load(word.flag).into(wordFlag)
+            Log.i("Flag", word.flag)
         }
 
         val factory = RoomWordViewModelFactory(mActivity.application)

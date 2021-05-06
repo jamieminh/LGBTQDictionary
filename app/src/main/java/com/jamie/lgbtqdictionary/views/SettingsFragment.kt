@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
@@ -121,16 +120,12 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private fun toggleAutoRotation(tapCard: Boolean) {
         val isAutoRotate = sharedPrefs.getBoolean("isAutoRotate", true)
         if ((!tapCard && autoRotateSwitch.isChecked) || (tapCard && !isAutoRotate)) {
-            Toast.makeText(this.context, "Below" + (tapCard && !isAutoRotate).toString(), Toast.LENGTH_LONG).show()
-
             // auto rotate based on user phone setting and set isAutoRotate to true
             activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             sharedPrefs.edit().putBoolean("isAutoRotate", true).apply()
             autoRotateSwitch.isChecked = true
         }
         else if ((!tapCard && !autoRotateSwitch.isChecked) || (tapCard && isAutoRotate)){
-            Toast.makeText(this.context, "Below" + (tapCard && isAutoRotate).toString(), Toast.LENGTH_LONG).show()
-
             // no rotate, always in portrait mode and set isAutoRotate to false
             activity!!.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             sharedPrefs.edit().putBoolean("isAutoRotate", false).apply()

@@ -163,52 +163,53 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--        Code for "Share this App" feature-->
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clShareApp"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackground"
-            android:backgroundTint="@color/background"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
-            app:layout_constraintTop_toBottomOf="@+id/clReport">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/clShareApp"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:background="?attr/selectableItemBackground"-->
+<!--            android:backgroundTint="@color/background"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/clReport">-->
 
-            <ImageView
-                android:id="@+id/ivShareApp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/settings_share_icon"
-                android:src="@drawable/ic_settings_share_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <ImageView-->
+<!--                android:id="@+id/ivShareApp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:contentDescription="@string/settings_share_icon"-->
+<!--                android:src="@drawable/ic_settings_share_24"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <TextView
-                android:id="@+id/tvShareApp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_toEndOf="@+id/ivShareApp"
-                android:fontFamily="@font/open_sans"
-                android:text="@string/settings_share_this_app"
-                android:textColor="@color/mainText"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivShareApp"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <TextView-->
+<!--                android:id="@+id/tvShareApp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_toEndOf="@+id/ivShareApp"-->
+<!--                android:fontFamily="@font/open_sans"-->
+<!--                android:text="@string/settings_share_this_app"-->
+<!--                android:textColor="@color/mainText"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/ivShareApp"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_below="@id/tvShareApp"
-                android:layout_marginStart="16dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0.5dp"-->
+<!--                android:layout_below="@id/tvShareApp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:background="@android:color/darker_gray"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clAboutInfo"
@@ -221,7 +222,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guidelineSettingsRight"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guidelineSettingsLeft"
-            app:layout_constraintTop_toBottomOf="@+id/clShareApp">
+            app:layout_constraintTop_toBottomOf="@+id/clReport">
 
             <ImageView
                 android:id="@+id/ivAboutInfo"

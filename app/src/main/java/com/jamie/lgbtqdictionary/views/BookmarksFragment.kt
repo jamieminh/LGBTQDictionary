@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jamie.lgbtqdictionary.ConfirmDeleteAlertDialog
 import com.jamie.lgbtqdictionary.GlobalProperties
 import com.jamie.lgbtqdictionary.R
 import com.jamie.lgbtqdictionary.adapters.BookmarksAdapter
+import com.jamie.lgbtqdictionary.models.words.BookmarkedWord
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModel
 import com.jamie.lgbtqdictionary.viewmodels.words.RoomWordViewModelFactory
 
@@ -87,8 +88,13 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
     }
 
     private fun deleteAllHandler() {
-        Toast.makeText(this.context, "DELETING ALL...", Toast.LENGTH_LONG).show()
-        roomWordViewModel.deleteAllBookmarks()
+        val confirmDelete = ConfirmDeleteAlertDialog(
+            this.context!!,
+            BookmarkedWord("", "", "", "", "", "", "", 0),
+            roomWordViewModel,
+            true
+        )
+        confirmDelete.show(mActivity.supportFragmentManager, "Confirm delete all")
     }
 
     private fun onAlphabetSortHandler() {

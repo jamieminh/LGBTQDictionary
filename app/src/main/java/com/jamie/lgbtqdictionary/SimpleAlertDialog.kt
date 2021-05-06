@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatDialogFragment
 class SimpleAlertDialog(
     private val mainContext: Context,
     private val title: String,
-    private val message: String,
+    private val message: String
 ) :
     AppCompatDialogFragment() {
 

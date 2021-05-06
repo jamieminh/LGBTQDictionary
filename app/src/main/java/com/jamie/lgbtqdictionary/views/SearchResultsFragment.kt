@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -72,7 +71,6 @@ class SearchResultsFragment : Fragment(R.layout.fragment_search_results) {
         mActivity.findViewById<ImageView>(R.id.ivBackBtn).visibility = ImageView.VISIBLE
 
         // check for internet connection
-        Toast.makeText(this.context, globalProps.isInternetConnected.toString(), Toast.LENGTH_SHORT).show()
         if (!globalProps.isInternetConnected) {
             noResultTitle.text = "Connection Required"
             noResultDesc.text = "You need Internet connection to look for words."
